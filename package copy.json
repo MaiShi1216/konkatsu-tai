@@ -1,13 +1,13 @@
 {
-  "name": "konkatsu-tai",
+  "name": "face-detection-tablet",
   "version": "0.0.1",
-  "repository": "github.com/MaiShi1216/konkatsu-tai.git",
+  "repository": "github.tri-ad.tech/R-D-WCM/facility-booking-frontend.git",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --config webpack.local.config.js",
     "start-https": "webpack-dev-server --config webpack.local.config.js --host 0.0.0.0 --https",
     "build": "webpack --config webpack.build.config.js",
-    "backend": "nodemon ./backend/index.js",
+    "mock-server": "nodemon ./mockServer/index.js",
     "test": "jest --coverage"
   },
   "dependencies": {
