@@ -2,6 +2,11 @@
 
 ## How to start
 
-### `npm install`
+npm パッケージのインストール  
+`npm install`
 
-### `npm start`
+frontend server の起動  
+`npm run start`
+
+backend server の起動  
+`npm run backend`
