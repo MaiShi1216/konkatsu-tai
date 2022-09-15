@@ -1,1 +1,0 @@
-# konkatsu-tai

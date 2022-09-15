@@ -1,1 +1,0 @@
-//  hayami test
