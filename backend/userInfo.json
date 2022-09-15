@@ -1,0 +1,32 @@
+{
+  "a001":
+    {
+      "name" : "Shohei Ohtani",
+      "password" : "",
+      "nickname" : "",
+      "photo" : "",
+      "sex" :"",
+      "birthday" : "",
+      "email" : "",
+      "favoriteTypes" : "",
+      "hobbies" : "",
+      "likedNum" : "",
+      "selfIntro" : "",
+      "isHidden" : ""
+    },
+  "a002":
+    {
+      "name" : "",
+      "password" : "",
+      "nickname" : "",
+      "photo" : "",
+      "sex" :"",
+      "birthday" : "",
+      "email" : "",
+      "favoriteTypes" : "",
+      "hobbies" : "",
+      "likedNum" : "",
+      "selfIntro" : "",
+      "isHidden" : ""
+    }
+}
