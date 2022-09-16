@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 type ResJson = {
-  name: string
+  content: string
 }
 
 export const Chat = () => {
@@ -12,7 +12,7 @@ export const Chat = () => {
       method: 'GET',
     })
     const resJson: ResJson = await response.json()
-    setMessage(resJson.name)
+    setMessage(resJson.content)
   }
 
   return (
