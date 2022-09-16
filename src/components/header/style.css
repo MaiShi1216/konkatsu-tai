@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  /* flex: 1; */
+  height: 40px;
+
+  background-color: #f8bcca;
+}
+
+.appName {
+  font-family:
+    "游ゴシック体",
+    "YuGothic",
+    "游ゴシック",
+    "Yu Gothic",
+    "ヒラギノ角ゴ Pro W3",
+    "Hiragino Kaku Gothic Pro",
+    "メイリオ",
+    "Meiryo",
+    sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 14px;
+}
+
+.menu {
+  position: absolute;
+  right: 10px;
+}
