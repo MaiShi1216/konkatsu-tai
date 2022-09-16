@@ -9,14 +9,8 @@ export const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path={paths.sample} element={<Sample />} />
-      </Routes>
-    </BrowserRouter>
-    );
-  return (
-    <BrowserRouter>
-      <Routes>
         <Route path={paths.chat} element={<Chat />} />
       </Routes>
     </BrowserRouter>
-  );
+    )
 }
