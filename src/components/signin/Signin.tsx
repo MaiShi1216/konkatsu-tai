@@ -9,7 +9,7 @@ export const Signin = () => {
 
   const fetchSample = async (): Promise<void> => {
     const response = await fetch(`${process.env.API_ENDPOINT}/signin`, {
-      method: 'GET',
+      method: 'POST',
     })
     const resJson: ResJson = await response.json()
     setMessage(resJson.name)
@@ -17,8 +17,12 @@ export const Signin = () => {
 
   return (
     <>
-      <p>This is a signin component.</p>
-      <button onClick={fetchSample}>Execute fetch!</button>
+      <h1>ID</h1>
+      <input placeholder="Enter your ID" />
+      <h1>Password</h1>
+      <input placeholder="Enter your Password" />
+      <button onClick={fetchSample}>Sign In</button>
+      <button onClick={fetchSample}>Sign Up</button>
       <p>{message}</p>
     </>
   )
