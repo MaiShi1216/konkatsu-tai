@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   //const body = usersInfo.a001
-  const body = chatHistory.chats
+  const body = chatHistory.a001a002
 
   setTimeout(() => res.send(body), 500)
 })

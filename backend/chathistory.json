@@ -1,5 +1,5 @@
 {
-  "chats":
+  "a001a002":[
     {
       "personId1" : "a001",
       "personId2" : "a002",
@@ -7,7 +7,6 @@
       "date" : "",
       "familiarity" : ""
     },
-  "chats2":
     {
       "personId1" : "a001",
       "personId2" : "a002",
@@ -15,4 +14,5 @@
       "date" : "",
       "familiarity" : ""
     }
+  ]
 }
