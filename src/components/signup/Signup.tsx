@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { Header } from '@/components/header/Header'
+import { Footer } from '@/components/footer/Footer'
+import classes from '@/components/signup/style.css'
 
 type ResJson = {
   name: string
 }
 
-export const Sample = () => {
+export const Signup = () => {
   const [message, setMessage] = useState(undefined)
 
   const fetchSample = async (): Promise<void> => {
@@ -16,10 +19,12 @@ export const Sample = () => {
   }
 
   return (
-    <>
-      <p>This is a sample component.</p>
+    <div className={classes.container}>
+      <Header />
+      <p>This is a Signup component.</p>
       <button onClick={fetchSample}>Execute fetch!</button>
       <p>{message}</p>
-    </>
+      <Footer />
+    </div>
   )
 }
