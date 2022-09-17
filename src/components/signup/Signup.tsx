@@ -1,22 +1,32 @@
 import React, { useState } from 'react'
 import classes from '@/components/signup/style.css'
 import { Header } from '@/components/header/Header'
+
 import { Footer } from '@/components/footer/Footer'
-import { Form, FormType } from '@/components/form/Form'
+import { Form } from '@/components/form/Form'
+import { CheckButton } from '@/components/checkButton/CheckButton'
+
+import { useCheckBoxes } from '@/components/signup/useCheckBoxes'
 
 type ResJson = {
   name: string
 }
 
+const originHobbiesList: string[] = ['soccer', 'tennis', 'basketball', 'golf', 'baseball', 'movie', 'music']
+const originFavoriteList: string[] = ['kind', 'passive', 'friendly', 'outgoing', 'funny', 'polite', 'honest']
+
 export const Signup = () => {
-  const [name, setName] = useState(undefined)
-  const [mail, setMail] = useState(undefined)
-  const [pass, setPass] = useState(undefined)
-  const [nickname, setNickname] = useState(undefined)
-  const [hobbies, setHobbies] = useHobbies([])
+  const [name, setName] = useState<string>(undefined)
+  const [mail, setMail] = useState<string>(undefined)
+  const [pass, setPass] = useState<string>(undefined)
+  const [nickname, setNickname] = useState<string>(undefined)
+  const [hobbies, handleHobbies] = useCheckBoxes([])
+  const [favorites, handleFavorites] = useCheckBoxes([])
+
   return (
     <div className={classes.container}>
       <Header />
+
       <h2>Sign Up</h2>
       <h3>Input your information</h3>
       <Form placeholder="Name" label="Name" type="text" setter={setName} editEnable={true} />
@@ -32,68 +42,18 @@ export const Signup = () => {
       <div>
         <h3>Select your hobbies</h3>
         <div className={classes.buttonsContainer}>
-          <input id="1" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="1" className={classes.hobbyButton}>
-            tennis
-          </label>
-          <input id="2" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="2" className={classes.hobbyButton}>
-            tennis
-          </label>
-          <input id="3" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="3" className={classes.hobbyButton}>
-            tennis
-          </label>
-          <input id="4" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="4" className={classes.hobbyButton}>
-            tennis
-          </label>
-          <input id="5" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="5" className={classes.hobbyButton}>
-            tennis
-          </label>
-          <input id="6" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="6" className={classes.hobbyButton}>
-            tennis
-          </label>
-          <input id="7" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="7" className={classes.hobbyButton}>
-            tennis
-          </label>
+          {originHobbiesList.map((hobby) => (
+            <CheckButton key={hobby} label={hobby} type="hobby" setter={handleHobbies} initChecked={false} />
+          ))}
         </div>
       </div>
 
       <div>
         <h3>Select your favorite types</h3>
         <div className={classes.buttonsContainer}>
-          <input id="1a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="1a" className={classes.typeButton}>
-            tennis
-          </label>
-          <input id="2a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="2a" className={classes.typeButton}>
-            tennis
-          </label>
-          <input id="3a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="3a" className={classes.typeButton}>
-            tennis
-          </label>
-          <input id="4a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="4a" className={classes.typeButton}>
-            tennis
-          </label>
-          <input id="5a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="5a" className={classes.typeButton}>
-            tennis
-          </label>
-          <input id="6a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="6a" className={classes.typeButton}>
-            tennis
-          </label>
-          <input id="7a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="7a" className={classes.typeButton}>
-            tennis
-          </label>
+          {originFavoriteList.map((favorite) => (
+            <CheckButton key={favorite} label={favorite} type="favorite" setter={handleFavorites} initChecked={false} />
+          ))}
         </div>
       </div>
 
