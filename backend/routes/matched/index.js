@@ -9,7 +9,6 @@ const likeHistory = require('../../likeHistory.json');
 router.get('/', (req, res) => {
   //const userId = req.query.userId;//userIdはクエリパラメータで取得
   const userId = "a001";//テストuserId
-  //const userId = req.body;
   console.log(userId);
   res.status(200)
 
@@ -21,7 +20,8 @@ router.get('/', (req, res) => {
   // console.log(userLikes);
   // console.log(likeHistory.a001)
   // console.log(likeHistory[userLikes[0]]);
-  const matchedUser=[];
+  const matchedUserId=[];
+  const matchedUserInfo={};
 
   for(let i = 0; i < userLikes.length; i++){
     temp = likeHistory[userLikes[i]];
@@ -29,13 +29,18 @@ router.get('/', (req, res) => {
     for(let k in temp){
       if(temp[k]===userId){
         console.log(userLikes[i])
-        matchedUser.push(userLikes[i]);
+        matchedUserId.push(userLikes[i]);
       }
     }
   }
 
+  for(let i = 0; i < matchedUserId.length; i++){
+    matchedUserInfo[matchedUserId[i]] = usersInfo[matchedUserId[i]];
+  }
+  console.log(matchedUserInfo);
+
   //setTimeout(() => res.send(body), 500)
-  setTimeout(() => res.send(matchedUser), 500)
+  setTimeout(() => res.send(matchedUserInfo), 500)
 })
 
 module.exports = router
