@@ -1,34 +1,28 @@
 import React, { useState } from 'react'
+import classes from '@/components/signup/style.css'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
-import classes from '@/components/signup/style.css'
+import { Form, FormType } from '@/components/form/Form'
 
 type ResJson = {
   name: string
 }
 
 export const Signup = () => {
+  const [name, setName] = useState(undefined)
+  const [mail, setMail] = useState(undefined)
+  const [pass, setPass] = useState(undefined)
+  const [nickname, setNickname] = useState(undefined)
+  const [hobbies, setHobbies] = useHobbies([])
   return (
     <div className={classes.container}>
       <Header />
       <h2>Sign Up</h2>
       <h3>Input your information</h3>
-      <div className={classes.textBox}>
-        <p>Name</p>
-        <input className={classes.input} type="text" placeholder="Name" />
-      </div>
-      <div className={classes.textBox}>
-        <p>Mail</p>
-        <input className={classes.input} type="text" placeholder="Mail" />
-      </div>
-      <div className={classes.textBox}>
-        <p>Password</p>
-        <input className={classes.input} type="text" placeholder="Password" />
-      </div>
-      <div className={classes.textBox}>
-        <p>Nickname</p>
-        <input className={classes.input} type="text" placeholder="Nickname" />
-      </div>
+      <Form placeholder="Name" label="Name" type="text" setter={setName} editEnable={true} />
+      <Form placeholder="Mail" label="Mail" type="text" setter={setMail} editEnable={true} />
+      <Form placeholder="Password" label="Password" type="password" setter={setPass} editEnable={true} />
+      <Form placeholder="Nickname" label="Nickname" type="text" setter={setNickname} editEnable={true} />
 
       <div className={classes.photoUpload}>
         <h3>Upload your photo</h3>
