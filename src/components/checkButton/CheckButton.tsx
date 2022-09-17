@@ -20,7 +20,7 @@ export const CheckButton = (props: CheckButtonPropsType): JSX.Element => {
           props.setter(props.label, e.target.checked)
         }}
       ></input>
-      <label htmlFor={props.label} className={props.type === 'hobby' ? classes.hobbyButton : classes.typeButton}>
+      <label htmlFor={props.label} className={props.type === 'hobby' ? classes.hobbyButton : classes.favoriteButton}>
         {props.label}
       </label>
     </>
