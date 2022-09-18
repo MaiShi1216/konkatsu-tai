@@ -57,7 +57,7 @@ export const Matched = () => {
             <img src={message[key].photo} className={classes.photo}></img>
             <h3 className={classes.name}>{message[key].name}</h3>
             <p className={classes.message}>{message[key].selfIntro}</p>
-            <br></br>
+            {/* <br></br> */}
             {/* <button>Let's talk!!</button> */}
           </div>
         ))}
