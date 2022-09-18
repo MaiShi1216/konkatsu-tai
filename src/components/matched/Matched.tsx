@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
+import classes from '@/components/matched/style.css'
 
 type ResJson = {
   name: string,
@@ -49,7 +50,19 @@ export const Matched = () => {
       <p>This is a Matched component.</p>
       <button onClick={fetchSample}>See matched members!</button>
       {/* <p>{message}</p> */}
-      <ul>
+      <div>
+        {Object.keys(message).map(key => (
+          <div key={key} className={classes.container}>
+            {/* <br></br> */}
+            <img src={message[key].photo} className={classes.photo}></img>
+            <h3 className={classes.name}>{message[key].name}</h3>
+            <p className={classes.message}>{message[key].selfIntro}</p>
+            <br></br>
+            {/* <button>Let's talk!!</button> */}
+          </div>
+        ))}
+      </div>
+      {/* <ul>
         {Object.keys(message).map(key => (
           <li key={key}>
             {message[key].name}
@@ -59,7 +72,7 @@ export const Matched = () => {
             <button>Let's talk!!</button>
           </li>
         ))}
-      </ul>
+      </ul> */}
       <Footer />
     </>
   )
