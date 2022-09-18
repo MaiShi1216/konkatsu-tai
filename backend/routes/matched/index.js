@@ -7,8 +7,9 @@ const likeHistory = require('../../likeHistory.json');
 
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
-  //const userId = req.query.userId;//userIdはクエリパラメータで取得
-  const userId = "a001";//テストuserId
+  const userId = req.query.userId;//userIdはクエリパラメータで取得
+  //const userId = req.body;//userIdはクエリパラメータで取得
+  //const userId = "a001";//テストuserId
   console.log(userId);
   res.status(200)
 

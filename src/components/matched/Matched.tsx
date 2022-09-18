@@ -20,14 +20,20 @@ export const Matched = () => {
   const [message, setMessage] = useState({})
 
   const fetchSample = async (): Promise<void> => {
-    // const userId = "a001"; //最終的にはグローバル変数で受け取る？
     // const request = await fetch(`${process.env.API_ENDPOINT}/matched`, {
     //   method: 'POST',
     //   body: userId
     // })
-    const response = await fetch(`${process.env.API_ENDPOINT}/matched`, {
+    const myId = "a001"; //最終的にはグローバル変数で受け取る？
+    const query_params = new URLSearchParams({
+      userId: myId
+    });
+    const response = await fetch(`${process.env.API_ENDPOINT}/matched?`+query_params, {
       method: 'GET'
     })
+    // const response = await fetch(`${process.env.API_ENDPOINT}/matched`, {
+    //   method: 'GET'
+    // })
     const resJson: ResJson = await response.json()
     //setMessage(resJson.name)
     setMessage(resJson);
@@ -46,6 +52,7 @@ export const Matched = () => {
             {message[key].name}
             <br></br>
             <img src={message[key].photo} width="100%"></img>
+            <p>{message[key].selfIntro}</p>
             <button>Let's talk!!</button>
           </li>
         ))}
