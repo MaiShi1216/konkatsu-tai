@@ -17,8 +17,7 @@ type ResJson = {
 
 export const Matched = () => {
   //const [message, setMessage] = useState(undefined)
-  const test = {}
-  const [message, setMessage] = useState(test)
+  const [message, setMessage] = useState({})
 
   const fetchSample = async (): Promise<void> => {
     // const userId = "a001"; //最終的にはグローバル変数で受け取る？
@@ -42,15 +41,15 @@ export const Matched = () => {
       <button onClick={fetchSample}>See matched members!</button>
       {/* <p>{message}</p> */}
       <ul>
-      {Object.keys(message).map(key => (
-        <li key={key}>
-          {message[key].name}
-          <br></br>
-          <img src={message[key].photo} width="100%"></img>
-          <button>Let's talk!!</button>
-        </li>
-      ))}
-    </ul>
+        {Object.keys(message).map(key => (
+          <li key={key}>
+            {message[key].name}
+            <br></br>
+            <img src={message[key].photo} width="100%"></img>
+            <button>Let's talk!!</button>
+          </li>
+        ))}
+      </ul>
     </>
   )
 }
