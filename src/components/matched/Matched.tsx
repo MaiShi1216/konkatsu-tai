@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Header } from '@/components/header/Header'
+import { Footer } from '@/components/footer/Footer'
 
 type ResJson = {
   name: string,
@@ -43,6 +45,7 @@ export const Matched = () => {
 
   return (
     <>
+      <Header />
       <p>This is a Matched component.</p>
       <button onClick={fetchSample}>See matched members!</button>
       {/* <p>{message}</p> */}
@@ -57,6 +60,7 @@ export const Matched = () => {
           </li>
         ))}
       </ul>
+      <Footer />
     </>
   )
 }
