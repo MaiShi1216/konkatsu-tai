@@ -23,24 +23,18 @@ export const Matched = () => {
   const [message, setMessage] = useState({})
 
   const fetchSample = async (): Promise<void> => {
-    // const request = await fetch(`${process.env.API_ENDPOINT}/matched`, {
-    //   method: 'POST',
-    //   body: userId
-    // })
-    const myId = "a001"; //最終的にはグローバル変数で受け取る？
+    //userIdは手打ち。最終的にはグローバル変数で受け取る？
+    const myId = "a001";
+    //userIdをクエリパラメータに設定
     const query_params = new URLSearchParams({
       userId: myId
     });
     const response = await fetch(`${process.env.API_ENDPOINT}/matched?`+query_params, {
       method: 'GET'
     })
-    // const response = await fetch(`${process.env.API_ENDPOINT}/matched`, {
-    //   method: 'GET'
-    // })
     const resJson: ResJson = await response.json()
     //setMessage(resJson.name)
     setMessage(resJson);
-    //setMessage(resJson.map((item)=><p>item</p>));
     console.log(resJson);
   }
 
@@ -49,30 +43,15 @@ export const Matched = () => {
       <Header />
       <p>This is a Matched component.</p>
       <button onClick={fetchSample}>See matched members!</button>
-      {/* <p>{message}</p> */}
       <div>
-        {Object.keys(message).map(key => (
-          <div key={key} className={classes.container}>
-            {/* <br></br> */}
-            <img src={message[key].photo} className={classes.photo}></img>
-            <h3 className={classes.name}>{message[key].name}</h3>
-            <p className={classes.message}>{message[key].selfIntro}</p>
-            {/* <br></br> */}
-            {/* <button>Let's talk!!</button> */}
+        {Object.keys(message).map(i => (
+          <div key={i} className={classes.container}>
+            <img src={message[i].photo} className={classes.photo}></img>
+            <h3 className={classes.name}>{message[i].name}</h3>
+            <p className={classes.message}>{message[i].selfIntro}</p>
           </div>
         ))}
       </div>
-      {/* <ul>
-        {Object.keys(message).map(key => (
-          <li key={key}>
-            {message[key].name}
-            <br></br>
-            <img src={message[key].photo} width="100%"></img>
-            <p>{message[key].selfIntro}</p>
-            <button>Let's talk!!</button>
-          </li>
-        ))}
-      </ul> */}
       <Footer />
     </>
   )
