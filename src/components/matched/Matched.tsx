@@ -24,7 +24,7 @@ export const Matched = () => {
 
   const fetchSample = async (): Promise<void> => {
     //userIdは手打ち。最終的にはグローバル変数で受け取る？
-    const myId = "a002";
+    const myId = "a001";
     //userIdをクエリパラメータに設定
     const query_params = new URLSearchParams({
       userId: myId
