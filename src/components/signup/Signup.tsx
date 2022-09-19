@@ -1,115 +1,128 @@
 import React, { useState } from 'react'
-import { Header } from '@/components/header/Header'
-import { Footer } from '@/components/footer/Footer'
 import classes from '@/components/signup/style.css'
+import { Header } from '@/components/header/Header'
 
-type ResJson = {
-  name: string
-}
+import { Footer } from '@/components/footer/Footer'
+import { Form } from '@/components/form/Form'
+import { CheckButton } from '@/components/checkButton/CheckButton'
+
+import { useCheckBoxes } from '@/components/signup/useCheckBoxes'
+
+const originHobbiesList: string[] = ['soccer', 'tennis', 'basketball', 'golf', 'baseball', 'movie', 'music']
+const originFavoriteList: string[] = ['kind', 'passive', 'friendly', 'outgoing', 'funny', 'polite', 'honest']
 
 export const Signup = () => {
+  const [name, setName] = useState<string>(undefined)
+  const [mail, setMail] = useState<string>(undefined)
+  const [password, setPassword] = useState<string>(undefined)
+  const [nickname, setNickname] = useState<string>(undefined)
+  const [hobbies, handleHobbies] = useCheckBoxes([])
+  const [favorites, handleFavorites] = useCheckBoxes([])
+  const [isSecret, setIsSecret] = useState<boolean>(false)
+  const [image, setImage] = useState<File>(undefined)
+  const [selfIntro, setSelfIntro] = useState<string>(undefined)
+
+  const handleSignup = async () => {
+    const b64img = await encodeImgToBase64()
+
+    const newUserInfo = {
+      name,
+      mail,
+      password,
+      nickname,
+      hobbies,
+      favorites,
+      mode: isSecret,
+      photo: b64img,
+      selfIntro,
+    }
+
+    try {
+      const response = await fetch(`${process.env.API_ENDPOINT}/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newUserInfo),
+      })
+      if (response.status === 200) {
+        window.location.href = '/'
+      } else {
+        console.error('err')
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const encodeImgToBase64 = () => {
+    return new Promise((resolve, reject) => {
+      if (image === undefined) reject('no image uploaded')
+
+      const reader = new FileReader()
+      reader.onload = () => {
+        resolve(reader.result)
+      }
+      reader.readAsDataURL(image)
+    })
+  }
+
   return (
     <div className={classes.container}>
       <Header />
+
       <h2>Sign Up</h2>
       <h3>Input your information</h3>
-      <div className={classes.textBox}>
-        <p>Name</p>
-        <input className={classes.input} type="text" placeholder="Name" />
-      </div>
-      <div className={classes.textBox}>
-        <p>Mail</p>
-        <input className={classes.input} type="text" placeholder="Mail" />
-      </div>
-      <div className={classes.textBox}>
-        <p>Password</p>
-        <input className={classes.input} type="text" placeholder="Password" />
-      </div>
-      <div className={classes.textBox}>
-        <p>Nickname</p>
-        <input className={classes.input} type="text" placeholder="Nickname" />
-      </div>
+      <Form placeholder="Name" label="Name" type="text" setter={setName} editEnable={true} />
+      <Form placeholder="Mail" label="Mail" type="text" setter={setMail} editEnable={true} />
+      <Form placeholder="Password" label="Password" type="password" setter={setPassword} editEnable={true} />
+      <Form placeholder="Nickname" label="Nickname" type="text" setter={setNickname} editEnable={true} />
 
+      <h3>Input your introduction</h3>
+      <textarea cols={30} rows={10} onChange={(e) => setSelfIntro(e.target.value)}></textarea>
       <div className={classes.photoUpload}>
         <h3>Upload your photo</h3>
-        <input type="file" accept="image/*"></input>
+        <input
+          type="file"
+          accept="image/*"
+          id="photo"
+          onChange={(e) => {
+            setImage(e.target.files[0])
+          }}
+        ></input>
       </div>
 
       <div>
         <h3>Select your hobbies</h3>
         <div className={classes.buttonsContainer}>
-          <input id="1" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="1" className={classes.hobbyButton}>
-            tennis
-          </label>
-          <input id="2" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="2" className={classes.hobbyButton}>
-            tennis
-          </label>
-          <input id="3" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="3" className={classes.hobbyButton}>
-            tennis
-          </label>
-          <input id="4" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="4" className={classes.hobbyButton}>
-            tennis
-          </label>
-          <input id="5" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="5" className={classes.hobbyButton}>
-            tennis
-          </label>
-          <input id="6" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="6" className={classes.hobbyButton}>
-            tennis
-          </label>
-          <input id="7" type="checkbox" className={classes.inputHobbyButton}></input>
-          <label htmlFor="7" className={classes.hobbyButton}>
-            tennis
-          </label>
+          {originHobbiesList.map((hobby) => (
+            <CheckButton key={hobby} label={hobby} type="hobby" setter={handleHobbies} initChecked={false} />
+          ))}
         </div>
       </div>
 
       <div>
         <h3>Select your favorite types</h3>
         <div className={classes.buttonsContainer}>
-          <input id="1a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="1a" className={classes.typeButton}>
-            tennis
-          </label>
-          <input id="2a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="2a" className={classes.typeButton}>
-            tennis
-          </label>
-          <input id="3a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="3a" className={classes.typeButton}>
-            tennis
-          </label>
-          <input id="4a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="4a" className={classes.typeButton}>
-            tennis
-          </label>
-          <input id="5a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="5a" className={classes.typeButton}>
-            tennis
-          </label>
-          <input id="6a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="6a" className={classes.typeButton}>
-            tennis
-          </label>
-          <input id="7a" type="checkbox" className={classes.inputTypeButton}></input>
-          <label htmlFor="7a" className={classes.typeButton}>
-            tennis
-          </label>
+          {originFavoriteList.map((favorite) => (
+            <CheckButton key={favorite} label={favorite} type="favorite" setter={handleFavorites} initChecked={false} />
+          ))}
         </div>
       </div>
 
       <div>
         <h3>Select Operating mode</h3>
-        <input type="checkbox" id="Secret" />
-        <label htmlFor="Hidden">Secret</label>
+        <input
+          type="checkbox"
+          id="Secret"
+          onChange={(e) => {
+            setIsSecret(e.target.checked)
+          }}
+        />
+        <label htmlFor="Secret">Secret Mode</label>
       </div>
       <div>
-        <button className={classes.submitButton}>Sign up</button>
+        <button className={classes.submitButton} onClick={handleSignup}>
+          Sign up
+        </button>
       </div>
 
       <Footer />
