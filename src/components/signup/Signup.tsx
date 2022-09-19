@@ -8,20 +8,62 @@ import { CheckButton } from '@/components/checkButton/CheckButton'
 
 import { useCheckBoxes } from '@/components/signup/useCheckBoxes'
 
-type ResJson = {
-  name: string
-}
-
 const originHobbiesList: string[] = ['soccer', 'tennis', 'basketball', 'golf', 'baseball', 'movie', 'music']
 const originFavoriteList: string[] = ['kind', 'passive', 'friendly', 'outgoing', 'funny', 'polite', 'honest']
 
 export const Signup = () => {
   const [name, setName] = useState<string>(undefined)
   const [mail, setMail] = useState<string>(undefined)
-  const [pass, setPass] = useState<string>(undefined)
+  const [password, setPassword] = useState<string>(undefined)
   const [nickname, setNickname] = useState<string>(undefined)
   const [hobbies, handleHobbies] = useCheckBoxes([])
   const [favorites, handleFavorites] = useCheckBoxes([])
+  const [isSecret, setIsSecret] = useState<boolean>(false)
+  const [image, setImage] = useState<File>(undefined)
+  const [selfIntro, setSelfIntro] = useState<string>(undefined)
+
+  const handleSignup = async () => {
+    const b64img = await encodeImgToBase64()
+
+    const newUserInfo = {
+      name,
+      mail,
+      password,
+      nickname,
+      hobbies,
+      favorites,
+      mode: isSecret,
+      photo: b64img,
+      selfIntro,
+    }
+
+    try {
+      const response = await fetch(`${process.env.API_ENDPOINT}/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newUserInfo),
+      })
+      if (response.status === 200) {
+        window.location.href = '/'
+      } else {
+        console.error('err')
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const encodeImgToBase64 = () => {
+    return new Promise((resolve, reject) => {
+      if (image === undefined) reject('no image uploaded')
+
+      const reader = new FileReader()
+      reader.onload = () => {
+        resolve(reader.result)
+      }
+      reader.readAsDataURL(image)
+    })
+  }
 
   return (
     <div className={classes.container}>
@@ -31,12 +73,21 @@ export const Signup = () => {
       <h3>Input your information</h3>
       <Form placeholder="Name" label="Name" type="text" setter={setName} editEnable={true} />
       <Form placeholder="Mail" label="Mail" type="text" setter={setMail} editEnable={true} />
-      <Form placeholder="Password" label="Password" type="password" setter={setPass} editEnable={true} />
+      <Form placeholder="Password" label="Password" type="password" setter={setPassword} editEnable={true} />
       <Form placeholder="Nickname" label="Nickname" type="text" setter={setNickname} editEnable={true} />
 
+      <h3>Input your introduction</h3>
+      <textarea cols={30} rows={10} onChange={(e) => setSelfIntro(e.target.value)}></textarea>
       <div className={classes.photoUpload}>
         <h3>Upload your photo</h3>
-        <input type="file" accept="image/*"></input>
+        <input
+          type="file"
+          accept="image/*"
+          id="photo"
+          onChange={(e) => {
+            setImage(e.target.files[0])
+          }}
+        ></input>
       </div>
 
       <div>
@@ -59,11 +110,19 @@ export const Signup = () => {
 
       <div>
         <h3>Select Operating mode</h3>
-        <input type="checkbox" id="Secret" />
-        <label htmlFor="Hidden">Secret</label>
+        <input
+          type="checkbox"
+          id="Secret"
+          onChange={(e) => {
+            setIsSecret(e.target.checked)
+          }}
+        />
+        <label htmlFor="Secret">Secret Mode</label>
       </div>
       <div>
-        <button className={classes.submitButton}>Sign up</button>
+        <button className={classes.submitButton} onClick={handleSignup}>
+          Sign up
+        </button>
       </div>
 
       <Footer />

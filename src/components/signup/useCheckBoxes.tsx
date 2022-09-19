@@ -6,7 +6,6 @@ export const useCheckBoxes = (
   const [statuses, setStatuses] = useState<string[]>(initBoxesStatus)
 
   const handleStatuses = (boxLabel: string, isAddition: boolean) => {
-    console.log(boxLabel, isAddition)
     if (isAddition) {
       setStatuses(() => [...statuses, boxLabel])
     } else {
