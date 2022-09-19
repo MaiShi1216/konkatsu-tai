@@ -30,21 +30,23 @@
 }
 
 .hobbyButton {
-  width: 65px;
+  width: fit-content;
   height: 25px;
   background-color: #FFE5EB;
   border-radius: 100vh;
   text-align: center;
   margin: 10px 10px 10px 10px;
+  padding: 0px 10px;
 }
 
-.typeButton {
-  width: 65px;
+.favoriteButton {
+  width: fit-content;
   height: 25px;
   background-color: #bad7df;
   border-radius: 100vh;
   text-align: center;
   margin: 10px 10px 10px 10px;
+  padding: 0px 10px;
 }
 
 .buttonsContainer {
@@ -74,21 +76,17 @@
 
 .inputHobbyButton {
   display: none;
-  /* チェックボックスを非表示にする */
 }
 .inputTypeButton {
   display: none;
-  /* チェックボックスを非表示にする */
 }
 
 .inputHobbyButton:checked+label{
-  /* inputと並列のlabel */
   background: #f8bcca;
   color: #FFF;
 }
 
 .inputTypeButton:checked+label {
-  /* inputと並列のlabel */
   background: #60a0b0;
   color: #FFF;
 }
