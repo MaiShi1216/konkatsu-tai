@@ -3,6 +3,13 @@ import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 import classes from '@/components/matched/style.css'
 
+//recoilの導入はまだ
+// import { useRecoilState } from 'recoil'
+// import { userInfoState } from '@/atoms/userInfoAtom'
+
+// console.log(userInfoState)
+// console.log(useRecoilState(userInfoState))
+
 type ResJson = {
   name: string
   password: string
