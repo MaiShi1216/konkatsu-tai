@@ -11,3 +11,9 @@ export const sampleState = atom({
   default: '',
   effects_UNSTABLE: [persistAtom], // To persist states in browser refresh or screen transition.
 })
+
+export const userInfoState = atom({
+  key: 'userInfoState',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+})

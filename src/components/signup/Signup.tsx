@@ -8,8 +8,16 @@ import { CheckButton } from '@/components/checkButton/CheckButton'
 
 import { useCheckBoxes } from '@/components/signup/useCheckBoxes'
 
+import { useRecoilState } from 'recoil'
+import { userInfoState } from '@/atoms/userInfoAtom'
+
+type ResJson = {
+  userId: string
+}
+
 const originHobbiesList: string[] = ['soccer', 'tennis', 'basketball', 'golf', 'baseball', 'movie', 'music']
 const originFavoriteList: string[] = ['kind', 'passive', 'friendly', 'outgoing', 'funny', 'polite', 'honest']
+const privateInfos = ['name', 'password', 'mail']
 
 export const Signup = () => {
   const [name, setName] = useState<string>(undefined)
@@ -21,6 +29,7 @@ export const Signup = () => {
   const [isSecret, setIsSecret] = useState<boolean>(false)
   const [image, setImage] = useState<File>(undefined)
   const [selfIntro, setSelfIntro] = useState<string>(undefined)
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState)
 
   const handleSignup = async () => {
     const b64img = await encodeImgToBase64()
@@ -44,6 +53,11 @@ export const Signup = () => {
         body: JSON.stringify(newUserInfo),
       })
       if (response.status === 200) {
+        privateInfos.forEach((key) => delete newUserInfo[key])
+        const resJson: ResJson = await response.json()
+
+        const storedInfo = { [resJson.userId]: newUserInfo }
+        setUserInfo(storedInfo)
         window.location.href = '/'
       } else {
         console.error('err')
