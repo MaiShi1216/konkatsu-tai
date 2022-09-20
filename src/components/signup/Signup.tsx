@@ -70,14 +70,21 @@ export const Signup = () => {
       <Header />
 
       <h2>Sign Up</h2>
-      <h3>Input your information</h3>
+      <h3>Enter your information</h3>
       <Form placeholder="Name" label="Name" type="text" setter={setName} editEnable={true} />
       <Form placeholder="Mail" label="Mail" type="text" setter={setMail} editEnable={true} />
       <Form placeholder="Password" label="Password" type="password" setter={setPassword} editEnable={true} />
       <Form placeholder="Nickname" label="Nickname" type="text" setter={setNickname} editEnable={true} />
 
-      <h3>Input your introduction</h3>
-      <textarea cols={30} rows={10} onChange={(e) => setSelfIntro(e.target.value)}></textarea>
+      <h3>Enter your introduction</h3>
+      <textarea
+        cols={30}
+        rows={10}
+        className={classes.selfIntro}
+        onChange={(e) => setSelfIntro(e.target.value)}
+        placeholder="Enter your introduction"
+      ></textarea>
+
       <div className={classes.photoUpload}>
         <h3>Upload your photo</h3>
         <input
