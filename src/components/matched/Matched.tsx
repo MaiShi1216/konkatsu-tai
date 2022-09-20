@@ -9,7 +9,7 @@ type ResJson = {
   nickname: string
   photo: string
   sex: string
-  birthday: Date
+  birthday: string
   email: string
   favoriteTypes: string
   hobbies: string
@@ -20,14 +20,27 @@ type ResJson = {
 
 export const Matched = () => {
   //const [message, setMessage] = useState({})
-  const [message, setMessage] = useState({})
-  //const [url, setURL] = useState(undefined)
+  //const [message, setMessage] = useState({})
+  const [message, setMessage] = useState<ResJson>({
+    name: '',
+    password: '',
+    nickname: '',
+    photo: '',
+    sex: '',
+    birthday: '',
+    email: '',
+    favoriteTypes: '',
+    hobbies: '',
+    likedNum: 0,
+    selfIntro: '',
+    isHidden: '',
+  })
 
   console.log(window.location.href)
 
-  const fetchSample = async (): Promise<void> => {
+  const fetchMatched = async (): Promise<void> => {
     //userIdは手打ち。最終的にはグローバル変数で受け取る？
-    const myId = 'a002'
+    const myId = 'a001'
     //userIdをクエリパラメータに設定
     const query_params = new URLSearchParams({
       userId: myId,
@@ -44,7 +57,7 @@ export const Matched = () => {
   }
 
   useEffect(() => {
-    const test = fetchSample()
+    const run = fetchMatched()
   }, []) //useeffect
 
   return (
