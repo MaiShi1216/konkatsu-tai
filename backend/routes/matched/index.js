@@ -17,6 +17,19 @@ router.get('/', (req, res) => {
   const matchedUserId = []
   const matchedUserInfo = {}
 
+  //.mapの適用を検討したがうまくいかないので後回し
+  // userLikes.map((i) => {
+  //   temp = likeHistory[userLikes[i]]
+  //   temp.map((k) => {
+  //     if (temp[k] === userId) {
+  //       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  //       console.log(userLikes[i])
+  //       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  //       matchedUserId.push(userLikes[i])
+  //     }
+  //   }
+  // });
+
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   for (let i = 0; i < userLikes.length; i++) {
     // eslint-disable-next-line no-undef, @typescript-eslint/no-unsafe-member-access
