@@ -14,6 +14,8 @@ router.get('/', (req, res) => {
   //const body = usersInfo.a001
   const body = chatHistory.a001a002
 
+  console.log(body);
+
   setTimeout(() => res.send(body), 500)
 })
 

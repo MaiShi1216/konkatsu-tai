@@ -6,6 +6,13 @@
       "content" : "hello 0001",
       "date" : "",
       "familiarity" : ""
+    },
+    {
+      "personId1" : "a001",
+      "personId2" : "a002",
+      "content" : "hello 0002",
+      "date" : "",
+      "familiarity" : ""
     }
   ]
 }

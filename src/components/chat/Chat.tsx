@@ -12,7 +12,13 @@ export const Chat = () => {
       method: 'GET',
     })
     const resJson: ResJson = await response.json()
-    setMessage(resJson.content)
+    console.log(resJson)
+    console.log('aaa' + resJson)
+    console.log('bbb' + resJson[0])
+    console.log('ccc' + resJson[0].content)
+
+    //setMessage(resJson.content)
+    setMessage(resJson[0].content + resJson[1].content)
   }
 
   return (
