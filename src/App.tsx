@@ -1,8 +1,10 @@
 import React from 'react'
-import { Sample } from '@/components/sample/Sample'
-import { Chat } from '@/components/chat/Chat'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { paths } from '@/utils/paths'
+
+import { Sample } from '@/components/sample/Sample'
+import { Signup } from '@/components/signup/SignUp'
+import { Chat } from '@/components/chat/Chat'
 
 export const App = () => {
   return (
@@ -10,7 +12,8 @@ export const App = () => {
       <Routes>
         <Route path={paths.sample} element={<Sample />} />
         <Route path={paths.chat} element={<Chat />} />
+        <Route path={paths.signup} element={<Signup />} />
       </Routes>
     </BrowserRouter>
-    )
+  )
 }

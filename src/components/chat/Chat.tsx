@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-
 type ResJson = {
   content: string
 }
-
 export const Chat = () => {
   const [message, setMessage] = useState(undefined)
 
@@ -13,9 +11,9 @@ export const Chat = () => {
     })
     const resJson: ResJson = await response.json()
     console.log(resJson)
-    console.log('aaa' + resJson)
-    console.log('bbb' + resJson[0])
-    console.log('ccc' + resJson[0].content)
+    console.log(`aaa${resJson}`)
+    console.log(`bbb${resJson[0]}`)
+    console.log(`ccc${resJson[0].content}`)
 
     //setMessage(resJson.content)
     setMessage(resJson[0].content + resJson[1].content)
