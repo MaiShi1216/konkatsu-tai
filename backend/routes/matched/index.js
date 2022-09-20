@@ -8,7 +8,6 @@ const likeHistory = require('../../likeHistory.json')
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
   const userId = req.query.userId //userIdはクエリパラメータで取得
-  console.log(userId)
   res.status(200)
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -39,10 +38,9 @@ router.get('/', (req, res) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     matchedUserInfo[matchedUserId[i]] = usersInfo[matchedUserId[i]]
   }
-  console.log(matchedUserInfo)
 
-  //setTimeout(() => res.send(body), 500)
-  setTimeout(() => res.send(matchedUserInfo), 500)
+  res.send(matchedUserInfo)
+  //setTimeout(() => res.send(matchedUserInfo), 500) //500ms待機する必要も特にない気がするのでとりあえず削除
 })
 
 module.exports = router

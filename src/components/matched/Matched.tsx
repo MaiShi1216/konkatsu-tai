@@ -19,25 +19,6 @@ type ResJson = {
 }
 
 export const Matched = () => {
-  //const [message, setMessage] = useState({})
-  //const [message, setMessage] = useState({})
-  // const [message, setMessage] = useState<ResJson>({
-  //   name: '',
-  //   password: '',
-  //   nickname: '',
-  //   photo: '',
-  //   sex: '',
-  //   birthday: '',
-  //   email: '',
-  //   favoriteTypes: '',
-  //   hobbies: '',
-  //   likedNum: 0,
-  //   selfIntro: '',
-  //   isHidden: '',
-  // })
-  // const [name, setName] = useState<string>(undefined)
-  // const [photo, setPhoto] = useState<string>(undefined)
-  // const [selfIntro, setSelfIntro] = useState<string>(undefined)
   const [message, setMessage] = useState<ResJson[]>([])
 
   const fetchMatched = async (): Promise<void> => {
@@ -51,23 +32,19 @@ export const Matched = () => {
     const response = await fetch(`${process.env.API_ENDPOINT}/matched?${query_params}`, {
       method: 'GET',
     })
-    //const resJson: ResJson = await response.json()
     const resJson: ResJson[] = await response.json()
-    //setMessage(resJson.name)
-    //setMessage(resJson)
     setMessage(resJson)
     console.log(resJson)
   }
 
   useEffect(() => {
     const run = fetchMatched()
-  }, []) //useeffect
+  }, [])
 
   return (
     <>
       <Header />
       <p>This is a Matched component.</p>
-      {/* <button onClick={fetchSample}>See matched members!</button> */}
       <div>
         {Object.keys(message).map((i) => (
           <div key={i} className={classes.container}>
