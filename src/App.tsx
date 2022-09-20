@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { RecoilRoot } from 'recoil'
 import { paths } from '@/utils/paths'
 
 import { Sample } from '@/components/sample/Sample'
