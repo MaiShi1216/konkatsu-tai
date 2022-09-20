@@ -9,12 +9,14 @@ import { Chat } from '@/components/chat/Chat'
 
 export const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={paths.sample} element={<Sample />} />
-        <Route path={paths.chat} element={<Chat />} />
-        <Route path={paths.signup} element={<Signup />} />
-      </Routes>
-    </BrowserRouter>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Routes>
+          <Route path={paths.sample} element={<Sample />} />
+          <Route path={paths.chat} element={<Chat />} />
+          <Route path={paths.signup} element={<Signup />} />
+        </Routes>
+      </BrowserRouter>
+    </RecoilRoot>
   )
 }

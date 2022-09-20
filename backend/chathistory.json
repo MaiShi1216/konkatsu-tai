@@ -1,18 +1,19 @@
 {
-  "a001a002":[
+  "a001a002": [
     {
-      "personId1" : "a001",
-      "personId2" : "a002",
-      "content" : "hello 0001",
-      "date" : "",
-      "familiarity" : ""
+      "personId1": "a001",
+      "personId2": "a002",
+      "content": "hello 0001",
+      "date": "",
+      "familiarity": ""
     },
     {
-      "personId1" : "a001",
-      "personId2" : "a002",
-      "content" : "hello 0002",
-      "date" : "",
-      "familiarity" : ""
+      "personId1": "a001",
+      "personId2": "a002",
+      "content": "hello 0002",
+      "date": "",
+      "familiarity": ""
     }
-  ]
+  ],
+  "sendMessage": "aaaa"
 }
