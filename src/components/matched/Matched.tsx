@@ -21,6 +21,9 @@ type ResJson = {
 export const Matched = () => {
   //const [message, setMessage] = useState({})
   const [message, setMessage] = useState({})
+  //const [url, setURL] = useState(undefined)
+
+  console.log(window.location.href)
 
   const fetchSample = async (): Promise<void> => {
     //userIdは手打ち。最終的にはグローバル変数で受け取る？
@@ -35,15 +38,20 @@ export const Matched = () => {
     })
     const resJson: ResJson = await response.json()
     //setMessage(resJson.name)
+    //setURL(`${process.env.API_ENDPOINT}/matched?${query_params}`)
     setMessage(resJson)
     console.log(resJson)
   }
+
+  useEffect(() => {
+    const test = fetchSample()
+  }, []) //useeffect
 
   return (
     <>
       <Header />
       <p>This is a Matched component.</p>
-      <button onClick={fetchSample}>See matched members!</button>
+      {/* <button onClick={fetchSample}>See matched members!</button> */}
       <div>
         {Object.keys(message).map((i) => (
           <div key={i} className={classes.container}>
