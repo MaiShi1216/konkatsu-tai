@@ -8,8 +8,16 @@ import { CheckButton } from '@/components/checkButton/CheckButton'
 
 import { useCheckBoxes } from '@/components/signup/useCheckBoxes'
 
+import { useRecoilState } from 'recoil'
+import { userInfoState } from '@/atoms/userInfoAtom'
+
+type ResJson = {
+  userId: string
+}
+
 const originHobbiesList: string[] = ['soccer', 'tennis', 'basketball', 'golf', 'baseball', 'movie', 'music']
 const originFavoriteList: string[] = ['kind', 'passive', 'friendly', 'outgoing', 'funny', 'polite', 'honest']
+const privateInfos = ['name', 'password', 'mail']
 
 export const Signup = () => {
   const [name, setName] = useState<string>(undefined)
@@ -21,6 +29,7 @@ export const Signup = () => {
   const [isSecret, setIsSecret] = useState<boolean>(false)
   const [image, setImage] = useState<File>(undefined)
   const [selfIntro, setSelfIntro] = useState<string>(undefined)
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState)
 
   const handleSignup = async () => {
     const b64img = await encodeImgToBase64()
@@ -44,6 +53,11 @@ export const Signup = () => {
         body: JSON.stringify(newUserInfo),
       })
       if (response.status === 200) {
+        privateInfos.forEach((key) => delete newUserInfo[key])
+        const resJson: ResJson = await response.json()
+
+        const storedInfo = { [resJson.userId]: newUserInfo }
+        setUserInfo(storedInfo)
         window.location.href = '/'
       } else {
         console.error('err')
@@ -70,14 +84,21 @@ export const Signup = () => {
       <Header />
 
       <h2>Sign Up</h2>
-      <h3>Input your information</h3>
+      <h3>Enter your information</h3>
       <Form placeholder="Name" label="Name" type="text" setter={setName} editEnable={true} />
       <Form placeholder="Mail" label="Mail" type="text" setter={setMail} editEnable={true} />
       <Form placeholder="Password" label="Password" type="password" setter={setPassword} editEnable={true} />
       <Form placeholder="Nickname" label="Nickname" type="text" setter={setNickname} editEnable={true} />
 
-      <h3>Input your introduction</h3>
-      <textarea cols={30} rows={10} onChange={(e) => setSelfIntro(e.target.value)}></textarea>
+      <h3>Enter your introduction</h3>
+      <textarea
+        cols={30}
+        rows={10}
+        className={classes.selfIntro}
+        onChange={(e) => setSelfIntro(e.target.value)}
+        placeholder="Enter your introduction"
+      ></textarea>
+
       <div className={classes.photoUpload}>
         <h3>Upload your photo</h3>
         <input
