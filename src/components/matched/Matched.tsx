@@ -19,7 +19,7 @@ type ResJson = {
 }
 
 export const Matched = () => {
-  const [message, setMessage] = useState<ResJson[]>([])
+  const [matchedUsers, setMatchedUsers] = useState<ResJson[]>([])
 
   const fetchMatched = async (): Promise<void> => {
     //userIdは手打ち。最終的にはグローバル変数で受け取る？
@@ -33,7 +33,7 @@ export const Matched = () => {
       method: 'GET',
     })
     const resJson: ResJson[] = await response.json()
-    setMessage(resJson)
+    setMatchedUsers(resJson)
     console.log(resJson)
   }
 
@@ -46,11 +46,11 @@ export const Matched = () => {
       <Header />
       <p>This is a Matched component.</p>
       <div>
-        {Object.keys(message).map((i) => (
+        {Object.keys(matchedUsers).map((i) => (
           <div key={i} className={classes.container}>
-            <img src={message[i].photo} className={classes.photo}></img>
-            <h3 className={classes.name}>{message[i].name}</h3>
-            <p className={classes.message}>{message[i].selfIntro}</p>
+            <img src={matchedUsers[i].photo} className={classes.photo}></img>
+            <h3 className={classes.name}>{matchedUsers[i].name}</h3>
+            <p className={classes.message}>{matchedUsers[i].selfIntro}</p>
           </div>
         ))}
       </div>
