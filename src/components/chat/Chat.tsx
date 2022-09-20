@@ -8,6 +8,28 @@ type ResJson = {
 }
 export const Chat = () => {
   const [message, setMessage] = useState(undefined)
+  const [sendMessage, setSendMessage] = useState<string>(undefined)
+
+  const handleSend = async () => {
+    const newSendInfo = {
+      sendMessage,
+    }
+
+    try {
+      const response = await fetch(`${process.env.API_ENDPOINT}/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newSendInfo),
+      })
+      if (response.status === 200) {
+        window.location.href = '/'
+      } else {
+        console.error('err')
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   const fetchChat = async (): Promise<void> => {
     const response = await fetch(`${process.env.API_ENDPOINT}/chat`, {
@@ -30,6 +52,14 @@ export const Chat = () => {
       <p>This is a chat component.</p>
       <button onClick={fetchChat}>Execute fetch!</button>
       <p>{message}</p>
+
+      <h3>Input your message</h3>
+      <textarea cols={40} rows={3} onChange={(e) => setSendMessage(e.target.value)}></textarea>
+      <div>
+        <button className={classes.submitButton} onClick={handleSend}>
+          Send
+        </button>
+      </div>
       <Footer />
     </div>
   )
