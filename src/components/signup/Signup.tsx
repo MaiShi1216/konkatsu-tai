@@ -1,25 +1,131 @@
 import React, { useState } from 'react'
+import classes from '@/components/signup/style.css'
+import { Header } from '@/components/header/Header'
 
-type ResJson = {
-  name: string
-}
+import { Footer } from '@/components/footer/Footer'
+import { Form } from '@/components/form/Form'
+import { CheckButton } from '@/components/checkButton/CheckButton'
 
-export const Sample = () => {
-  const [message, setMessage] = useState(undefined)
+import { useCheckBoxes } from '@/components/signup/useCheckBoxes'
 
-  const fetchSample = async (): Promise<void> => {
-    const response = await fetch(`${process.env.API_ENDPOINT}/sample`, {
-      method: 'GET',
+const originHobbiesList: string[] = ['soccer', 'tennis', 'basketball', 'golf', 'baseball', 'movie', 'music']
+const originFavoriteList: string[] = ['kind', 'passive', 'friendly', 'outgoing', 'funny', 'polite', 'honest']
+
+export const Signup = () => {
+  const [name, setName] = useState<string>(undefined)
+  const [mail, setMail] = useState<string>(undefined)
+  const [password, setPassword] = useState<string>(undefined)
+  const [nickname, setNickname] = useState<string>(undefined)
+  const [hobbies, handleHobbies] = useCheckBoxes([])
+  const [favorites, handleFavorites] = useCheckBoxes([])
+  const [isSecret, setIsSecret] = useState<boolean>(false)
+  const [image, setImage] = useState<File>(undefined)
+  const [selfIntro, setSelfIntro] = useState<string>(undefined)
+
+  const handleSignup = async () => {
+    const b64img = await encodeImgToBase64()
+
+    const newUserInfo = {
+      name,
+      mail,
+      password,
+      nickname,
+      hobbies,
+      favorites,
+      mode: isSecret,
+      photo: b64img,
+      selfIntro,
+    }
+
+    try {
+      const response = await fetch(`${process.env.API_ENDPOINT}/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newUserInfo),
+      })
+      if (response.status === 200) {
+        window.location.href = '/'
+      } else {
+        console.error('err')
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const encodeImgToBase64 = () => {
+    return new Promise((resolve, reject) => {
+      if (image === undefined) reject('no image uploaded')
+
+      const reader = new FileReader()
+      reader.onload = () => {
+        resolve(reader.result)
+      }
+      reader.readAsDataURL(image)
     })
-    const resJson: ResJson = await response.json()
-    setMessage(resJson.name)
   }
 
   return (
-    <>
-      <p>This is a sample component.</p>
-      <button onClick={fetchSample}>Execute fetch!</button>
-      <p>{message}</p>
-    </>
+    <div className={classes.container}>
+      <Header />
+
+      <h2>Sign Up</h2>
+      <h3>Input your information</h3>
+      <Form placeholder="Name" label="Name" type="text" setter={setName} editEnable={true} />
+      <Form placeholder="Mail" label="Mail" type="text" setter={setMail} editEnable={true} />
+      <Form placeholder="Password" label="Password" type="password" setter={setPassword} editEnable={true} />
+      <Form placeholder="Nickname" label="Nickname" type="text" setter={setNickname} editEnable={true} />
+
+      <h3>Input your introduction</h3>
+      <textarea cols={30} rows={10} onChange={(e) => setSelfIntro(e.target.value)}></textarea>
+      <div className={classes.photoUpload}>
+        <h3>Upload your photo</h3>
+        <input
+          type="file"
+          accept="image/*"
+          id="photo"
+          onChange={(e) => {
+            setImage(e.target.files[0])
+          }}
+        ></input>
+      </div>
+
+      <div>
+        <h3>Select your hobbies</h3>
+        <div className={classes.buttonsContainer}>
+          {originHobbiesList.map((hobby) => (
+            <CheckButton key={hobby} label={hobby} type="hobby" setter={handleHobbies} initChecked={false} />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3>Select your favorite types</h3>
+        <div className={classes.buttonsContainer}>
+          {originFavoriteList.map((favorite) => (
+            <CheckButton key={favorite} label={favorite} type="favorite" setter={handleFavorites} initChecked={false} />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3>Select Operating mode</h3>
+        <input
+          type="checkbox"
+          id="Secret"
+          onChange={(e) => {
+            setIsSecret(e.target.checked)
+          }}
+        />
+        <label htmlFor="Secret">Secret Mode</label>
+      </div>
+      <div>
+        <button className={classes.submitButton} onClick={handleSignup}>
+          Sign up
+        </button>
+      </div>
+
+      <Footer />
+    </div>
   )
 }
