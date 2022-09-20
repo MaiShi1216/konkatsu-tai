@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import classes from '@/components/chat/style.css'
+import { Header } from '@/components/header/Header'
+import { Footer } from '@/components/footer/Footer'
+
 type ResJson = {
   content: string
 }
@@ -20,10 +24,13 @@ export const Chat = () => {
   }
 
   return (
-    <>
+    <div className={classes.container}>
+      <Header />
+      <h2>Chat</h2>
       <p>This is a chat component.</p>
       <button onClick={fetchChat}>Execute fetch!</button>
       <p>{message}</p>
-    </>
+      <Footer />
+    </div>
   )
 }
