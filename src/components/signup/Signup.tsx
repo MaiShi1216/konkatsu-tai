@@ -1,5 +1,6 @@
 import React, { useState, FC } from 'react'
 import classes from '@/components/signup/style.css'
+import { useNavigate } from 'react-router-dom'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 import { Form } from '@/components/form/Form'
@@ -33,6 +34,8 @@ export const Signup: FC<PropsType> = (props) => {
   const [image, setImage] = useState<File>(undefined)
   const [selfIntro, setSelfIntro] = useState<string>(props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].selfIntro)
 
+  const navigate = useNavigate()
+
   const handleSignup = async () => {
     const b64img = await encodeImgToBase64()
 
@@ -65,7 +68,7 @@ export const Signup: FC<PropsType> = (props) => {
 
         const storedInfo: UserInfoType = { [userId]: newUserInfo }
         setUserInfo(storedInfo)
-        window.location.href = '/'
+        navigate('/')
       } else {
         console.error('err')
       }
