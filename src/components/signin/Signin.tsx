@@ -25,7 +25,7 @@ export const Signin = () => {
   return (
     <div className={classes.container}>
       <Header />
-      <h3>eMail adress</h3>
+      <h3>eMail Adress</h3>
       <input
         placeholder="Enter your email adress"
         onChange={(e) => {
@@ -37,7 +37,7 @@ export const Signin = () => {
       <form className="form" onSubmit={(e) => e.preventDefault()}>
         <input type={isShown ? 'text' : 'password'} placeholder="Enter your Password" className="input" />
         <div className="checkbox-container">
-          <label htmlFor="checkbox">Show password?</label>
+          <label htmlFor="checkbox">Show Password?</label>
           <input id="checkbox" type="checkbox" checked={isShown} onChange={togglePassword} />
         </div>
       </form>
