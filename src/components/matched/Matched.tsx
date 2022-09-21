@@ -3,12 +3,13 @@ import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 import classes from '@/components/matched/style.css'
 
-//recoilの導入はまだ
+//Recoil-on
 // import { useRecoilState } from 'recoil'
 // import { userInfoState } from '@/atoms/userInfoAtom'
 
-// console.log(userInfoState)
-// console.log(useRecoilState(userInfoState))
+//Recoil-off for test
+const myId = '3f328652-f4bb-4254-972a-d70489794a25' //Shohei Ohtani
+//const myId = 'e857624e-ace4-44a5-8c9f-b9203f10df1f' //Tomoharu Kobayashi
 
 type MatchedUsersType = {
   [key in string]: UserInfo
@@ -31,9 +32,6 @@ export const Matched = () => {
   const [matchedUsers, setMatchedUsers] = useState<MatchedUsersType>({})
 
   const fetchMatched = async (): Promise<void> => {
-    //userIdは手打ち。最終的にはグローバル変数で受け取る？
-    const myId = '3f328652-f4bb-4254-972a-d70489794a25' //Shohei Ohtani
-    //const myId = 'e857624e-ace4-44a5-8c9f-b9203f10df1f' //Tomoharu Kobayashi
     //userIdをクエリパラメータに設定
     const response = await fetch(`${process.env.API_ENDPOINT}/matched?userId=${myId}`, {
       method: 'GET',
@@ -43,6 +41,7 @@ export const Matched = () => {
     console.log(resJson)
   }
 
+  //ポージ読み込み時にレンダリング
   useEffect(() => {
     const run = fetchMatched()
   }, [])
@@ -51,8 +50,6 @@ export const Matched = () => {
     <>
       <Header />
       <p>This is a Matched component.</p>
-      {/* <button onClick={fetchMatched}>See matched members!</button> */}
-      {/* 案① <MatchedUser user={matcheduser} /> を作る(根本解決ではないかも) */}
       <div>
         {Object.keys(matchedUsers).map((userId) => (
           <div key={userId} className={classes.container}>
@@ -66,5 +63,3 @@ export const Matched = () => {
     </>
   )
 }
-// base64エンコードは下記を使用
-// https://web-toolbox.dev/tools/base64-encode-image
