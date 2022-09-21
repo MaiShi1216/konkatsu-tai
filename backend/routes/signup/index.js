@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
 module.exports = router
 
 const validateUserInfo = (userInfo) => {
-  const neededKeys = ['name', 'password', 'nickname', 'mail', 'mode', 'photo', 'selfIntro', 'favorites', 'hobbies']
+  const neededKeys = ['name', 'password', 'nickname', 'email', 'isSecretMode', 'photo', 'selfIntro', 'favorites', 'hobbies']
 
   // for内部でreturnする場合は、forEachはarray.mapは不適切なのでfor ofを使用
   for (const key of neededKeys) {

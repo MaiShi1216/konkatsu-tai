@@ -12,7 +12,8 @@ export const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path={paths.sample} element={<Sample />} />
-          <Route path={paths.signup} element={<Signup />} />
+          <Route path={paths.signup} element={<Signup mode="create" />} />
+          <Route path={paths.edit} element={<Signup mode="edit" />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>

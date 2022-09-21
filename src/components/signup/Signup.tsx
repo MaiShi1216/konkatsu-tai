@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import React, { useState, FC } from 'react'
 import classes from '@/components/signup/style.css'
 import { Header } from '@/components/header/Header'
 
@@ -32,28 +33,36 @@ type UserInfoType = {
   [key in string]: UserInfoContentType
 }
 
+type PropsType = {
+  mode: 'create' | 'edit'
+}
+
 const originHobbiesList: string[] = ['soccer', 'tennis', 'basketball', 'golf', 'baseball', 'movie', 'music']
 const originFavoriteList: string[] = ['kind', 'passive', 'friendly', 'outgoing', 'funny', 'polite', 'honest']
 const privateInfos = ['name', 'password', 'email']
 
-export const Signup = () => {
+export const Signup: FC<PropsType> = (props) => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState)
   const [name, setName] = useState<string>(undefined)
   const [email, setEmail] = useState<string>(undefined)
   const [password, setPassword] = useState<string>(undefined)
   const [nickname, setNickname] = useState<string>(undefined)
-  const [hobbies, handleHobbies] = useCheckBoxes([])
-  const [favorites, handleFavorites] = useCheckBoxes([])
-  const [isSecret, setIsSecret] = useState<boolean>(false)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const [hobbies, handleHobbies] = useCheckBoxes(props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].hobbies)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const [favorites, handleFavorites] = useCheckBoxes(props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].favorites)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const [isSecret, setIsSecret] = useState<boolean>(props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].isSecretMode)
   const [image, setImage] = useState<File>(undefined)
-  const [selfIntro, setSelfIntro] = useState<string>(undefined)
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const [selfIntro, setSelfIntro] = useState<string>(props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].selfIntro)
 
   const handleSignup = async () => {
     const b64img = await encodeImgToBase64()
 
     const newUserInfo: UserInfoContentType = {
-      name,
-      email,
+      name: props.mode === 'create' ? name : undefined,
+      email: props.mode === 'create' ? email : undefined,
       password,
       nickname,
       hobbies,
@@ -65,7 +74,7 @@ export const Signup = () => {
 
     try {
       const response = await fetch(`${process.env.API_ENDPOINT}/signup`, {
-        method: 'POST',
+        method: props.mode === 'create' ? 'POST' : 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUserInfo),
       })
@@ -75,7 +84,7 @@ export const Signup = () => {
 
         const storedInfo: UserInfoType = { [resJson.userId]: newUserInfo }
         setUserInfo(storedInfo)
-        window.location.href = '/'
+        // window.location.href = '/'
       } else {
         console.error('err')
       }
@@ -100,20 +109,36 @@ export const Signup = () => {
     <div className={classes.container}>
       <Header />
 
-      <h2>Sign Up</h2>
-      <h3>Enter your information</h3>
-      <Form placeholder="Name" label="Name" type="text" setter={setName} editEnable={true} />
-      <Form placeholder="Mail" label="Mail" type="text" setter={setEmail} editEnable={true} />
-      <Form placeholder="Password" label="Password" type="password" setter={setPassword} editEnable={true} />
-      <Form placeholder="Nickname" label="Nickname" type="text" setter={setNickname} editEnable={true} />
+      <h2>{props.mode === 'create' ? 'Sign Up' : 'Edit'}</h2>
+      <h3>{props.mode === 'create' ? 'Enter your information' : 'Edit your information'}</h3>
+      <Form placeholder="Name" label="Name" type="text" setter={setName} editEnable={props.mode === 'create' ? true : false} />
+      <Form placeholder="Mail" label="Mail" type="text" setter={setEmail} editEnable={props.mode === 'create' ? true : false} />
+      <Form
+        placeholder={props.mode === 'create' ? 'Password' : 'Enter current or new password'}
+        label="Password"
+        type="password"
+        setter={setPassword}
+        editEnable={true}
+      />
+      <Form
+        placeholder="Nickname"
+        label="Nickname"
+        type="text"
+        setter={setNickname}
+        editEnable={true}
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        initValue={props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].nickname}
+      />
 
-      <h3>Enter your introduction</h3>
+      <h3>{props.mode === 'create' ? 'Enter your introduction' : 'Edit your introduction'}</h3>
       <textarea
         cols={30}
         rows={10}
         className={classes.selfIntro}
         onChange={(e) => setSelfIntro(e.target.value)}
         placeholder="Enter your introduction"
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        defaultValue={props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].selfIntro}
       ></textarea>
 
       <div className={classes.photoUpload}>
@@ -132,7 +157,16 @@ export const Signup = () => {
         <h3>Select your hobbies</h3>
         <div className={classes.buttonsContainer}>
           {originHobbiesList.map((hobby) => (
-            <CheckButton key={hobby} label={hobby} type="hobby" setter={handleHobbies} initChecked={false} />
+            <CheckButton
+              key={hobby}
+              label={hobby}
+              type="hobby"
+              setter={handleHobbies}
+              initChecked={
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-argument
+                props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].hobbies.some((element) => element === hobby)
+              }
+            />
           ))}
         </div>
       </div>
@@ -141,7 +175,16 @@ export const Signup = () => {
         <h3>Select your favorite types</h3>
         <div className={classes.buttonsContainer}>
           {originFavoriteList.map((favorite) => (
-            <CheckButton key={favorite} label={favorite} type="favorite" setter={handleFavorites} initChecked={false} />
+            <CheckButton
+              key={favorite}
+              label={favorite}
+              type="favorite"
+              setter={handleFavorites}
+              initChecked={
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-argument
+                props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].favorites.some((element) => element === favorite)
+              }
+            />
           ))}
         </div>
       </div>
@@ -154,12 +197,14 @@ export const Signup = () => {
           onChange={(e) => {
             setIsSecret(e.target.checked)
           }}
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          defaultChecked={props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].isSecretMode}
         />
         <label htmlFor="Secret">Secret Mode</label>
       </div>
       <div>
         <button className={classes.submitButton} onClick={handleSignup}>
-          Sign up
+          {props.mode === 'create' ? 'Sign up' : 'Submit'}
         </button>
       </div>
 
