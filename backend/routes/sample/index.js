@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   res.status(200)
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const body = usersInfo.a001
+  const body = usersInfo['3f328652-f4bb-4254-972a-d70489794a25']
 
   setTimeout(() => res.send(body), 500)
 })
