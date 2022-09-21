@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import classes from '@/components/chat/style.css'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
+import { iteratorSymbol } from 'immer/dist/internal'
 
 type ResJson = {
   content: string
@@ -36,13 +37,21 @@ export const Chat = () => {
       method: 'GET',
     })
     const resJson: ResJson = await response.json()
+    setMessage(resJson)
+    const chatLen = Object.keys(resJson).length
     console.log(resJson)
     console.log(`aaa${resJson}`)
     console.log(`bbb${resJson[0]}`)
     console.log(`ccc${resJson[0].content}`)
+    console.log(`length${chatLen}`)
 
     //setMessage(resJson.content)
-    setMessage(resJson[0].content + resJson[1].content)
+    let chatMessage
+    for (let i = 0; i < chatLen; i++) {
+      chatMessage = chatMessage + resJson[i].content
+    }
+    //setMessage(resJson[0].content + resJson[1].content)
+    //setMessage(chatMessage)
   }
 
   return (
@@ -51,8 +60,13 @@ export const Chat = () => {
       <h2>Chat</h2>
       <p>This is a chat component.</p>
       <button onClick={fetchChat}>Execute fetch!</button>
-      <p>{message}</p>
-
+      <div>
+        {(() => {
+          for (let j = 0; j < 5; j++) {
+            message.map( => <p>message[j].content</p>)
+          }
+        })()}
+      </div>
       <h3>Input your message</h3>
       <textarea cols={40} rows={3} onChange={(e) => setSendMessage(e.target.value)}></textarea>
       <div>

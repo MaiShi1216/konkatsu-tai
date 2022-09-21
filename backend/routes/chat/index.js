@@ -6,10 +6,10 @@ const fs = require('fs')
 const usersInfo = require('../../userInfo.json')
 const chatHistory = require('../../chatHistory.json')
 
-router.post('/chat', (req, res) => {
+router.post('/', (req, res) => {
   let body = undefined
 
-  console.log(body)
+  console.log('chat update')
   try {
     const newChat = req.body
     updateDataBase('./backend/chatHistory.json', newChat)
@@ -39,7 +39,11 @@ router.get('/', (req, res) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   //const body = usersInfo.a001
-  const body = chatHistory.a001a002
+  //const body = chatHistory.a001a002
+  const body = chatHistory.chats.filter(function (chatItem) {
+    if ((chatItem.personId1 == 'a001' && chatItem.personId2 == 'a002') || (chatItem.personId1 == 'a002' && chatItem.personId2 == 'a001'))
+      return true
+  })
 
   console.log(body)
 
