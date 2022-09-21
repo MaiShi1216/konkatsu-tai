@@ -1,23 +1,11 @@
 import React from 'react'
 import classes from '@/components/home/style.css'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
+import { UserInfoContentType } from '@/utils/types'
 
 type Props = {
-  User: UserInfo
+  User: UserInfoContentType
   transferToProfile: () => void
-}
-
-type UserInfo = {
-  name?: string
-  password?: string
-  email?: string
-  nickname: string
-  photo: string
-  favorites: string[]
-  hobbies: string[]
-  likedNum: number
-  selfIntro: string
-  isSecretMode: boolean
 }
 
 export const ProfileCard = (props: Props) => {
