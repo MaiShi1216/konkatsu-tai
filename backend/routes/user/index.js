@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
 const fs = require('fs')
@@ -13,7 +15,6 @@ router.post('/', (req, res) => {
 
   try {
     const newUserId = createUserId()
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const newUser = { [newUserId]: req.body }
     createUserInDatabase('./backend/userInfo.json', newUser)
 
@@ -37,7 +38,6 @@ router.put('/', (req, res) => {
   }
 
   try {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     updateUserInDatabase('./backend/userInfo.json', req.query.userId, req.body)
     res.status(200)
     body = { message: 'ok' }
@@ -62,7 +62,6 @@ const validateUserInfo = (userInfo, method) => {
 
   // for内部でreturnする場合は、forEachやarray.mapは不適切なのでfor ofを使用
   for (const key of neededKeys) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (userInfo[key] === undefined || userInfo[key] === '') {
       return false
     }
@@ -82,26 +81,21 @@ const createUserId = () => {
 }
 
 const createUserInDatabase = (filePath, newValue) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const currentValues = JSON.parse(fs.readFileSync(filePath))
   const newValues = { ...currentValues, ...newValue }
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   fs.writeFileSync(filePath, JSON.stringify(newValues, null, 2), 'utf8')
 }
 
 const updateUserInDatabase = (filePath, targetUserId, newUserInfo) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const userInfoDatabase = JSON.parse(fs.readFileSync(filePath))
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   let targetUserInfo = userInfoDatabase[targetUserId]
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+  if (!targetUserInfo) {
+    throw 'Target user is not existed.'
+  }
   Object.keys(newUserInfo).map((info) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     targetUserInfo[info] = newUserInfo[info]
   })
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   userInfoDatabase[targetUserId] = targetUserInfo
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   fs.writeFileSync(filePath, JSON.stringify(userInfoDatabase, null, 2), 'utf8')
 }
