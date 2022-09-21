@@ -23,7 +23,7 @@ export const ErrorPage = () => {
             <Link to="/signup">Sign up</Link>
           </li>
           <li>
-            <Link to="/home">Member list</Link>
+            <Link to="/">Member list</Link>
           </li>
 
           <li>
