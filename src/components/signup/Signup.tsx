@@ -70,6 +70,7 @@ export const Signup: FC<PropsType> = (props) => {
       isSecretMode: isSecret,
       photo: b64img,
       selfIntro,
+      likedNum: 0,
     }
 
     try {
