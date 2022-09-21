@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
 const sampleRouter = require('./sample')
-const signupRouter = require('./signup')
+const userRouter = require('./user')
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 router.use('/sample', sampleRouter)
-router.use('/signup', signupRouter)
+router.use('/user', userRouter)
 
 module.exports = router

@@ -48,9 +48,9 @@ export const Signup: FC<PropsType> = (props) => {
   const [password, setPassword] = useState<string>(undefined)
   const [nickname, setNickname] = useState<string>(undefined)
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const [hobbies, handleHobbies] = useCheckBoxes(props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].hobbies)
+  const [hobbies, handleHobbies] = useCheckBoxes(props.mode === 'create' ? [] : userInfo[Object.keys(userInfo)[0]].hobbies)
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const [favorites, handleFavorites] = useCheckBoxes(props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].favorites)
+  const [favorites, handleFavorites] = useCheckBoxes(props.mode === 'create' ? [] : userInfo[Object.keys(userInfo)[0]].favorites)
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const [isSecret, setIsSecret] = useState<boolean>(props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].isSecretMode)
   const [image, setImage] = useState<File>(undefined)
@@ -73,11 +73,16 @@ export const Signup: FC<PropsType> = (props) => {
     }
 
     try {
-      const response = await fetch(`${process.env.API_ENDPOINT}/signup`, {
-        method: props.mode === 'create' ? 'POST' : 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newUserInfo),
-      })
+      const response = await fetch(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        `${process.env.API_ENDPOINT}/user?userId=${Object.keys(userInfo)[0]}`,
+        // `${process.env.API_ENDPOINT}/user${props.mode === 'create' ? null : `?userId=${Object.keys(userInfo)[0]}`}`,
+        {
+          method: props.mode === 'create' ? 'POST' : 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newUserInfo),
+        },
+      )
       if (response.status === 200) {
         privateInfos.forEach((key) => delete newUserInfo[key])
         const resJson: ResJson = await response.json()
