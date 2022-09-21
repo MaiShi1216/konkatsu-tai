@@ -24,7 +24,7 @@ type UserInfoContentType = {
   photo: string
   favorites: string[]
   hobbies: string[]
-  likedNum?: number
+  likedNum: number
   selfIntro: string
   isSecretMode: boolean
 }
@@ -70,14 +70,13 @@ export const Signup: FC<PropsType> = (props) => {
       isSecretMode: isSecret,
       photo: b64img,
       selfIntro,
-      likedNum: 0,
+      likedNum: props.mode === 'create' ? 0 : undefined,
     }
 
     try {
       const response = await fetch(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        `${process.env.API_ENDPOINT}/user?userId=${Object.keys(userInfo)[0]}`,
-        // `${process.env.API_ENDPOINT}/user${props.mode === 'create' ? null : `?userId=${Object.keys(userInfo)[0]}`}`,
+        `${process.env.API_ENDPOINT}/user${props.mode === 'create' ? '' : `?userId=${Object.keys(userInfo)[0]}`}`,
         {
           method: props.mode === 'create' ? 'POST' : 'PUT',
           headers: { 'Content-Type': 'application/json' },
