@@ -10,11 +10,12 @@ router.post('/', (req, res) => {
     res.send()
     return
   }
-
+  console.log('sign up start')
   try {
     const newUserId = createUserId()
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const newUser = { [newUserId]: req.body }
+    console.log(newUser)
     updateDataBase('./backend/userInfo.json', newUser)
 
     res.status(200)
