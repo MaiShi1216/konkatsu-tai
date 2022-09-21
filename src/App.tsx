@@ -7,6 +7,7 @@ import { Sample } from '@/components/sample/Sample'
 import { Signup } from '@/components/signup/SignUp'
 import { Home } from '@/components/home/Home'
 import { Matched } from '@/components/matched/Matched'
+import { ErrorPage } from '@/components/errorPage/ErrorPage'
 
 export const App = () => {
   return (
@@ -18,6 +19,7 @@ export const App = () => {
           <Route path={paths.edit} element={<Signup mode="edit" />} />
           <Route path={paths.home} element={<Home />} />
           <Route path={paths.matched} element={<Matched />} />
+          <Route path={'*'} element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
