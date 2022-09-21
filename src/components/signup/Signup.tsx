@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useState, FC } from 'react'
 import classes from '@/components/signup/style.css'
 import { Header } from '@/components/header/Header'
