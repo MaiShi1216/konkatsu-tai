@@ -13,22 +13,27 @@ export const ErrorPage = () => {
   return (
     <>
       <Header />
-
       <div className={classes.container}>
         <h2>404 Page not found.</h2>
         <ul>
-          <li>
-            <Link to="/home">Home</Link>
-          </li>
           <li>
             <Link to="/signin">Sign in</Link>
           </li>
           <li>
             <Link to="/signup">Sign up</Link>
           </li>
+          <li>
+            <Link to="/home">Member list</Link>
+          </li>
+
+          <li>
+            <Link to="/matched">Matched members</Link>
+          </li>
         </ul>
       </div>
-      <Footer />
+      <div className={classes.footerContainer}>
+        <Footer />
+      </div>
     </>
   )
 }
