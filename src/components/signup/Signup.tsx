@@ -44,6 +44,7 @@ export const Signup = () => {
       mode: isSecret,
       photo: b64img,
       selfIntro,
+      likedNum: 0,
     }
 
     try {

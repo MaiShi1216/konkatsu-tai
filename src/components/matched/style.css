@@ -1,0 +1,37 @@
+.container {
+    display: grid;
+    grid-template-rows: 100px 100px;
+    grid-template-columns: 200px 1fr;
+    grid-template-areas:
+        "areaA areaB areaB"
+        "areaA areaC areaC";
+    /* grid-template-columns: 200px 200px */
+}
+
+.name {
+    grid-area: areaB;
+    /* margin: auto; */
+    vertical-align: middle;
+    text-align: left;
+    /* grid-row: 1; grid-column: 2; */
+    /* background: #f88; */
+}
+
+.photo {
+    grid-area: areaA;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    /* grid-row: 1; grid-column: 1; */
+    /* background: #8f8; */
+}
+
+.message {
+    grid-area: areaC;
+    /* margin: auto; */
+    vertical-align: middle;
+    text-align: left;
+    /* grid-row: 2; grid-column: 2; */
+    /* background: #88f; */
+}
