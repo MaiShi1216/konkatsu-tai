@@ -10,36 +10,35 @@ import classes from '@/components/matched/style.css'
 // console.log(userInfoState)
 // console.log(useRecoilState(userInfoState))
 
-type ResJson = {
+type MatchedUsersType = {
+  [key in string]: UserInfo
+}
+
+type UserInfo = {
   name: string
   password: string
   nickname: string
   photo: string
-  sex: string
-  birthday: string
   email: string
-  favoriteTypes: string
-  hobbies: string
+  favoriteTypes: string[]
+  hobbies: string[]
   likedNum: number
   selfIntro: string
-  isHidden: any
+  isHidden: boolean
 }
 
 export const Matched = () => {
-  const [matchedUsers, setMatchedUsers] = useState<object>([])
+  const [matchedUsers, setMatchedUsers] = useState<MatchedUsersType>({})
 
   const fetchMatched = async (): Promise<void> => {
     //userIdは手打ち。最終的にはグローバル変数で受け取る？
-    const myId = 'a001'
+    const myId = '3f328652-f4bb-4254-972a-d70489794a25' //Shohei Ohtani
+    //const myId = 'e857624e-ace4-44a5-8c9f-b9203f10df1f' //Tomoharu Kobayashi
     //userIdをクエリパラメータに設定
-    const query_params = new URLSearchParams({
-      userId: myId,
-    })
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    const response = await fetch(`${process.env.API_ENDPOINT}/matched?${query_params}`, {
+    const response = await fetch(`${process.env.API_ENDPOINT}/matched?userId=${myId}`, {
       method: 'GET',
     })
-    const resJson: object = await response.json()
+    const resJson: MatchedUsersType = await response.json()
     setMatchedUsers(resJson)
     console.log(resJson)
   }
@@ -48,34 +47,20 @@ export const Matched = () => {
     const run = fetchMatched()
   }, [])
 
-  //オブジェクト表示用の関数
-  const result = mapObj()=> {
-    Object.keys(matchedUsers).map((i) => (
-    const matchedUser: ResJson = matchedUsers[i]
-        return(
-        < div key = { i } className = { classes.container } >
-      <img src={matchedUser.photo} className={classes.photo}></img>
-      <h3 className={classes.name}>{mmatchedUser.name}</h3>
-      <p className={classes.message}>{matchedUser.selfIntro}</p>
-          </div>
-        )
-  ))
-}
-
   return (
     <>
       <Header />
       <p>This is a Matched component.</p>
+      {/* <button onClick={fetchMatched}>See matched members!</button> */}
+      {/* 案① <MatchedUser user={matcheduser} /> を作る(根本解決ではないかも) */}
       <div>
-        {result}
-        {/* {Object.keys(matchedUsers).map((i) => (
-          //const matchedUser:ResJson=matchedUsers[i]
-          <div key={i} className={classes.container}>
-            <img src={matchedUsers[i].photo} className={classes.photo}></img>
-            <h3 className={classes.name}>{matchedUsers[i].name}</h3>
-            <p className={classes.message}>{matchedUsers[i].selfIntro}</p>
+        {Object.keys(matchedUsers).map((userId) => (
+          <div key={userId} className={classes.container}>
+            <img src={matchedUsers[userId].photo} className={classes.photo}></img>
+            <h3 className={classes.name}>{matchedUsers[userId].name}</h3>
+            <p className={classes.message}>{matchedUsers[userId].selfIntro}</p>
           </div>
-        ))} */}
+        ))}
       </div>
       <Footer />
     </>
