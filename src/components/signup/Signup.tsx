@@ -15,13 +15,30 @@ type ResJson = {
   userId: string
 }
 
+type UserInfoContentType = {
+  name?: string
+  password?: string
+  email?: string
+  nickname: string
+  photo: string
+  favorites: string[]
+  hobbies: string[]
+  likedNum?: number
+  selfIntro: string
+  isSecretMode: boolean
+}
+
+type UserInfoType = {
+  [key in string]: UserInfoContentType
+}
+
 const originHobbiesList: string[] = ['soccer', 'tennis', 'basketball', 'golf', 'baseball', 'movie', 'music']
 const originFavoriteList: string[] = ['kind', 'passive', 'friendly', 'outgoing', 'funny', 'polite', 'honest']
-const privateInfos = ['name', 'password', 'mail']
+const privateInfos = ['name', 'password', 'email']
 
 export const Signup = () => {
   const [name, setName] = useState<string>(undefined)
-  const [mail, setMail] = useState<string>(undefined)
+  const [email, setEmail] = useState<string>(undefined)
   const [password, setPassword] = useState<string>(undefined)
   const [nickname, setNickname] = useState<string>(undefined)
   const [hobbies, handleHobbies] = useCheckBoxes([])
@@ -34,14 +51,14 @@ export const Signup = () => {
   const handleSignup = async () => {
     const b64img = await encodeImgToBase64()
 
-    const newUserInfo = {
+    const newUserInfo: UserInfoContentType = {
       name,
-      mail,
+      email,
       password,
       nickname,
       hobbies,
       favorites,
-      mode: isSecret,
+      isSecretMode: isSecret,
       photo: b64img,
       selfIntro,
     }
@@ -56,7 +73,7 @@ export const Signup = () => {
         privateInfos.forEach((key) => delete newUserInfo[key])
         const resJson: ResJson = await response.json()
 
-        const storedInfo = { [resJson.userId]: newUserInfo }
+        const storedInfo: UserInfoType = { [resJson.userId]: newUserInfo }
         setUserInfo(storedInfo)
         window.location.href = '/'
       } else {
@@ -67,13 +84,13 @@ export const Signup = () => {
     }
   }
 
-  const encodeImgToBase64 = () => {
+  const encodeImgToBase64 = (): Promise<string> => {
     return new Promise((resolve, reject) => {
       if (image === undefined) reject('no image uploaded')
 
       const reader = new FileReader()
       reader.onload = () => {
-        resolve(reader.result)
+        resolve(reader.result as string)
       }
       reader.readAsDataURL(image)
     })
@@ -86,7 +103,7 @@ export const Signup = () => {
       <h2>Sign Up</h2>
       <h3>Enter your information</h3>
       <Form placeholder="Name" label="Name" type="text" setter={setName} editEnable={true} />
-      <Form placeholder="Mail" label="Mail" type="text" setter={setMail} editEnable={true} />
+      <Form placeholder="Mail" label="Mail" type="text" setter={setEmail} editEnable={true} />
       <Form placeholder="Password" label="Password" type="password" setter={setPassword} editEnable={true} />
       <Form placeholder="Nickname" label="Nickname" type="text" setter={setNickname} editEnable={true} />
 
