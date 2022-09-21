@@ -11,7 +11,6 @@
     "test": "jest --coverage"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.2.0",
     "@reduxjs/toolkit": "^1.8.1",
     "@techstark/opencv-js": "^4.6.0-release.1",
     "crypto-browserify": "^3.12.0",

@@ -8,10 +8,10 @@ type ResJson = {
 }
 
 export const Signin = () => {
-  const [message, setMessage] = useState<string>(undefined)
-  const [isShown, setIsSHown] = useState(false)
+  const [mail, setMail] = useState<string>(undefined)
+  const [isShown, setIsShown] = useState(false)
   const togglePassword = () => {
-    setIsSHown((isShown) => !isShown)
+    setIsShown((isShown) => !isShown)
   }
 
   const fetchSample = async (): Promise<void> => {
@@ -19,7 +19,7 @@ export const Signin = () => {
       method: 'POST',
     })
     const resJson: ResJson = await response.json()
-    setMessage(resJson.name)
+    setMail(resJson.name)
   }
 
   return (
@@ -29,10 +29,10 @@ export const Signin = () => {
       <input
         placeholder="Enter your email adress"
         onChange={(e) => {
-          setMessage(e.target.value)
+          setMail(e.target.value)
         }}
       />
-      <p>{message}</p>
+      <p>{mail}</p>
       <h3>Password</h3>
       <form className="form" onSubmit={(e) => e.preventDefault()}>
         <input type={isShown ? 'text' : 'password'} placeholder="Enter your Password" className="input" />
