@@ -52,6 +52,7 @@ router.put('/', (req, res) => {
 module.exports = router
 
 const validateUserInfo = (userInfo, method) => {
+  // TODO: 登録済みのmailアドレスか確認する
   let neededKeys
   if (method === 'POST') {
     neededKeys = ['name', 'password', 'nickname', 'email', 'isSecretMode', 'photo', 'selfIntro', 'favorites', 'hobbies', 'likedNum']
