@@ -62,8 +62,9 @@ export const Signup: FC<PropsType> = (props) => {
       if (response.status === 200) {
         privateInfos.forEach((key) => delete newUserInfo[key])
         const resJson: ResJson = await response.json()
+        const userId = props.mode === 'create' ? resJson.userId : Object.keys(userInfo)[0]
 
-        const storedInfo: UserInfoType = { [resJson.userId]: newUserInfo }
+        const storedInfo: UserInfoType = { [userId]: newUserInfo }
         setUserInfo(storedInfo)
         window.location.href = '/'
       } else {
@@ -92,8 +93,20 @@ export const Signup: FC<PropsType> = (props) => {
 
       <h2>{props.mode === 'create' ? 'Sign Up' : 'Edit'}</h2>
       <h3>{props.mode === 'create' ? 'Enter your information' : 'Edit your information'}</h3>
-      <Form placeholder="Name" label="Name" type="text" setter={setName} editEnable={props.mode === 'create' ? true : false} />
-      <Form placeholder="Mail" label="Mail" type="text" setter={setEmail} editEnable={props.mode === 'create' ? true : false} />
+      <Form
+        placeholder={props.mode === 'create' ? 'Name' : 'Cannot be changed'}
+        label="Name"
+        type="text"
+        setter={setName}
+        editEnable={props.mode === 'create' ? true : false}
+      />
+      <Form
+        placeholder={props.mode === 'create' ? 'Mail' : 'Cannot be changed'}
+        label="Mail"
+        type="text"
+        setter={setEmail}
+        editEnable={props.mode === 'create' ? true : false}
+      />
       <Form
         placeholder={props.mode === 'create' ? 'Password' : 'Enter current or new password'}
         label="Password"
