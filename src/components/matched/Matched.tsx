@@ -49,7 +49,6 @@ export const Matched = () => {
   return (
     <>
       <Header />
-      <p>This is a Matched component.</p>
       <div>
         {Object.keys(matchedUsers).map((userId) => (
           <div key={userId} className={classes.container}>
