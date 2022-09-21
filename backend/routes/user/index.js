@@ -35,21 +35,18 @@ router.put('/', (req, res) => {
     res.send()
     return
   }
-  // try {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  // const newUser = { [req.query.userId]: req.body }
-  const updatedUser = { 'a9a88123-c0bb-4807-b122-bc7363a91bf1': req.body }
-  updateUserInDatabase('./backend/userInfo.json', updatedUser)
 
-  //   res.status(200)
-  //   body = { message: 'ok', userId: newUserId }
-  // } catch (err) {
-  //   console.log(err)
-  //   res.status(500)
-  //   body = { message: 'Internal server error' }
-  // }
-  // setTimeout(() => res.send(body))
-  res.send({ message: 'OK' })
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    updateUserInDatabase('./backend/userInfo.json', req.query.userId, req.body)
+    res.status(200)
+    body = { message: 'ok' }
+  } catch (err) {
+    console.log(err)
+    res.status(500)
+    body = { message: 'Internal server error' }
+  }
+  res.send(body)
 })
 
 module.exports = router
@@ -57,12 +54,12 @@ module.exports = router
 const validateUserInfo = (userInfo, method) => {
   let neededKeys
   if (method === 'POST') {
-    neededKeys = ['name', 'password', 'nickname', 'email', 'isSecretMode', 'photo', 'selfIntro', 'favorites', 'hobbies']
+    neededKeys = ['name', 'password', 'nickname', 'email', 'isSecretMode', 'photo', 'selfIntro', 'favorites', 'hobbies', 'likedNum']
   } else {
     neededKeys = ['password', 'nickname', 'isSecretMode', 'photo', 'selfIntro', 'favorites', 'hobbies']
   }
 
-  // for内部でreturnする場合は、forEachはarray.mapは不適切なのでfor ofを使用
+  // for内部でreturnする場合は、forEachやarray.mapは不適切なのでfor ofを使用
   for (const key of neededKeys) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (userInfo[key] === undefined || userInfo[key] === '') {
@@ -91,12 +88,19 @@ const createUserInDatabase = (filePath, newValue) => {
   fs.writeFileSync(filePath, JSON.stringify(newValues, null, 2), 'utf8')
 }
 
-const updateUserInDatabase = (filePath, newValue) => {
-  // DBのアップデート
+const updateUserInDatabase = (filePath, targetUserId, newUserInfo) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const currentValues = JSON.parse(fs.readFileSync(filePath))
+  const userInfoDatabase = JSON.parse(fs.readFileSync(filePath))
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const currentUserInfo = currentValues.newValue[Object.keys[0]]
-  // console.log(currentUserInfo)
-  const newValues = { ...currentValues, ...newValue }
+  let targetUserInfo = userInfoDatabase[targetUserId]
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+  Object.keys(newUserInfo).map((info) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    targetUserInfo[info] = newUserInfo[info]
+  })
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  userInfoDatabase[targetUserId] = targetUserInfo
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  fs.writeFileSync(filePath, JSON.stringify(userInfoDatabase, null, 2), 'utf8')
 }
