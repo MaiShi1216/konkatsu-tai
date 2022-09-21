@@ -23,34 +23,34 @@ export const Signin = () => {
   }
 
   return (
-    <>
-      <div className={classes.container}>
-        <Header />
-        <h3>eMail adress</h3>
-        <input
-          placeholder="Enter your email adress"
-          onChange={(e) => {
-            setMessage(e.target.value)
-          }}
-        />
-        <p>{message}</p>
-        <h3>Password</h3>
-        <input placeholder="Enter your Password" />
+    <div className={classes.container}>
+      <Header />
+      <h3>eMail adress</h3>
+      <input
+        placeholder="Enter your email adress"
+        onChange={(e) => {
+          setMessage(e.target.value)
+        }}
+      />
+      <p>{message}</p>
+      <h3>Password</h3>
+      <form className="form" onSubmit={(e) => e.preventDefault()}>
+        <input type={isShown ? 'text' : 'password'} placeholder="Enter your Password" className="input" />
         <div className="checkbox-container">
           <label htmlFor="checkbox">Show password?</label>
           <input id="checkbox" type="checkbox" checked={isShown} onChange={togglePassword} />
         </div>
+      </form>
 
-        <button className={classes.submitButton} onClick={fetchSample}>
-          Sign In
-        </button>
+      <button className={classes.submitButton} onClick={fetchSample}>
+        Sign In
+      </button>
 
-        <button className={classes.submitButton} onClick={fetchSample}>
-          Sign Up
-        </button>
+      <button className={classes.submitButton} onClick={fetchSample}>
+        Sign Up
+      </button>
 
-        <Footer />
-      </div>
-    </>
+      <Footer />
+    </div>
   )
 }
