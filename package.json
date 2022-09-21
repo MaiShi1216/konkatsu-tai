@@ -22,6 +22,8 @@
     "react-redux": "^8.0.0",
     "react-router-dom": "^6.3.0",
     "react-xml-parser": "^1.1.8",
+    "recoil": "^0.7.5",
+    "recoil-persist": "^4.2.0",
     "stream-browserify": "^3.0.0"
   },
   "devDependencies": {
