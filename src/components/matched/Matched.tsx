@@ -43,7 +43,9 @@ export const Matched = () => {
 
   //ページ読み込み時にレンダリング
   useEffect(() => {
-    const run = fetchMatched()
+    fetchMatched().catch((err) => {
+      console.error(err)
+    })
   }, [])
 
   return (
