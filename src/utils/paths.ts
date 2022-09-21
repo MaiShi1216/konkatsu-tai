@@ -3,4 +3,5 @@ export const paths = {
   signup: '/signup',
   home: '/',
   matched: '/matched',
+  edit: '/edit',
 }
