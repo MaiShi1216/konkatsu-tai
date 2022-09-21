@@ -41,7 +41,7 @@ export const Matched = () => {
     console.log(resJson)
   }
 
-  //ポージ読み込み時にレンダリング
+  //ページ読み込み時にレンダリング
   useEffect(() => {
     const run = fetchMatched()
   }, [])
