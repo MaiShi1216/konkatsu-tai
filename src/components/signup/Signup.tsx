@@ -2,35 +2,16 @@
 import React, { useState, FC } from 'react'
 import classes from '@/components/signup/style.css'
 import { Header } from '@/components/header/Header'
-
 import { Footer } from '@/components/footer/Footer'
 import { Form } from '@/components/form/Form'
 import { CheckButton } from '@/components/checkButton/CheckButton'
-
 import { useCheckBoxes } from '@/components/signup/useCheckBoxes'
-
 import { useRecoilState } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
+import { UserInfoType, UserInfoContentType } from '@/utils/types'
 
 type ResJson = {
   userId: string
-}
-
-type UserInfoContentType = {
-  name?: string
-  password?: string
-  email?: string
-  nickname: string
-  photo: string
-  favorites: string[]
-  hobbies: string[]
-  likedNum: number
-  selfIntro: string
-  isSecretMode: boolean
-}
-
-type UserInfoType = {
-  [key in string]: UserInfoContentType
 }
 
 type PropsType = {
@@ -42,19 +23,15 @@ const originFavoriteList: string[] = ['kind', 'passive', 'friendly', 'outgoing',
 const privateInfos = ['name', 'password', 'email']
 
 export const Signup: FC<PropsType> = (props) => {
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState)
+  const [userInfo, setUserInfo] = useRecoilState<UserInfoType>(userInfoState)
   const [name, setName] = useState<string>(undefined)
   const [email, setEmail] = useState<string>(undefined)
   const [password, setPassword] = useState<string>(undefined)
   const [nickname, setNickname] = useState<string>(undefined)
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const [hobbies, handleHobbies] = useCheckBoxes(props.mode === 'create' ? [] : userInfo[Object.keys(userInfo)[0]].hobbies)
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const [favorites, handleFavorites] = useCheckBoxes(props.mode === 'create' ? [] : userInfo[Object.keys(userInfo)[0]].favorites)
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const [isSecret, setIsSecret] = useState<boolean>(props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].isSecretMode)
   const [image, setImage] = useState<File>(undefined)
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const [selfIntro, setSelfIntro] = useState<string>(props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].selfIntro)
 
   const handleSignup = async () => {
@@ -75,7 +52,6 @@ export const Signup: FC<PropsType> = (props) => {
 
     try {
       const response = await fetch(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         `${process.env.API_ENDPOINT}/user${props.mode === 'create' ? '' : `?userId=${Object.keys(userInfo)[0]}`}`,
         {
           method: props.mode === 'create' ? 'POST' : 'PUT',
@@ -89,7 +65,7 @@ export const Signup: FC<PropsType> = (props) => {
 
         const storedInfo: UserInfoType = { [resJson.userId]: newUserInfo }
         setUserInfo(storedInfo)
-        // window.location.href = '/'
+        window.location.href = '/'
       } else {
         console.error('err')
       }
@@ -131,7 +107,6 @@ export const Signup: FC<PropsType> = (props) => {
         type="text"
         setter={setNickname}
         editEnable={true}
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         initValue={props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].nickname}
       />
 
@@ -142,7 +117,6 @@ export const Signup: FC<PropsType> = (props) => {
         className={classes.selfIntro}
         onChange={(e) => setSelfIntro(e.target.value)}
         placeholder="Enter your introduction"
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         defaultValue={props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].selfIntro}
       ></textarea>
 
@@ -168,7 +142,6 @@ export const Signup: FC<PropsType> = (props) => {
               type="hobby"
               setter={handleHobbies}
               initChecked={
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-argument
                 props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].hobbies.some((element) => element === hobby)
               }
             />
@@ -186,7 +159,6 @@ export const Signup: FC<PropsType> = (props) => {
               type="favorite"
               setter={handleFavorites}
               initChecked={
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-argument
                 props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].favorites.some((element) => element === favorite)
               }
             />
@@ -202,7 +174,6 @@ export const Signup: FC<PropsType> = (props) => {
           onChange={(e) => {
             setIsSecret(e.target.checked)
           }}
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           defaultChecked={props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].isSecretMode}
         />
         <label htmlFor="Secret">Secret Mode</label>
