@@ -90,3 +90,10 @@
   background: #60a0b0;
   color: #FFF;
 }
+
+.PasswordReveal {
+  left: auto;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
