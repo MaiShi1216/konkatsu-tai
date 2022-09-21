@@ -1,5 +1,6 @@
-import { atom } from 'recoil'
+import { atom, RecoilState } from 'recoil'
 import { recoilPersist } from 'recoil-persist'
+import { UserInfoType } from '@/utils/types'
 
 const { persistAtom } = recoilPersist({
   key: 'recoil-persist',
@@ -12,7 +13,7 @@ export const sampleState = atom({
   effects_UNSTABLE: [persistAtom], // To persist states in browser refresh or screen transition.
 })
 
-export const userInfoState = atom({
+export const userInfoState: RecoilState<UserInfoType> = atom({
   key: 'userInfoState',
   default: '',
   effects_UNSTABLE: [persistAtom],
