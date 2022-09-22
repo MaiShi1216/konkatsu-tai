@@ -11,7 +11,7 @@ const useGetUsers = (): TypeGetUsers => {
   const [Users, setUsers] = React.useState<UserInfoType>({})
   const navigate = useNavigate()
 
-  const fetchData = async () => {
+  const fetchUsers = async () => {
     const response = await fetch(`${process.env.API_ENDPOINT}/home`, {
       method: 'GET',
     })
@@ -20,7 +20,7 @@ const useGetUsers = (): TypeGetUsers => {
   }
 
   React.useEffect(() => {
-    fetchData()
+    fetchUsers()
       .then((resJson) => {
         setUsers(resJson)
       })
