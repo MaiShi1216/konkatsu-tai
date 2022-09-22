@@ -1,6 +1,4 @@
 import React from 'react'
-// import { useRecoilValue, useRecoilState } from 'recoil'
-// import { userInfoState } from '@/atoms/userInfoAtom'
 import { UserInfoType } from '@/utils/types'
 import { useNavigate } from 'react-router-dom'
 
