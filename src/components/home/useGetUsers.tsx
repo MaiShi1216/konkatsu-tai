@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 type TypeGetUsers = {
   Users: UserInfoType
-  transferToProfile: () => void
+  transferToProfile: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
 const useGetUsers = (): TypeGetUsers => {
@@ -27,8 +27,9 @@ const useGetUsers = (): TypeGetUsers => {
       .catch((error) => console.log(error))
   }, [])
 
-  const transferToProfile = () => {
-    navigate('/profile')
+  const transferToProfile = (event) => {
+    const id = event.target.getAttribute('id')
+    navigate('/profile', { state: { id: id } })
   }
 
   return { Users, transferToProfile }

@@ -1,6 +1,6 @@
 .main {
   display: grid;
-  grid-template-rows: 200px 30px 40px 1fr 0.5fr 0.5fr 0.5fr;
+  grid-template-rows: 300px 30px 40px 1fr 0.5fr 0.5fr 100px;
   grid-template-areas:
     "image"
     "name"
@@ -20,8 +20,8 @@
 }
 
 .image_frame img {
-  width: auto;
-  height: 90%;
+  width: 70vw;
+  height: 70vw;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -60,7 +60,6 @@
 .self_intro p {
   margin: auto 10px 10px 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid black;
 }
 
 .hobby_container {
@@ -69,6 +68,8 @@
 
 .hobby_container h2 {
   margin: 0 10px 2px 10px;
+  padding-top: 10px;
+  border-top: 1px solid black;
 }
 
 .hobby_items {
@@ -79,7 +80,6 @@
   justify-content: left;
   margin-bottom: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid black;
 }
 
 .hobby {
@@ -97,6 +97,8 @@
 
 .favorite_container h2 {
   margin: 0 10px 2px 10px;
+  padding-top: 10px;
+  border-top: 1px solid black;
 }
 
 .favorite_items {

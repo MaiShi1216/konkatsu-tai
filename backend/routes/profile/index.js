@@ -8,7 +8,7 @@ const usersInfo = require('../../userInfo.json')
 router.get('/', (req, res) => {
   console.log(req)
   res.status(200)
-  setTimeout(() => res.send(usersInfo), 500)
+  res.send(usersInfo)
 })
 
 module.exports = router

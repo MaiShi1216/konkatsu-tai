@@ -12,7 +12,7 @@ export const Main = () => {
       {Object.keys(Users)
         .filter((key) => key !== myId)
         .map((key) => {
-          return <ProfileCard key={key} User={Users[key]} transferToProfile={transferToProfile} />
+          return <ProfileCard key={key} Id={key} User={Users[key]} transferToProfile={transferToProfile} />
         })}
     </div>
   )

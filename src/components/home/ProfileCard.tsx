@@ -5,15 +5,16 @@ import { UserInfoContentType } from '@/utils/types'
 
 type Props = {
   User: UserInfoContentType
-  transferToProfile: () => void
+  Id: string
+  transferToProfile: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
 export const ProfileCard = (props: Props) => {
   return (
     <React.Fragment>
       <div className={classes.card}>
-        <div className={classes.image_frame} onClick={props.transferToProfile}>
-          <img src={props.User.photo} alt="" />
+        <div className={classes.image_frame}>
+          <img src={props.User.photo} alt="" onClick={(event) => props.transferToProfile(event)} id={props.Id} />
         </div>
         <div className={classes.name}>{props.User.name}</div>
         <div className={classes.like}>
