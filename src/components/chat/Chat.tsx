@@ -4,9 +4,18 @@ import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 import { iteratorSymbol } from 'immer/dist/internal'
 
-type ResJson = {
-  content: string
+type ChatInfoType = {
+  [key in string]: ChatInfo
 }
+
+type ChatInfo = {
+  personId1: string
+  personId2: string
+  content: string
+  date: string
+  familiarity: string
+}
+
 export const Chat = () => {
   const [message, setMessage] = useState(undefined)
   const [sendMessage, setSendMessage] = useState<string>(undefined)
@@ -32,11 +41,14 @@ export const Chat = () => {
     }
   }
 
+  const [chatHis, setChatHis] = useState<ChatInfoType>({})
+
   const fetchChat = async (): Promise<void> => {
     const response = await fetch(`${process.env.API_ENDPOINT}/chat`, {
       method: 'GET',
     })
-    const resJson: ResJson = await response.json()
+    const resJson: ChatInfoType = await response.json()
+    setChatHis(resJson)
     setMessage(resJson)
     const chatLen = Object.keys(resJson).length
     console.log(resJson)
@@ -61,6 +73,13 @@ export const Chat = () => {
       <p>This is a chat component.</p>
       <button onClick={fetchChat}>Execute fetch!</button>
       <p>{message}</p>
+      <div>
+        {Object.keys(chatHis).map((chatId) => (
+          <div key={chatId} className={classes.container}>
+            <p className={classes.message}>{chatHis[chatId].content}</p>
+          </div>
+        ))}
+      </div>
       <h3>Input your message</h3>
       <textarea cols={40} rows={3} onChange={(e) => setSendMessage(e.target.value)}></textarea>
       <div>
