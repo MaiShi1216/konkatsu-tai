@@ -11,8 +11,8 @@ export const Main = () => {
     <div className={classes.container}>
       {Object.keys(Users)
         .filter((key) => key !== myId)
-        .map((key, id) => {
-          return <ProfileCard key={id} User={Users[key]} transferToProfile={transferToProfile} />
+        .map((key) => {
+          return <ProfileCard key={key} User={Users[key]} transferToProfile={transferToProfile} />
         })}
     </div>
   )
