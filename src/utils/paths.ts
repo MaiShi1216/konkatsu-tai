@@ -4,4 +4,5 @@ export const paths = {
   home: '/',
   matched: '/matched',
   edit: '/edit',
+  profile: '/profile',
 }
