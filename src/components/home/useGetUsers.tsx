@@ -1,7 +1,6 @@
 import React from 'react'
-// import { useRecoilValue, useRecoilState } from 'recoil'
-// import { userInfoState } from '@/atoms/userInfoAtom'
 import { UserInfoType } from '@/utils/types'
+import { useNavigate } from 'react-router-dom'
 
 type TypeGetUsers = {
   Users: UserInfoType
@@ -10,8 +9,9 @@ type TypeGetUsers = {
 
 const useGetUsers = (): TypeGetUsers => {
   const [Users, setUsers] = React.useState<UserInfoType>({})
+  const navigate = useNavigate()
 
-  const fetchData = async () => {
+  const fetchUsers = async () => {
     const response = await fetch(`${process.env.API_ENDPOINT}/home`, {
       method: 'GET',
     })
@@ -20,7 +20,7 @@ const useGetUsers = (): TypeGetUsers => {
   }
 
   React.useEffect(() => {
-    fetchData()
+    fetchUsers()
       .then((resJson) => {
         setUsers(resJson)
       })
@@ -28,7 +28,7 @@ const useGetUsers = (): TypeGetUsers => {
   }, [])
 
   const transferToProfile = () => {
-    window.location.href = '/profile'
+    navigate('/profile')
   }
 
   return { Users, transferToProfile }
