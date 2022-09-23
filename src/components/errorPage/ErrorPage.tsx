@@ -29,6 +29,9 @@ export const ErrorPage = () => {
           <li>
             <Link to="/matched">Matched members</Link>
           </li>
+          <li>
+            <Link to="/recommended">Recommended members</Link>
+          </li>
         </ul>
       </div>
       <div className={classes.footerContainer}>
