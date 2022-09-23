@@ -30,15 +30,15 @@ export const Enroll: FC<PropsType> = (props) => {
   const [nickname, setNickname] = useState<string>(undefined)
   const [hobbies, handleHobbies] = useCheckBoxes(props.mode === 'create' ? [] : userInfo[Object.keys(userInfo)[0]].hobbies)
   const [favorites, handleFavorites] = useCheckBoxes(props.mode === 'create' ? [] : userInfo[Object.keys(userInfo)[0]].favorites)
-  const [isSecret, setIsSecret] = useState<boolean>(props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].isSecretMode)
-  const [image, setImage] = useState<File>(undefined)
+  const [isSecretMode, setIsSecretMode] = useState<boolean>(
+    props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].isSecretMode,
+  )
+  const [photo, setPhoto] = useState<string>(undefined)
   const [selfIntro, setSelfIntro] = useState<string>(props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].selfIntro)
 
   const navigate = useNavigate()
 
   const handleEnroll = async () => {
-    const b64img = await encodeImgToBase64()
-
     const newUserInfo: UserInfoContentType = {
       name,
       email,
@@ -46,8 +46,8 @@ export const Enroll: FC<PropsType> = (props) => {
       nickname,
       hobbies,
       favorites,
-      isSecretMode: isSecret,
-      photo: b64img,
+      isSecretMode,
+      photo,
       selfIntro,
       likedNum: props.mode === 'create' ? 0 : undefined,
     }
@@ -77,11 +77,8 @@ export const Enroll: FC<PropsType> = (props) => {
     }
   }
 
-  const encodeImgToBase64 = (): Promise<string> => {
+  const encodeImgToBase64 = (image: File): Promise<string> => {
     return new Promise((resolve, reject) => {
-      if (image === undefined) {
-        reject('no image uploaded')
-      }
       const reader = new FileReader()
       reader.onload = () => {
         resolve(reader.result as string)
@@ -142,11 +139,12 @@ export const Enroll: FC<PropsType> = (props) => {
           type="file"
           accept="image/*"
           id="photo"
-          onChange={(e) => {
-            setImage(e.target.files[0])
+          onChange={async (e) => {
+            setPhoto(await encodeImgToBase64(e.target.files[0]))
           }}
         ></input>
       </div>
+      <img className={classes.photo} src={photo} alt="" />
 
       <div>
         <h3>Select your hobbies</h3>
@@ -188,7 +186,7 @@ export const Enroll: FC<PropsType> = (props) => {
           type="checkbox"
           id="Secret"
           onChange={(e) => {
-            setIsSecret(e.target.checked)
+            setIsSecretMode(e.target.checked)
           }}
           defaultChecked={props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].isSecretMode}
         />
