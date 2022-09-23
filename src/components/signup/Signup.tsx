@@ -40,8 +40,8 @@ export const Signup: FC<PropsType> = (props) => {
     const b64img = await encodeImgToBase64()
 
     const newUserInfo: UserInfoContentType = {
-      name: props.mode === 'create' ? name : undefined,
-      email: props.mode === 'create' ? email : undefined,
+      name,
+      email,
       password,
       nickname,
       hobbies,
