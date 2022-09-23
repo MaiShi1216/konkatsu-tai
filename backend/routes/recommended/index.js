@@ -63,9 +63,20 @@ router.get('/', (req, res) => {
   })
 
   //【DTA-124】自分にいいねしているユーザの抽出
+  const userInfoOfLikedMe = {}
+  unMatchedUserIdList.forEach((key1) => {
+    const theirLikes = likeHistory[key1]
+    console.log(key1)
+    console.log(theirLikes)
+    theirLikes.forEach((key2) => {
+      if (key2 === userId) {
+        userInfoOfLikedMe[key1] = usersInfo[key1]
+      }
+    })
+  })
 
-  res.send(userInfoOfHobbyMatched)
-  //res.send(matchedUserInfo)
+  //res.send(userInfoOfHobbyMatched)
+  res.send(userInfoOfLikedMe)
 })
 
 module.exports = router
