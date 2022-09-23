@@ -44,7 +44,6 @@ export const Recommended = () => {
     const resJson: ReceivedDataType = await response.json()
     setRecommendedUsersByHobbies(resJson.rebommendedByBobbies)
     setRecommendedUsersByLikes(resJson.rebommendedByLikes)
-    console.log(resJson)
   }
 
   //ページ読み込み時にレンダリング
