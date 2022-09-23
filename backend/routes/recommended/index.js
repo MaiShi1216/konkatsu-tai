@@ -22,8 +22,6 @@ router.get('/', (req, res) => {
     Object.keys(likeHistory[myLiked[key1]]).forEach((key2) => {
       if (likeHistory[myLiked[key1]][key2] === userId) {
         matchedUserInfo[myLiked[key1]] = usersInfo[myLiked[key1]]
-        console.log('matchedUserInfo')
-        console.log(matchedUserInfo[myLiked[key1]].name)
       }
     })
   })
@@ -37,15 +35,36 @@ router.get('/', (req, res) => {
   const unMatchedUserIdListTemp = userIdList.filter((i) => matchedUserIdList.indexOf(i) == -1)
   //自分のIDを消す
   const unMatchedUserIdList = unMatchedUserIdListTemp.filter((user) => user !== userId)
-  console.log('unMatchedUserIdList')
-  console.log(unMatchedUserIdList)
+  //console.log('unMatchedUserIdList')
+  //console.log(unMatchedUserIdList)
 
   //Unmatchedユーザのinfoを取得
   unMatchedUserIdList.forEach((key) => {
     unMatchedUserInfo[key] = usersInfo[key]
   })
 
-  res.send(unMatchedUserInfo)
+  //【DTA-9】趣味が所定数以上合うユーザの抽出
+  const userInfoOfHobbyMatched = {}
+  const threshold = 2 //2つ以上の一致で趣味が合う
+  const myHobbies = usersInfo[userId].hobbies
+  unMatchedUserIdList.forEach((key1) => {
+    const theirHobbies = unMatchedUserInfo[key1].hobbies
+    let counter = 0
+    myHobbies.forEach((key2) => {
+      theirHobbies.forEach((key3) => {
+        if (key2 === key3) {
+          counter = counter + 1
+        }
+      })
+    })
+    if (counter >= threshold) {
+      userInfoOfHobbyMatched[key1] = usersInfo[key1]
+    }
+  })
+
+  //【DTA-124】自分にいいねしているユーザの抽出
+
+  res.send(userInfoOfHobbyMatched)
   //res.send(matchedUserInfo)
 })
 
