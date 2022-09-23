@@ -18,9 +18,13 @@ router.get('/', (req, res) => {
   const unMatchedUserInfo = {}
 
   //マッチングユーザ抽出
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   Object.keys(myLiked).forEach((key1) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
     Object.keys(likeHistory[myLiked[key1]]).forEach((key2) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (likeHistory[myLiked[key1]][key2] === userId) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         matchedUserInfo[myLiked[key1]] = usersInfo[myLiked[key1]]
       }
     })
@@ -28,6 +32,7 @@ router.get('/', (req, res) => {
 
   //マッチングしていないユーザのリストを作成
   //①ユーザリストの作成
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const userIdList = Object.keys(usersInfo)
   //②matchedユーザリストの作成
   const matchedUserIdList = Object.keys(matchedUserInfo)
@@ -40,17 +45,22 @@ router.get('/', (req, res) => {
 
   //Unmatchedユーザのinfoを取得
   unMatchedUserIdList.forEach((key) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     unMatchedUserInfo[key] = usersInfo[key]
   })
 
   //【DTA-9】趣味が所定数以上合うユーザの抽出
   const userInfoOfHobbyMatched = {}
   const threshold = 2 //2つ以上の一致で趣味が合う
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const myHobbies = usersInfo[userId].hobbies
   unMatchedUserIdList.forEach((key1) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const theirHobbies = unMatchedUserInfo[key1].hobbies
     let counter = 0
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     myHobbies.forEach((key2) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       theirHobbies.forEach((key3) => {
         if (key2 === key3) {
           counter = counter + 1
@@ -58,6 +68,7 @@ router.get('/', (req, res) => {
       })
     })
     if (counter >= threshold) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       userInfoOfHobbyMatched[key1] = usersInfo[key1]
     }
   })
@@ -65,11 +76,14 @@ router.get('/', (req, res) => {
   //【DTA-124】自分にいいねしているユーザの抽出
   const userInfoOfLikedMe = {}
   unMatchedUserIdList.forEach((key1) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const theirLikes = likeHistory[key1]
     console.log(key1)
     console.log(theirLikes)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     theirLikes.forEach((key2) => {
       if (key2 === userId) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         userInfoOfLikedMe[key1] = usersInfo[key1]
       }
     })
