@@ -62,15 +62,15 @@ export const Signup: FC<PropsType> = (props) => {
         },
       )
       if (response.status === 200) {
-        privateInfos.forEach((key) => delete newUserInfo[key])
         const resJson: ResJson = await response.json()
         const userId = props.mode === 'create' ? resJson.userId : Object.keys(userInfo)[0]
 
+        privateInfos.forEach((key) => delete newUserInfo[key])
         const storedInfo: UserInfoType = { [userId]: newUserInfo }
         setUserInfo(storedInfo)
         navigate('/')
       } else {
-        console.error('err')
+        throw { status: response.status, message: response.statusText }
       }
     } catch (err) {
       console.error(err)
@@ -79,8 +79,9 @@ export const Signup: FC<PropsType> = (props) => {
 
   const encodeImgToBase64 = (): Promise<string> => {
     return new Promise((resolve, reject) => {
-      if (image === undefined) reject('no image uploaded')
-
+      if (image === undefined) {
+        reject('no image uploaded')
+      }
       const reader = new FileReader()
       reader.onload = () => {
         resolve(reader.result as string)
