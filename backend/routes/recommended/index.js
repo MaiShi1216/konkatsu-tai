@@ -75,8 +75,19 @@ router.get('/', (req, res) => {
     })
   })
 
+  //送信用オブジェクトの生成
+  const body = {
+    rebommendedByBobbies: {},
+    rebommendedByLikes: {},
+  }
+  body.rebommendedByBobbies = userInfoOfHobbyMatched
+  body.rebommendedByLikes = userInfoOfLikedMe
+
+  console.log(body)
+
   //res.send(userInfoOfHobbyMatched)
-  res.send(userInfoOfLikedMe)
+  //res.send(userInfoOfLikedMe)
+  res.send(body)
 })
 
 module.exports = router
