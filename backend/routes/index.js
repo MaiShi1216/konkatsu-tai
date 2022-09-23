@@ -2,12 +2,14 @@
 const router = require('express').Router()
 const sampleRouter = require('./sample')
 const matchedRouter = require('./matched')
+const homeRouter = require('./home')
 const recommendedRouter = require('./recommended')
 const userRouter = require('./user')
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 router.use('/sample', sampleRouter)
 router.use('/matched', matchedRouter)
+router.use('/home', homeRouter)
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 router.use('/recommended', recommendedRouter)
 router.use('/user', userRouter)
