@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from '@/components/signup/style.css'
+import classes from '@/components/checkButton/style.css'
 
 export type CheckButtonPropsType = {
   label: string
@@ -15,7 +15,7 @@ export const CheckButton = (props: CheckButtonPropsType): JSX.Element => {
         id={props.label}
         type="checkbox"
         defaultChecked={props.initChecked}
-        className={props.type === 'hobby' ? classes.inputHobbyButton : classes.inputTypeButton}
+        className={props.type === 'hobby' ? classes.inputHobbyButton : classes.inputFavoriteButton}
         onChange={(e) => {
           props.setter(props.label, e.target.checked)
         }}
