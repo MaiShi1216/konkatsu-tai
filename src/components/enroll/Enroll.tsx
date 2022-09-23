@@ -1,11 +1,11 @@
 import React, { useState, FC } from 'react'
-import classes from '@/components/signup/style.css'
+import classes from '@/components/enroll/style.css'
 import { useNavigate } from 'react-router-dom'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 import { Form } from '@/components/form/Form'
 import { CheckButton } from '@/components/checkButton/CheckButton'
-import { useCheckBoxes } from '@/components/signup/useCheckBoxes'
+import { useCheckBoxes } from '@/components/enroll/useCheckBoxes'
 import { useRecoilState } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
 import { UserInfoType, UserInfoContentType } from '@/utils/types'
@@ -22,7 +22,7 @@ const originHobbiesList: string[] = ['soccer', 'tennis', 'basketball', 'golf', '
 const originFavoriteList: string[] = ['kind', 'passive', 'friendly', 'outgoing', 'funny', 'polite', 'honest']
 const privateInfos = ['name', 'password', 'email']
 
-export const Signup: FC<PropsType> = (props) => {
+export const Enroll: FC<PropsType> = (props) => {
   const [userInfo, setUserInfo] = useRecoilState<UserInfoType>(userInfoState)
   const [name, setName] = useState<string>(undefined)
   const [email, setEmail] = useState<string>(undefined)
@@ -36,7 +36,7 @@ export const Signup: FC<PropsType> = (props) => {
 
   const navigate = useNavigate()
 
-  const handleSignup = async () => {
+  const handleEnroll = async () => {
     const b64img = await encodeImgToBase64()
 
     const newUserInfo: UserInfoContentType = {
@@ -195,7 +195,7 @@ export const Signup: FC<PropsType> = (props) => {
         <label htmlFor="Secret">Secret Mode</label>
       </div>
       <div>
-        <button className={classes.submitButton} onClick={handleSignup}>
+        <button className={classes.submitButton} onClick={handleEnroll}>
           {props.mode === 'create' ? 'Sign up' : 'Submit'}
         </button>
       </div>

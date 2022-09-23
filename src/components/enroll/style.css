@@ -74,23 +74,6 @@
   line-height: 1.5;
 }
 
-.inputHobbyButton {
-  display: none;
-}
-.inputTypeButton {
-  display: none;
-}
-
-.inputHobbyButton:checked+label{
-  background: #f8bcca;
-  color: #FFF;
-}
-
-.inputTypeButton:checked+label {
-  background: #60a0b0;
-  color: #FFF;
-}
-
 .selfIntro {
   width: 70%;
 }
