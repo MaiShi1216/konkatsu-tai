@@ -4,11 +4,11 @@ import { Footer } from '@/components/footer/Footer'
 import classes from '@/components/matched/style.css'
 
 //Recoil-on
-// import { useRecoilState } from 'recoil'
-// import { userInfoState } from '@/atoms/userInfoAtom'
+import { useRecoilValue } from 'recoil'
+import { userInfoState } from '@/atoms/userInfoAtom'
 
 //Recoil-off for test
-const myId = '3f328652-f4bb-4254-972a-d70489794a25' //Shohei Ohtani
+//const myId = '3f328652-f4bb-4254-972a-d70489794a25' //Shohei Ohtani
 //const myId = 'e857624e-ace4-44a5-8c9f-b9203f10df1f' //Tomoharu Kobayashi
 
 type ReceivedDataType = {
@@ -35,6 +35,11 @@ type UserInfo = {
 export const Recommended = () => {
   const [recommendedUsersByHobbies, setRecommendedUsersByHobbies] = useState<RecommendedUsersType>({})
   const [recommendedUsersByLikes, setRecommendedUsersByLikes] = useState<RecommendedUsersType>({})
+
+  //RecoilでユーザIDを取得
+  const userInfo = useRecoilValue(userInfoState)
+  const myId = Object.keys(userInfo)[0]
+  //console.log(myId)
 
   const fetchRecommended = async (): Promise<void> => {
     //userIdをクエリパラメータに設定
