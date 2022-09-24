@@ -1,14 +1,14 @@
 import React from 'react'
 import classes from '@/components/checkButton/style.css'
 
-export type CheckButtonPropsType = {
+export type PropsType = {
   label: string
   type: 'hobby' | 'favorite'
   setter: (value: string, isAddition: boolean) => void
   initChecked: boolean
 }
 
-export const CheckButton = (props: CheckButtonPropsType): JSX.Element => {
+export const CheckButton = (props: PropsType): JSX.Element => {
   return (
     <>
       <input
