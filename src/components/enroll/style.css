@@ -81,3 +81,25 @@
 .photo {
   width: 70%
 }
+
+.uploadLabel {
+  display: inline-block;
+    cursor: pointer;
+    margin: 1em 0;
+    padding: .7em 1em;
+    line-height: 1.4;
+    background: #3e8bff;
+    color: #FFF;
+    font-size: 0.95em;
+    border-radius: 2.5em;
+    transition: 0.2s;
+    margin: 0px;
+}
+
+.uploadButton {
+  display: none;
+}
+
+h3 {
+  margin: 25px 0px 10px 0px;
+}
