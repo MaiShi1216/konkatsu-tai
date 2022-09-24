@@ -33,7 +33,7 @@ export const Enroll: FC<PropsType> = (props) => {
   const [isSecretMode, setIsSecretMode] = useState<boolean>(
     props.mode === 'create' ? false : userInfo[Object.keys(userInfo)[0]].isSecretMode,
   )
-  const [photo, setPhoto] = useState<string>(undefined)
+  const [photo, setPhoto] = useState<string>(props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].photo)
   const [selfIntro, setSelfIntro] = useState<string>(props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].selfIntro)
 
   const navigate = useNavigate()
@@ -135,16 +135,21 @@ export const Enroll: FC<PropsType> = (props) => {
 
       <div className={classes.photoUpload}>
         <h3>Upload your photo</h3>
-        <input
-          type="file"
-          accept="image/*"
-          id="photo"
-          onChange={async (e) => {
-            setPhoto(await encodeImgToBase64(e.target.files[0]))
-          }}
-        ></input>
+        <label className={classes.uploadLabel}>
+          <input
+            type="file"
+            accept="image/*"
+            id="photo"
+            multiple={false}
+            className={classes.uploadButton}
+            onChange={async (e) => {
+              setPhoto(await encodeImgToBase64(e.target.files[0]))
+            }}
+          ></input>
+          Choose file
+        </label>
       </div>
-      <img className={classes.photo} src={photo} alt="" />
+      <img className={classes.photo} src={photo} />
 
       <div>
         <h3>Select your hobbies</h3>
