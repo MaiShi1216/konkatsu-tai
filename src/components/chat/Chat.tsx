@@ -20,9 +20,14 @@ export const Chat = () => {
   const [message, setMessage] = useState(undefined)
   const [sendMessage, setSendMessage] = useState<string>(undefined)
 
+  const sendPersonId1 = 'a001'
+  const sendPersonId2 = 'a002'
+
   const handleSend = async () => {
     const newSendInfo = {
-      sendMessage,
+      personId1: sendPersonId1,
+      personId2: sendPersonId2,
+      content: sendMessage,
     }
 
     try {

@@ -10,8 +10,10 @@ router.post('/', (req, res) => {
   let body = undefined
 
   console.log('chat update')
+  //console.log(fs)
   try {
     const newChat = req.body
+    //const newChat = { chats: req.body }
     updateDataBase('./backend/chatHistory.json', newChat)
 
     res.status(200)
@@ -28,13 +30,39 @@ const updateDataBase = (filePath, newValue) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const currentValues = JSON.parse(fs.readFileSync(filePath))
   const newValues = { ...currentValues, ...newValue }
+  let tuika = {
+    chats: [],
+  }
+  tuika.chats.push(newValue)
+  //currentValues.chats.push(newValue)
+
+  console.log('currentValues')
+  console.log(currentValues)
+  console.log('currentValuese')
+  console.log('newValue')
+  console.log(newValue)
+  console.log('newValuee')
+  console.log('newValues')
+  console.log(newValues)
+  console.log('newValuese')
+
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  fs.writeFileSync(filePath, JSON.stringify(newValues, null, 2), 'utf8')
+  //fs.writeFileSync(filePath, JSON.stringify(newValues, null, 2), 'utf8')
+
+  //Object.keys(newValue).map((info) => {
+  //  targetUserInfo[info] = newUserInfo[info]
+  //})
+
+  //currentValues['chats'] = 'chats'
+  //const a = currentValues.chats.push(newValue)
+  //fs.writeFileSync(filePath, JSON.stringify(currentValues, null, 2), 'utf8')
+  //fs.writeFileSync(filePath, JSON.stringify(tuika, null, 2), 'utf8')
+  fs.appendFileSync(filePath, JSON.stringify(tuika, null, 2), 'utf8')
 }
 
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
-  console.log(req)
+  //console.log(req)
   res.status(200)
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -45,7 +73,7 @@ router.get('/', (req, res) => {
       return true
   })
 
-  console.log(body)
+  //console.log(body)
 
   setTimeout(() => res.send(body), 500)
 })
