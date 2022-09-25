@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
-import classes from '@/components/matched/style.css'
+import classes from '@/components/recommended/style.css'
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
 
 //Recoil-on
 import { useRecoilValue } from 'recoil'
@@ -35,10 +36,13 @@ type UserInfo = {
 export const Recommended = () => {
   const [recommendedUsersByHobbies, setRecommendedUsersByHobbies] = useState<RecommendedUsersType>({})
   const [recommendedUsersByLikes, setRecommendedUsersByLikes] = useState<RecommendedUsersType>({})
+  const [commonPoints, setCommonPoints] = useState<RecommendedUsersType>({})
 
   //RecoilでユーザIDを取得
   const userInfo = useRecoilValue(userInfoState)
   const myId = Object.keys(userInfo)[0]
+  const myHobbies = userInfo[myId].hobbies
+  console.log(myHobbies)
   //console.log(myId)
 
   const fetchRecommended = async (): Promise<void> => {
@@ -49,6 +53,7 @@ export const Recommended = () => {
     const resJson: ReceivedDataType = await response.json()
     setRecommendedUsersByHobbies(resJson.rebommendedByBobbies)
     setRecommendedUsersByLikes(resJson.rebommendedByLikes)
+    setCommonPoints(resJson.commonPoints)
   }
 
   //ページ読み込み時にレンダリング
@@ -61,24 +66,60 @@ export const Recommended = () => {
   return (
     <>
       <Header />
-      <h1>They are recommended for you!</h1>
-      <h2>They have similar hobbies to yours</h2>
+      <h2 className={classes.mainTitle}>Recommendations</h2>
+      <h3 className={classes.subTitle}>People with similar interests</h3>
       <div>
         {Object.keys(recommendedUsersByHobbies).map((userId) => (
           <div key={userId} className={classes.container}>
             <img src={recommendedUsersByHobbies[userId].photo} className={classes.photo}></img>
+            <div className={classes.likes}>
+              <div>
+                <ThumbUpAltIcon style={{ fontSize: '1rem' }} className={classes.ThumbUp} />
+              </div>
+              <div className={classes.liked_num}>
+                {recommendedUsersByHobbies[userId].likedNum > 99 ? '99+' : recommendedUsersByHobbies[userId].likedNum}
+              </div>
+            </div>
             <h3 className={classes.name}>{recommendedUsersByHobbies[userId].name}</h3>
-            <p className={classes.message}>{recommendedUsersByHobbies[userId].selfIntro}</p>
+            <div className={classes.hobbies}>
+              <p>Common Points:</p>
+              {Object.keys(commonPoints[userId]).map((index) => (
+                <ul key={index} style={{ listStyleType: 'none' }}>
+                  <li style={{ textIndent: '1rem' }}>{commonPoints[userId][index]}</li>
+                </ul>
+              ))}
+            </div>
+            <button type="button" className={classes.talkButton}>
+              Let&apos;s talk!
+            </button>
           </div>
         ))}
       </div>
-      <h2>They gave you a like</h2>
+      <h3 className={classes.subTitle}>People who liked you</h3>
       <div>
         {Object.keys(recommendedUsersByLikes).map((userId) => (
           <div key={userId} className={classes.container}>
             <img src={recommendedUsersByLikes[userId].photo} className={classes.photo}></img>
+            <div className={classes.likes}>
+              <div>
+                <ThumbUpAltIcon style={{ fontSize: '1rem' }} className={classes.ThumbUp} />
+              </div>
+              <div className={classes.liked_num}>
+                {recommendedUsersByLikes[userId].likedNum > 99 ? '99+' : recommendedUsersByLikes[userId].likedNum}
+              </div>
+            </div>
             <h3 className={classes.name}>{recommendedUsersByLikes[userId].name}</h3>
-            <p className={classes.message}>{recommendedUsersByLikes[userId].selfIntro}</p>
+            <div className={classes.hobbies}>
+              <p>Common Points:</p>
+              {Object.keys(commonPoints[userId]).map((index) => (
+                <ul key={index} style={{ listStyleType: 'none' }}>
+                  <li style={{ textIndent: '1rem' }}>{commonPoints[userId][index]}</li>
+                </ul>
+              ))}
+            </div>
+            <button type="button" className={classes.talkButton}>
+              Let&apos;s talk!
+            </button>
           </div>
         ))}
       </div>
