@@ -51,12 +51,14 @@ router.get('/', (req, res) => {
 
   //【DTA-9】趣味が所定数以上合うユーザの抽出
   const userInfoOfHobbyMatched = {}
+  const commonPoints = {} //一致した趣味のリスト
   const threshold = 2 //2つ以上の一致で趣味が合う
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const myHobbies = usersInfo[userId].hobbies
   unMatchedUserIdList.forEach((key1) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const theirHobbies = unMatchedUserInfo[key1].hobbies
+    const matchedHobbies = []
     let counter = 0
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     myHobbies.forEach((key2) => {
@@ -64,22 +66,27 @@ router.get('/', (req, res) => {
       theirHobbies.forEach((key3) => {
         if (key2 === key3) {
           counter = counter + 1
+          matchedHobbies.push(key3)
         }
       })
     })
+    //console.log('matchedHobbies')
+    //console.log(matchedHobbies)
+    commonPoints[key1] = matchedHobbies
     if (counter >= threshold) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       userInfoOfHobbyMatched[key1] = usersInfo[key1]
     }
   })
+  //console.log(commonPoints)
 
   //【DTA-124】自分にいいねしているユーザの抽出
   const userInfoOfLikedMe = {}
   unMatchedUserIdList.forEach((key1) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const theirLikes = likeHistory[key1]
-    console.log(key1)
-    console.log(theirLikes)
+    //console.log(key1)
+    //console.log(theirLikes)
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     theirLikes.forEach((key2) => {
       if (key2 === userId) {
@@ -93,11 +100,13 @@ router.get('/', (req, res) => {
   const body = {
     rebommendedByBobbies: {},
     rebommendedByLikes: {},
+    commonPoints: {},
   }
   body.rebommendedByBobbies = userInfoOfHobbyMatched
   body.rebommendedByLikes = userInfoOfLikedMe
+  body.commonPoints = commonPoints
 
-  console.log(body)
+  //console.log(body)
 
   //res.send(userInfoOfHobbyMatched)
   //res.send(userInfoOfLikedMe)
