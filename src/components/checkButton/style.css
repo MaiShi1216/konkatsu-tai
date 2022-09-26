@@ -1,0 +1,49 @@
+.hobbyButton {
+  width: fit-content;
+  height: 25px;
+  background-color: #FFE5EB;
+  border-radius: 100vh;
+  text-align: center;
+  margin: 10px 10px 10px 10px;
+  padding: 0px 10px;
+}
+
+.favoriteButton {
+  width: fit-content;
+  height: 25px;
+  background-color: #bad7df;
+  border-radius: 100vh;
+  text-align: center;
+  margin: 10px 10px 10px 10px;
+  padding: 0px 10px;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.inputHobbyButton {
+  display: none;
+}
+
+.inputFavoriteButton {
+  display: none;
+}
+
+.inputHobbyButton:checked+label {
+  background: #f8bcca;
+  color: #FFF;
+}
+
+.inputFavoriteButton:checked+label {
+  background: #60a0b0;
+  color: #FFF;
+}
+
+.selfIntro {
+  width: 70%;
+}
