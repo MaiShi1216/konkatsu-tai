@@ -28,6 +28,7 @@ const useGetUsers = (): TypeGetUsers => {
   }, [])
 
   const transferToProfile = (event) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const id = event.target.getAttribute('id')
     navigate('/profile', { state: { id: id } })
   }

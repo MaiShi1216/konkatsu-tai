@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import classes from '@/components/errorPage/style.css'
+import classes from '@/components/error/style.css'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 
@@ -14,7 +14,7 @@ type ResJson = {
   name: string
 }
 
-export const ErrorPage = () => {
+export const Error = () => {
   /* for development */
   const [userInfo, setUserInfo] = useRecoilState<UserInfoType>(userInfoState)
   const [testMsg, setTestMsg] = useState<string>('')
@@ -29,6 +29,7 @@ export const ErrorPage = () => {
       <div className={classes.container}>
         <p style={{ color: 'red' }}>{testMsg}</p> {/* for development */}
         <h2>404 Page not found.</h2>
+        <p>Pages</p>
         <ul>
           <li>
             <Link to="/signin">Sign in</Link>
@@ -39,9 +40,11 @@ export const ErrorPage = () => {
           <li>
             <Link to="/">Member list</Link>
           </li>
-
           <li>
             <Link to="/matched">Matched members</Link>
+          </li>
+          <li>
+            <Link to="/edit"> Change user information</Link>
           </li>
         </ul>
       </div>
