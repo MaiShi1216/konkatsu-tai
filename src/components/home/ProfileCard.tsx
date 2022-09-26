@@ -6,8 +6,8 @@ import { useRecoilValue } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
 
 type Props = {
-  User: UserInfoContentType
-  Id: string
+  user: UserInfoContentType
+  id: string
   transferToProfile: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
@@ -29,19 +29,19 @@ export const ProfileCard = (props: Props) => {
       <div className={classes.card}>
         <div className={classes.image_frame}>
           <img
-            src={props.User.photo}
+            src={props.user.photo}
             alt=""
             onClick={(event) => props.transferToProfile(event)}
-            id={props.Id}
+            id={props.id}
             style={isSecretMode ? { filter: `blur(${familiarity}px)` } : null}
           />
         </div>
-        <div className={classes.name}>{props.User.nickname}</div>
+        <div className={classes.name}>{props.user.nickname}</div>
         <div className={classes.like}>
           <div>
             <ThumbUpAltIcon style={{ fontSize: '1rem' }} />
           </div>
-          <div className={classes.liked_num}>{props.User.likedNum > 99 ? '99+' : props.User.likedNum}</div>
+          <div className={classes.liked_num}>{props.user.likedNum > 99 ? '99+' : props.user.likedNum}</div>
         </div>
       </div>
     </React.Fragment>
