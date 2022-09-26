@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
   //②matchedユーザリストの作成
   const matchedUserIdList = Object.keys(matchedUserInfo)
   //①②の差分＝unmatchedユーザリストの作成
-  const unMatchedUserIdListTemp = userIdList.filter((i) => matchedUserIdList.indexOf(i) == -1)
+  const unMatchedUserIdListTemp = userIdList.filter((i) => matchedUserIdList.indexOf(i) === -1)
   //自分のIDを消す
   const unMatchedUserIdList = unMatchedUserIdListTemp.filter((user) => user !== userId)
   //console.log('unMatchedUserIdList')
