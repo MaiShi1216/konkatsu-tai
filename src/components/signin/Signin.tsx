@@ -80,12 +80,11 @@ export const Signin = () => {
     // これ以降にresponseに対する処理を記載
     // recoilにデータを保存して、画面遷移する
     if (response.status === 200) {
-      const UserId = Object.keys(response)[1]
-      const LoginUserdata = {}
-      LoginUserdata[UserId] = response[UserId]
-      console.log(LoginUserdata)
-      const testUserData: UserInfoType = LoginUserdata
-      setUserInfo(testUserData)
+      const userId = Object.keys(response)[1]
+      const loginUserdata = {}
+      loginUserdata[userId] = response[userId]
+      console.log(loginUserdata)
+      setUserInfo(loginUserdata)
       navigate('/')
     } else {
       console.error('err')
