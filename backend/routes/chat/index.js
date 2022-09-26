@@ -33,8 +33,30 @@ const updateDataBase = (filePath, newValue) => {
   let tuika = {
     chats: [],
   }
-  tuika.chats.push(newValue)
+  tuika.chats.push(currentValues)
+  tuika.chats.push(newValue)  
+  
+  chatHistory.chats.push(newValue)
+
   //currentValues.chats.push(newValue)
+
+  //try start 
+  //fs.readFileSync(filePath, 'utf8', function readFileCallbackSync(err, addData) {
+  //  if (err) {
+  //    console.log('fileread err')
+  //    console.log(err)
+  //  } else {
+  //    tuika = JSON.parse(addData)
+  //    console.log('tuika')
+  //    console.log(tuika)   
+  //    tuika.chats.push(newValue)
+  //    console.log('tuikaato')
+  //    console.log(tuika)   
+  //    fs.writeFileSync(filePath, JSON.stringify(tuika, null, 2), 'utf8')
+  //  }
+  //})
+
+
 
   console.log('currentValues')
   console.log(currentValues)
@@ -48,7 +70,6 @@ const updateDataBase = (filePath, newValue) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   //fs.writeFileSync(filePath, JSON.stringify(newValues, null, 2), 'utf8')
-
   //Object.keys(newValue).map((info) => {
   //  targetUserInfo[info] = newUserInfo[info]
   //})
@@ -57,7 +78,8 @@ const updateDataBase = (filePath, newValue) => {
   //const a = currentValues.chats.push(newValue)
   //fs.writeFileSync(filePath, JSON.stringify(currentValues, null, 2), 'utf8')
   //fs.writeFileSync(filePath, JSON.stringify(tuika, null, 2), 'utf8')
-  fs.appendFileSync(filePath, JSON.stringify(tuika, null, 2), 'utf8')
+  fs.writeFileSync(filePath, JSON.stringify(chatHistory, null, 2), 'utf8')
+  //fs.appendFileSync(filePath, JSON.stringify(tuika, null, 2), 'utf8')
 }
 
 /* Successfully inquiry of authentication */
