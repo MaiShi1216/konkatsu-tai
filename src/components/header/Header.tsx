@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import classes from '@/components/header/style.css'
 
 type ResJson = {
@@ -10,7 +11,9 @@ export const Header = () => {
     <>
       <div className={classes.container}>
         <h1 className={classes.appName}>Woven Marriage Hunting App</h1>
-        <div className={classes.menu}>三</div>
+        <Link to="/error" className={classes.menu}>
+          三
+        </Link>
       </div>
     </>
   )
