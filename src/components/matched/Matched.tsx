@@ -2,30 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 import classes from '@/components/matched/style.css'
+import { UserInfoType } from '@/utils/types'
 
 //Recoil-on
 import { useRecoilValue } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
 
-type MatchedUsersType = {
-  [key in string]: UserInfo
-}
-
-type UserInfo = {
-  name: string
-  password: string
-  nickname: string
-  photo: string
-  email: string
-  favoriteTypes: string[]
-  hobbies: string[]
-  likedNum: number
-  selfIntro: string
-  isHidden: boolean
-}
-
 export const Matched = () => {
-  const [matchedUsers, setMatchedUsers] = useState<MatchedUsersType>({})
+  const [matchedUsers, setMatchedUsers] = useState<UserInfoType>({})
 
   //RecoilでユーザIDを取得
   const userInfo = useRecoilValue(userInfoState)
@@ -37,7 +21,7 @@ export const Matched = () => {
     const response = await fetch(`${process.env.API_ENDPOINT}/matched?userId=${myId}`, {
       method: 'GET',
     })
-    const resJson: MatchedUsersType = await response.json()
+    const resJson: UserInfoType = await response.json()
     setMatchedUsers(resJson)
     console.log(resJson)
   }
