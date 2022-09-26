@@ -5,11 +5,15 @@ import Button from '@mui/material/Button'
 import { useLocation } from 'react-router-dom'
 import { UserInfoContentType, UserInfoType } from '@/utils/types'
 
+type UserIdInfo = {
+  id: string
+}
+
 export const Main = () => {
   const location = useLocation()
-  const [selectUser, setSelectUser] = React.useState(location.state)
+  const [selectUser, setSelectUser] = React.useState(location.state as UserIdInfo)
   const [user, setUser] = React.useState({} as UserInfoContentType)
-  const [loading, setLoading] = React.useState(false)
+  const [userLikedNum, setUserLikedNum] = React.useState(0)
 
   const fetchSelectUser = async (): Promise<void> => {
     const response = await fetch(`${process.env.API_ENDPOINT}/profile`, {
@@ -18,16 +22,31 @@ export const Main = () => {
     const resJson: UserInfoType = await response.json()
     const user = resJson[selectUser.id]
     setUser(user)
+    setUserLikedNum(user.likedNum)
   }
 
   React.useEffect(() => {
-    setLoading(true)
-    fetchSelectUser()
-      .catch((error) => console.error(error))
-      .finally(() => {
-        setLoading(false)
-      })
+    fetchSelectUser().catch((error) => console.error(error))
   }, [])
+
+  const likeCountUp = async () => {
+    const putParam = {
+      likedNum: userLikedNum + 1,
+    }
+    const parameter = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(putParam),
+    }
+    const response = await fetch(`${process.env.API_ENDPOINT}/profile?userId=${selectUser.id}`, parameter)
+    const resJson: { message: string } = await response.json()
+
+    if (resJson.message === 'OK') {
+      setUserLikedNum(userLikedNum + 1)
+    }
+  }
 
   return (
     <div className={classes.main}>
@@ -37,7 +56,7 @@ export const Main = () => {
       <div className={classes.name}>{user.name}</div>
       <div className={classes.like}>
         <ThumbUpAltIcon />
-        <div className={classes.liked_number}>{user.likedNum}</div>
+        <div className={classes.liked_number}>{userLikedNum}</div>
       </div>
       <div className={classes.self_intro}>
         <h2>Self Introduction</h2>
@@ -64,7 +83,7 @@ export const Main = () => {
         </div>
       </div>
       <div className={classes.button}>
-        <Button variant="contained" disabled={false}>
+        <Button variant="contained" disabled={false} onClick={likeCountUp}>
           <p>LIKE!!</p>
           <ThumbUpAltIcon />
         </Button>
