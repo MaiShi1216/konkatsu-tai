@@ -59,7 +59,7 @@ export const Recommended = () => {
             </div>
             <h3 className={classes.name}>{recommendedUsersByHobbies[userId].name}</h3>
             <div className={classes.hobbies}>
-              <p>Common Points:</p>
+              <p>Common interests:</p>
               {Object.keys(commonPoints[userId]).map((index) => (
                 <ul key={index} style={{ listStyleType: 'none' }}>
                   <li style={{ textIndent: '1rem' }}>{commonPoints[userId][index]}</li>
@@ -87,7 +87,7 @@ export const Recommended = () => {
             </div>
             <h3 className={classes.name}>{recommendedUsersByLikes[userId].name}</h3>
             <div className={classes.hobbies}>
-              <p>Common Points:</p>
+              <p>Common interests:</p>
               {Object.keys(commonPoints[userId]).map((index) => (
                 <ul key={index} style={{ listStyleType: 'none' }}>
                   <li style={{ textIndent: '1rem' }}>{commonPoints[userId][index]}</li>
