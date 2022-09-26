@@ -3,36 +3,20 @@ import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 import classes from '@/components/recommended/style.css'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
+import { UserInfoType } from '@/utils/types'
 
 //Recoil-on
 import { useRecoilValue } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
 
 type ReceivedDataType = {
-  [key in string]: RecommendedUsersType
-}
-
-type RecommendedUsersType = {
-  [key in string]: UserInfo
-}
-
-type UserInfo = {
-  name: string
-  password: string
-  nickname: string
-  photo: string
-  email: string
-  favoriteTypes: string[]
-  hobbies: string[]
-  likedNum: number
-  selfIntro: string
-  isHidden: boolean
+  [key in string]: UserInfoType
 }
 
 export const Recommended = () => {
-  const [recommendedUsersByHobbies, setRecommendedUsersByHobbies] = useState<RecommendedUsersType>({})
-  const [recommendedUsersByLikes, setRecommendedUsersByLikes] = useState<RecommendedUsersType>({})
-  const [commonPoints, setCommonPoints] = useState<RecommendedUsersType>({})
+  const [recommendedUsersByHobbies, setRecommendedUsersByHobbies] = useState<UserInfoType>({})
+  const [recommendedUsersByLikes, setRecommendedUsersByLikes] = useState<UserInfoType>({})
+  const [commonPoints, setCommonPoints] = useState<UserInfoType>({})
 
   //RecoilでユーザIDを取得
   const userInfo = useRecoilValue(userInfoState)
