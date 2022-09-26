@@ -57,7 +57,7 @@ export const Recommended = () => {
                 {recommendedUsersByHobbies[userId].likedNum > 99 ? '99+' : recommendedUsersByHobbies[userId].likedNum}
               </div>
             </div>
-            <h3 className={classes.name}>{recommendedUsersByHobbies[userId].name}</h3>
+            <h3 className={classes.name}>{recommendedUsersByHobbies[userId].nickname}</h3>
             <div className={classes.hobbies}>
               <p>Common interests:</p>
               {Object.keys(commonPoints[userId]).map((index) => (
@@ -85,7 +85,7 @@ export const Recommended = () => {
                 {recommendedUsersByLikes[userId].likedNum > 99 ? '99+' : recommendedUsersByLikes[userId].likedNum}
               </div>
             </div>
-            <h3 className={classes.name}>{recommendedUsersByLikes[userId].name}</h3>
+            <h3 className={classes.name}>{recommendedUsersByLikes[userId].nickname}</h3>
             <div className={classes.hobbies}>
               <p>Common interests:</p>
               {Object.keys(commonPoints[userId]).map((index) => (
