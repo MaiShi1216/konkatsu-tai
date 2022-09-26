@@ -14,6 +14,7 @@ export const Main = () => {
   const [selectUser, setSelectUser] = React.useState(location.state as UserIdInfo)
   const [user, setUser] = React.useState({} as UserInfoContentType)
   const [userLikedNum, setUserLikedNum] = React.useState(0)
+  const [likeButtonDisable, setLikeButtonDisable] = React.useState(false)
 
   const fetchSelectUser = async (): Promise<void> => {
     const response = await fetch(`${process.env.API_ENDPOINT}/profile`, {
@@ -45,6 +46,10 @@ export const Main = () => {
 
     if (resJson.message === 'OK') {
       setUserLikedNum(userLikedNum + 1)
+    }
+
+    if (!likeButtonDisable) {
+      setLikeButtonDisable(true)
     }
   }
 
@@ -83,7 +88,7 @@ export const Main = () => {
         </div>
       </div>
       <div className={classes.button}>
-        <Button variant="contained" disabled={false} onClick={likeCountUp}>
+        <Button variant="contained" disabled={likeButtonDisable} onClick={likeCountUp}>
           <p>LIKE!!</p>
           <ThumbUpAltIcon />
         </Button>
