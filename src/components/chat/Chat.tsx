@@ -37,7 +37,8 @@ export const Chat = () => {
         body: JSON.stringify(newSendInfo),
       })
       if (response.status === 200) {
-        window.location.href = '/'
+        //window.location.href = '/'
+        window.location.href = '/chat'
       } else {
         console.error('err')
       }
@@ -77,7 +78,6 @@ export const Chat = () => {
       <h2>Chat</h2>
       <p>This is a chat component.</p>
       <button onClick={fetchChat}>Execute fetch!</button>
-      <p>{message}</p>
       <div>
         {Object.keys(chatHis).map((chatId) => (
           <div key={chatId} className={classes.container}>

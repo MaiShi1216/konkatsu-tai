@@ -28,15 +28,16 @@ router.post('/', (req, res) => {
 
 const updateDataBase = (filePath, newValue) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const currentValues = JSON.parse(fs.readFileSync(filePath))
-  const newValues = { ...currentValues, ...newValue }
-  let tuika = {
-    chats: [],
-  }
-  tuika.chats.push(currentValues)
-  tuika.chats.push(newValue)  
+  //const currentValues = JSON.parse(fs.readFileSync(filePath))
+  //const newValues = { ...currentValues, ...newValue }
+  //let tuika = {
+  //  chats: [],
+  //}
+  //tuika.chats.push(currentValues)
+  //tuika.chats.push(newValue)  
   
   chatHistory.chats.push(newValue)
+  fs.writeFileSync(filePath, JSON.stringify(chatHistory, null, 2), 'utf8')
 
   //currentValues.chats.push(newValue)
 
@@ -56,17 +57,15 @@ const updateDataBase = (filePath, newValue) => {
   //  }
   //})
 
-
-
-  console.log('currentValues')
-  console.log(currentValues)
-  console.log('currentValuese')
-  console.log('newValue')
-  console.log(newValue)
-  console.log('newValuee')
-  console.log('newValues')
-  console.log(newValues)
-  console.log('newValuese')
+  //console.log('currentValues')
+  //console.log(currentValues)
+  //console.log('currentValuese')
+  //console.log('newValue')
+  //console.log(newValue)
+  //console.log('newValuee')
+  //console.log('newValues')
+  //console.log(newValues)
+  //console.log('newValuese')
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   //fs.writeFileSync(filePath, JSON.stringify(newValues, null, 2), 'utf8')
@@ -78,7 +77,7 @@ const updateDataBase = (filePath, newValue) => {
   //const a = currentValues.chats.push(newValue)
   //fs.writeFileSync(filePath, JSON.stringify(currentValues, null, 2), 'utf8')
   //fs.writeFileSync(filePath, JSON.stringify(tuika, null, 2), 'utf8')
-  fs.writeFileSync(filePath, JSON.stringify(chatHistory, null, 2), 'utf8')
+  //fs.writeFileSync(filePath, JSON.stringify(chatHistory, null, 2), 'utf8')
   //fs.appendFileSync(filePath, JSON.stringify(tuika, null, 2), 'utf8')
 }
 
