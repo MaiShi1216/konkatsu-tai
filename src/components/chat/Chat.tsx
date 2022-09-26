@@ -14,14 +14,18 @@ type ChatInfo = {
   content: string
   date: string
   familiarity: string
+  nickname1: string
+  nickname2: string
+  photo1: string
+  photo2: string
 }
 
 export const Chat = () => {
   const [message, setMessage] = useState(undefined)
   const [sendMessage, setSendMessage] = useState<string>(undefined)
 
-  const sendPersonId1 = 'a001'
-  const sendPersonId2 = 'a002'
+  const sendPersonId1 = '3f328652-f4bb-4254-972a-d70489794a25'
+  const sendPersonId2 = 'e857624e-ace4-44a5-8c9f-b9203f10df1f'
 
   const handleSend = async () => {
     const newSendInfo = {
@@ -81,6 +85,8 @@ export const Chat = () => {
       <div>
         {Object.keys(chatHis).map((chatId) => (
           <div key={chatId} className={classes.container}>
+            <img src={chatHis[chatId].photo1} className={classes.photo}></img>
+            <h3 className={classes.message}>{chatHis[chatId].nickname1}</h3>
             <p className={classes.message}>{chatHis[chatId].content}</p>
           </div>
         ))}
