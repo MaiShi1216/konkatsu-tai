@@ -16,7 +16,7 @@ export const ProfileCard = (props: Props) => {
         <div className={classes.image_frame}>
           <img src={props.User.photo} alt="" onClick={(event) => props.transferToProfile(event)} id={props.Id} />
         </div>
-        <div className={classes.name}>{props.User.name}</div>
+        <div className={classes.name}>{props.User.nickname}</div>
         <div className={classes.like}>
           <div>
             <ThumbUpAltIcon style={{ fontSize: '1rem' }} />

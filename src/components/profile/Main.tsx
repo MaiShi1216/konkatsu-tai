@@ -58,7 +58,7 @@ export const Main = () => {
       <div className={classes.image_frame}>
         <img src={user.photo} alt="" />
       </div>
-      <div className={classes.name}>{user.name}</div>
+      <div className={classes.name}>{user.nickname}</div>
       <div className={classes.like}>
         <ThumbUpAltIcon />
         <div className={classes.liked_number}>{userLikedNum}</div>
