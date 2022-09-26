@@ -5,6 +5,9 @@
   justify-content: space-between;
   text-align: center;
 
+  background: #ECE9E6;
+  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6);
 }
 
 .appName {
@@ -74,23 +77,34 @@
   line-height: 1.5;
 }
 
-.inputHobbyButton {
-  display: none;
-}
-.inputTypeButton {
-  display: none;
-}
-
-.inputHobbyButton:checked+label{
-  background: #f8bcca;
-  color: #FFF;
-}
-
-.inputTypeButton:checked+label {
-  background: #60a0b0;
-  color: #FFF;
-}
-
 .selfIntro {
   width: 70%;
+}
+
+.photo {
+  width: 70%
+}
+
+.uploadLabel {
+  display: inline-block;
+    cursor: pointer;
+    margin: 1em 0;
+    padding: .7em 1em;
+    line-height: 1.4;
+    background: #3e8bff;
+    color: #FFF;
+    font-size: 0.95em;
+    border-radius: 2.5em;
+    transition: 0.2s;
+    margin: 0px;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.uploadButton {
+  display: none;
+}
+
+h3 {
+  margin: 25px 0px 10px 0px;
 }

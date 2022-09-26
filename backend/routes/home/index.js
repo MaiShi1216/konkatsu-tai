@@ -8,11 +8,7 @@ const usersInfo = require('../../userInfo.json')
 router.get('/', (req, res) => {
   console.log(req)
   res.status(200)
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const body = usersInfo['3f328652-f4bb-4254-972a-d70489794a25']
-
-  setTimeout(() => res.send(body), 500)
+  res.send(usersInfo)
 })
 
 module.exports = router
