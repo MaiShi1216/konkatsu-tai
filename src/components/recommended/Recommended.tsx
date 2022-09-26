@@ -41,9 +41,6 @@ export const Recommended = () => {
   //RecoilでユーザIDを取得
   const userInfo = useRecoilValue(userInfoState)
   const myId = Object.keys(userInfo)[0]
-  const myHobbies = userInfo[myId].hobbies
-  console.log(myHobbies)
-  //console.log(myId)
 
   const fetchRecommended = async (): Promise<void> => {
     //userIdをクエリパラメータに設定
