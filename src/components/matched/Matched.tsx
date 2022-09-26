@@ -40,7 +40,7 @@ export const Matched = () => {
         {Object.keys(matchedUsers).map((userId) => (
           <div key={userId} className={classes.container}>
             <img src={matchedUsers[userId].photo} className={classes.photo}></img>
-            <h3 className={classes.name}>{matchedUsers[userId].name}</h3>
+            <h3 className={classes.name}>{matchedUsers[userId].nickname}</h3>
             <p className={classes.message}>{matchedUsers[userId].selfIntro}</p>
           </div>
         ))}
