@@ -2,10 +2,13 @@ import React from 'react'
 import { ProfileCard } from '@/components/home/ProfileCard'
 import classes from '@/components/home/style.css'
 import useGetUsers from '@/components/home/useGetUsers'
+import { useRecoilValue } from 'recoil'
+import { userInfoState } from '@/atoms/userInfoAtom'
 
 export const Main = () => {
   const { Users, transferToProfile } = useGetUsers()
-  const myId = '3f328652-f4bb-4254-972a-d70489794a25'
+  const userInfo = useRecoilValue(userInfoState)
+  const myId = Object.keys(userInfo)[0]
 
   return (
     <div className={classes.container}>
