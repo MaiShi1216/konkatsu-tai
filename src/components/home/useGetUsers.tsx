@@ -3,12 +3,12 @@ import { UserInfoType } from '@/utils/types'
 import { useNavigate } from 'react-router-dom'
 
 type TypeGetUsers = {
-  Users: UserInfoType
+  users: UserInfoType
   transferToProfile: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
 const useGetUsers = (): TypeGetUsers => {
-  const [Users, setUsers] = React.useState<UserInfoType>({})
+  const [users, setUsers] = React.useState<UserInfoType>({})
   const navigate = useNavigate()
 
   const fetchUsers = async () => {
@@ -33,7 +33,7 @@ const useGetUsers = (): TypeGetUsers => {
     navigate('/profile', { state: { id: id } })
   }
 
-  return { Users, transferToProfile }
+  return { users, transferToProfile }
 }
 
 export default useGetUsers
