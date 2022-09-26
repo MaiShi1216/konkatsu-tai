@@ -8,7 +8,7 @@ import { Enroll } from '@/components/enroll/Enroll'
 import { Home } from '@/components/home/Home'
 import { Matched } from '@/components/matched/Matched'
 import { Recommended } from '@/components/recommended/Recommended'
-import { ErrorPage } from '@/components/errorPage/ErrorPage'
+import { Error } from '@/components/error/Error'
 
 export const App = () => {
   return (
@@ -21,7 +21,7 @@ export const App = () => {
           <Route path={paths.home} element={<Home />} />
           <Route path={paths.matched} element={<Matched />} />
           <Route path={paths.recommended} element={<Recommended />} />
-          <Route path={'*'} element={<ErrorPage />} />
+          <Route path={'*'} element={<Error />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
