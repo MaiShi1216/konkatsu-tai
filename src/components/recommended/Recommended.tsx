@@ -28,8 +28,8 @@ export const Recommended = () => {
       method: 'GET',
     })
     const resJson: ReceivedDataType = await response.json()
-    setRecommendedUsersByHobbies(resJson.rebommendedByBobbies)
-    setRecommendedUsersByLikes(resJson.rebommendedByLikes)
+    setRecommendedUsersByHobbies(resJson.recommendedByBobbies)
+    setRecommendedUsersByLikes(resJson.recommendedByLikes)
     setCommonPoints(resJson.commonPoints)
   }
 

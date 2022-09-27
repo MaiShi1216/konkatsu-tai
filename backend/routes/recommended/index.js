@@ -83,12 +83,12 @@ router.get('/', (req, res) => {
 
   //送信用オブジェクトの生成
   const body = {
-    rebommendedByBobbies: {},
-    rebommendedByLikes: {},
+    recommendedByBobbies: {},
+    recommendedByLikes: {},
     commonPoints: {},
   }
-  body.rebommendedByBobbies = userInfoOfHobbyMatched
-  body.rebommendedByLikes = userInfoOfLikedMe
+  body.recommendedByBobbies = userInfoOfHobbyMatched
+  body.recommendedByLikes = userInfoOfLikedMe
   body.commonPoints = commonPoints
 
   //console.log(body)
