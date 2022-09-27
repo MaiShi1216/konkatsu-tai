@@ -37,8 +37,6 @@ router.get('/', (req, res) => {
   const unMatchedUserIdListTemp = userIdList.filter((i) => matchedUserIdList.indexOf(i) === -1)
   //自分のIDを消す
   const unMatchedUserIdList = unMatchedUserIdListTemp.filter((user) => user !== userId)
-  //console.log('unMatchedUserIdList')
-  //console.log(unMatchedUserIdList)
 
   //Unmatchedユーザのinfoを取得
   unMatchedUserIdList.forEach((key) => {
@@ -68,7 +66,6 @@ router.get('/', (req, res) => {
       userInfoOfHobbyMatched[key1] = usersInfo[key1]
     }
   })
-  //console.log(commonPoints)
 
   //【DTA-124】自分にいいねしているユーザの抽出
   const userInfoOfLikedMe = {}
@@ -91,10 +88,6 @@ router.get('/', (req, res) => {
   body.recommendedByLikes = userInfoOfLikedMe
   body.commonPoints = commonPoints
 
-  //console.log(body)
-
-  //res.send(userInfoOfHobbyMatched)
-  //res.send(userInfoOfLikedMe)
   res.send(body)
 })
 

@@ -14,7 +14,6 @@ export const Matched = () => {
   //RecoilでユーザIDを取得
   const userInfo = useRecoilValue(userInfoState)
   const myId = Object.keys(userInfo)[0]
-  //console.log(myId)
 
   const fetchMatched = async (): Promise<void> => {
     //userIdをクエリパラメータに設定
@@ -23,7 +22,6 @@ export const Matched = () => {
     })
     const resJson: UserInfoType = await response.json()
     setMatchedUsers(resJson)
-    console.log(resJson)
   }
 
   //ページ読み込み時にレンダリング

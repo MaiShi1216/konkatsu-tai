@@ -19,7 +19,6 @@ router.get('/', (req, res) => {
   for (let i = 0; i < userLikes.length; i++) {
     // eslint-disable-next-line no-undef, @typescript-eslint/no-unsafe-member-access
     temp = likeHistory[userLikes[i]]
-    //console.log(temp);
     // eslint-disable-next-line no-undef
     for (let k in temp) {
       if (temp[k] === userId) {
