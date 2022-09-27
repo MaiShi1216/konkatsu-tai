@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
 
@@ -7,6 +8,7 @@ const likeHistory = require('../../likeHistory.json')
 
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
+  console.log(`GET /index?userId=${req.query.userId}`)
   const userId = req.query.userId //userIdはクエリパラメータで取得
   res.status(200)
 

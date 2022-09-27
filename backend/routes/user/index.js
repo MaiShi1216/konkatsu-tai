@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-var-requires */
@@ -5,6 +6,7 @@ const router = require('express').Router()
 const fs = require('fs')
 
 router.post('/', (req, res) => {
+  console.log('POST /user')
   let body = undefined
   if (!validateUserInfo(req.body, 'POST')) {
     res.status(400)
@@ -29,6 +31,7 @@ router.post('/', (req, res) => {
 })
 
 router.put('/', (req, res) => {
+  console.log(`PUT /user?userId=${req.query.userId}`)
   let body = undefined
   if (!validateUserInfo(req.body, 'PUT')) {
     res.status(400)
