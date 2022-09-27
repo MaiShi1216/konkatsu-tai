@@ -1,28 +1,40 @@
 import React from 'react'
-import { UserInfoType } from '@/utils/types'
+import { UserInfoType, UserInfoContentType } from '@/utils/types'
 import { useNavigate } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
+import { userInfoState } from '@/atoms/userInfoAtom'
+
+type Familiarity = {
+  familiarity?: number
+}
+
+type UserInfoWithFamiliarity = {
+  [key in string]: UserInfoContentType & Familiarity
+}
 
 type TypeGetUsers = {
-  users: UserInfoType
+  users: UserInfoWithFamiliarity
   transferToProfile: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
 const useGetUsers = (): TypeGetUsers => {
-  const [users, setUsers] = React.useState<UserInfoType>({})
+  const [users, setUsers] = React.useState<UserInfoWithFamiliarity>({})
   const navigate = useNavigate()
+  const userInfo = useRecoilValue(userInfoState)
+  const userId = Object.keys(userInfo)[0]
 
   const fetchUsers = async () => {
-    const response = await fetch(`${process.env.API_ENDPOINT}/home`, {
+    const response = await fetch(`${process.env.API_ENDPOINT}/home?userId=${userId}`, {
       method: 'GET',
     })
-    const resJson: UserInfoType = await response.json()
-    return resJson
+    const resUsers: UserInfoWithFamiliarity = await response.json()
+    return resUsers
   }
 
   React.useEffect(() => {
     fetchUsers()
-      .then((resJson) => {
-        setUsers(resJson)
+      .then((resUsers) => {
+        setUsers(resUsers)
       })
       .catch((error) => console.log(error))
   }, [])

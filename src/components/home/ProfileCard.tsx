@@ -5,8 +5,12 @@ import { UserInfoContentType } from '@/utils/types'
 import { useRecoilValue } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
 
+type Familiarity = {
+  familiarity?: number
+}
+
 type Props = {
-  user: UserInfoContentType
+  user: UserInfoContentType & Familiarity
   id: string
   transferToProfile: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
@@ -15,14 +19,6 @@ export const ProfileCard = (props: Props) => {
   const userInfo = useRecoilValue(userInfoState)
   const myId = Object.keys(userInfo)[0]
   const isSecretMode = userInfo[myId].isSecretMode
-
-  const fetchFamiliarity = () => {
-    // const params = { loginUser: myId, other: props.Id }
-    // const query = new URLSearchParams(params)
-    // const response = await fetch(`${process.env.API_ENDPOINT}/home`)
-    return 5
-  }
-  const familiarity = fetchFamiliarity()
 
   return (
     <React.Fragment>
@@ -33,7 +29,7 @@ export const ProfileCard = (props: Props) => {
             alt=""
             onClick={(event) => props.transferToProfile(event)}
             id={props.id}
-            style={isSecretMode ? { filter: `blur(${familiarity}px)` } : null}
+            style={isSecretMode ? { filter: `blur(${props.user.familiarity > 5 ? 0 : 10 - props.user.familiarity * 2}px)` } : null}
           />
         </div>
         <div className={classes.name}>{props.user.nickname}</div>
