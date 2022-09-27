@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import classes from '@/components/signup/style.css'
+import classes from '@/components/Form/style.css'
 
 export type FormType = {
   placeholder: string

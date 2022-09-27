@@ -29,4 +29,6 @@
 .menu {
   position: absolute;
   right: 10px;
+  text-decoration: none;
+  color: black;
 }
