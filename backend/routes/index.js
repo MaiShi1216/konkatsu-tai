@@ -5,6 +5,7 @@ const matchedRouter = require('./matched')
 const homeRouter = require('./home')
 const userRouter = require('./user')
 const profileRouter = require('./profile')
+const reactionsRouter = require('./reactions')
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 router.use('/sample', sampleRouter)
@@ -12,5 +13,6 @@ router.use('/matched', matchedRouter)
 router.use('/home', homeRouter)
 router.use('/user', userRouter)
 router.use('/profile', profileRouter)
+router.use('/reactions', reactionsRouter)
 
 module.exports = router
