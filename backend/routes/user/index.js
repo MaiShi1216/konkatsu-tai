@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
+const getFamiliarity = require('../../functions/getFamiliarity')
 const fs = require('fs')
 const usersInfo = require('../../userInfo.json')
 
@@ -58,12 +59,13 @@ router.put('/', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-  const userId = req.query.userId
+  const loginId = req.query.loginId
+  const selectId = req.query.selectId
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  console.log(`GET /user?userId=${userId}`)
+  console.log(`GET /user?loginId=${loginId}&selectId=${selectId}`)
   let body = undefined
   try {
-    body = usersInfo[userId]
+    body = getFamiliarity(loginId)[selectId]
     res.status(200)
   } catch (err) {
     body = { status: 500 }
