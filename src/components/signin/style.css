@@ -29,7 +29,7 @@
     justify-content: center;
 }
 
-.hobbyButton {
+/* .hobbyButton {
   width: fit-content;
   height: 25px;
   background-color: #FFE5EB;
@@ -47,7 +47,7 @@
   text-align: center;
   margin: 10px 10px 10px 10px;
   padding: 0px 10px;
-}
+} */
 
 .buttonsContainer {
   display: flex;
@@ -98,15 +98,9 @@
   top: 10px;
 }
 
-.wrapper{
-  min-height 100vh;
-  position:relative;
-  padding-bottom:120px;
-  box-sizing:border-box;
-}
-
-footerabsolute{
-  width:100%;
-  position: absolute;
-  bottom:0;
-}
+.footerContainer{
+  position: fixed;
+    left: 0;
+    bottom: 0;
+    width:100%;
+} 

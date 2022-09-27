@@ -48,45 +48,44 @@ export const Signin = () => {
     // recoilにデータを保存して、画面遷移する
     if (response.status === 200) {
       const userId = Object.keys(response)[1]
-      const loginUserdata = {}
-      loginUserdata[userId] = response[userId]
-      console.log(loginUserdata)
-      setUserInfo(loginUserdata)
+      const storedInfo: UserInfoType = { [userId]: response[userId] }
+      setUserInfo(storedInfo)
       navigate('/')
     } else {
       console.error('err')
     }
-    const handleClick2 = () => {}
-    return navigate('/signup')
+  }
+  const handleClick2 = () => {
+    navigate('/signup')
   }
 
   return (
     <>
-      <div className={classes.wrapper}>
-        <div className={classes.container}>
-          <Header />
-          <h3>eMail Adress</h3>
-          <input
-            type="text"
-            placeholder="Enter your email adress"
-            onChange={(e) => {
-              setMail(e.target.value)
-            }}
-          />
-          <h3>Password</h3>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            onChange={(e) => {
-              setPassword(e.target.value)
-            }}
-          />
-          <button className={classes.submitButton} onClick={handleClick}>
-            Signin
-          </button>
-          <button className={classes.submitButton} onClick={handleClick2}>
-            Signup
-          </button>
+      <div className={classes.container}>
+        <Header />
+        <h3>eMail Adress</h3>
+        <input
+          type="text"
+          placeholder="Enter your email adress"
+          onChange={(e) => {
+            setMail(e.target.value)
+          }}
+        />
+        <h3>Password</h3>
+        <input
+          type="password"
+          placeholder="Enter your password"
+          onChange={(e) => {
+            setPassword(e.target.value)
+          }}
+        />
+        <button className={classes.submitButton} onClick={handleClick}>
+          Signin
+        </button>
+        <button className={classes.submitButton} onClick={handleClick2}>
+          Signup
+        </button>
+        <div className={classes.footerContainer}>
           <Footer />
         </div>
       </div>
