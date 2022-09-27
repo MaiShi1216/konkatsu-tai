@@ -15,19 +15,10 @@ type ResJson = {
 }
 
 export const Error = () => {
-  /* for development */
-  const [userInfo, setUserInfo] = useRecoilState<UserInfoType>(userInfoState)
-  const [testMsg, setTestMsg] = useState<string>('')
-  useEffect(() => {
-    setUserInfo(testUserData)
-    setTestMsg('Test user data is stored into Atom successfully.')
-  }, [])
-
   return (
     <>
       <Header />
       <div className={classes.container}>
-        <p style={{ color: 'red' }}>{testMsg}</p> {/* for development */}
         <h2>404 Page not found.</h2>
         <p>Pages</p>
         <ul>
