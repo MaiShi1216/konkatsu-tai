@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
 
@@ -10,9 +12,6 @@ router.get('/', (req, res) => {
   const userId = req.query.userId //userIdはクエリパラメータで取得
   res.status(200)
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const myLiked = likeHistory[userId]
   const matchedUserInfo = {}
   const unMatchedUserInfo = {}
@@ -22,9 +21,7 @@ router.get('/', (req, res) => {
   Object.keys(myLiked).forEach((key1) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
     Object.keys(likeHistory[myLiked[key1]]).forEach((key2) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (likeHistory[myLiked[key1]][key2] === userId) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         matchedUserInfo[myLiked[key1]] = usersInfo[myLiked[key1]]
       }
     })
@@ -45,7 +42,6 @@ router.get('/', (req, res) => {
 
   //Unmatchedユーザのinfoを取得
   unMatchedUserIdList.forEach((key) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     unMatchedUserInfo[key] = usersInfo[key]
   })
 
@@ -53,16 +49,13 @@ router.get('/', (req, res) => {
   const userInfoOfHobbyMatched = {}
   const commonPoints = {} //一致した趣味のリスト
   const threshold = 2 //2つ以上の一致で趣味が合う
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const myHobbies = usersInfo[userId].hobbies
   unMatchedUserIdList.forEach((key1) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const theirHobbies = unMatchedUserInfo[key1].hobbies
     const matchedHobbies = []
     let counter = 0
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+
     myHobbies.forEach((key2) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       theirHobbies.forEach((key3) => {
         if (key2 === key3) {
           counter = counter + 1
@@ -70,11 +63,8 @@ router.get('/', (req, res) => {
         }
       })
     })
-    //console.log('matchedHobbies')
-    //console.log(matchedHobbies)
     commonPoints[key1] = matchedHobbies
     if (counter >= threshold) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       userInfoOfHobbyMatched[key1] = usersInfo[key1]
     }
   })
@@ -83,14 +73,9 @@ router.get('/', (req, res) => {
   //【DTA-124】自分にいいねしているユーザの抽出
   const userInfoOfLikedMe = {}
   unMatchedUserIdList.forEach((key1) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const theirLikes = likeHistory[key1]
-    //console.log(key1)
-    //console.log(theirLikes)
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     theirLikes.forEach((key2) => {
       if (key2 === userId) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         userInfoOfLikedMe[key1] = usersInfo[key1]
       }
     })
