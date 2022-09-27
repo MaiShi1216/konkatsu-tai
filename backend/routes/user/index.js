@@ -66,6 +66,7 @@ router.get('/', (req, res) => {
     body = usersInfo[userId]
     res.status(200)
   } catch (err) {
+    body = { status: 500 }
     res.status(500)
   }
   res.send(body)
