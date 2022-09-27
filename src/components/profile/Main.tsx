@@ -17,11 +17,8 @@ export const Main = () => {
   const [likeButtonDisable, setLikeButtonDisable] = React.useState(false)
 
   const fetchSelectUser = async (): Promise<void> => {
-    const response = await fetch(`${process.env.API_ENDPOINT}/profile`, {
-      method: 'GET',
-    })
-    const resJson: UserInfoType = await response.json()
-    const user = resJson[selectUser.id]
+    const response = await fetch(`${process.env.API_ENDPOINT}/user?userId=${selectUser.id}`, { method: 'GET' })
+    const user: UserInfoContentType = await response.json()
     setUser(user)
     setUserLikedNum(user.likedNum)
   }
@@ -31,25 +28,23 @@ export const Main = () => {
   }, [])
 
   const likeCountUp = async () => {
-    const putParam = {
-      likedNum: userLikedNum + 1,
+    const obj = {
+      userId: selectUser.id,
+      mode: 'like',
     }
-    const parameter = {
-      method: 'PUT',
+    const response = await fetch(`${process.env.API_ENDPOINT}/reactions`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(putParam),
-    }
-    const response = await fetch(`${process.env.API_ENDPOINT}/profile?userId=${selectUser.id}`, parameter)
-    const resJson: { message: string } = await response.json()
-
-    if (resJson.message === 'OK') {
+      body: JSON.stringify(obj),
+    })
+    const resStatus: { status: number } = await response.json()
+    if (resStatus.status === 200) {
+      if (!likeButtonDisable) {
+        setLikeButtonDisable(true)
+      }
       setUserLikedNum(userLikedNum + 1)
-    }
-
-    if (!likeButtonDisable) {
-      setLikeButtonDisable(true)
     }
   }
 

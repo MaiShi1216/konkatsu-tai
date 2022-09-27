@@ -6,6 +6,7 @@ const usersInfo = require('../../userInfo.json')
 
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
+  console.log('GET /home')
   res.status(200)
   res.send(usersInfo)
 })

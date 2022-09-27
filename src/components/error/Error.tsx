@@ -46,6 +46,9 @@ export const Error = () => {
           <li>
             <Link to="/edit"> Change user information</Link>
           </li>
+          <li>
+            <Link to="/recommended">Recommended members</Link>
+          </li>
         </ul>
       </div>
       <div className={classes.footerContainer}>
