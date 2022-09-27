@@ -15,6 +15,11 @@ router.post('/', (req, res) => {
   try {
     const newChat = req.body
     //const newChat = { chats: req.body }
+    const sendDate = new Date()
+    newChat.date = sendDate
+    console.log(chatHistory)
+    const familiarityCount = familiarityCal(chatHistory)
+    newChat.familiarity = familiarityCount
     updateDataBase('./backend/chatHistory.json', newChat)
 
     res.status(200)
@@ -28,11 +33,42 @@ router.post('/', (req, res) => {
 })
 
 //const sendDate = new Date()
-//con
+//console.log(sendDate)
+//newChat.date = sendDate
 
 const updateDataBase = (filePath, newValue) => {
   chatHistory.chats.push(newValue)
   fs.writeFileSync(filePath, JSON.stringify(chatHistory, null, 2), 'utf8')
+}
+
+const familiarityCal = (his) => {
+  let sender
+  for (let index = 0; index < his.chats.length; index++) {
+    console.log('test output')
+    console.log(his.chats[index].personId1)
+    if (index === 0) {
+      sender = his.chats[index].personId1
+      console.log('sender0')
+      console.log(sender)
+      console.log('personid0')
+      console.log(his.chats[index].personId1)
+      familiarityCount = 0
+    } else {
+      console.log('index')
+      console.log(index)
+      console.log('sender')
+      console.log(sender)
+      console.log('personid1')
+      console.log(his.chats[index].personId1)
+      if (sender !== his.chats[index].personId1) {
+        familiarityCount = familiarityCount + 1
+        sender = his.chats[index].personId1
+      }
+    }
+  }
+  console.log('count')
+  console.log(familiarityCount)
+  return familiarityCount
 }
 
 /* Successfully inquiry of authentication */
@@ -53,7 +89,7 @@ router.get('/', (req, res) => {
       return true
   })
 
-  const userInfoList = Object.keys(usersInfo)
+  //const userInfoList = Object.keys(usersInfo)
 
   for (let index = 0; index < Object.keys(chatHis).length; index++) {
     let chatUserId1 = chatHis[index].personId1
