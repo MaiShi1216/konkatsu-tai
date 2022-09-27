@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-var-requires */
@@ -21,9 +22,7 @@ router.post('/', (req, res) => {
   }
 
   try {
-    const newUserId = createUserId()
-    const newUser = { [newUserId]: req.body }
-    createUserInDatabase('./backend/userInfo.json', newUser)
+    const newUserId = createUserId('./backend/userInfo.json')
 
     res.status(200)
     body = { message: 'ok', userId: newUserId }
@@ -86,15 +85,26 @@ const validateUserInfo = (userInfo, method) => {
   return true
 }
 
-const createUserId = () => {
-  // UUID format
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (a) {
+const createUserId = (filePath) => {
+  let newUserId
+  const currentValues = JSON.parse(fs.readFileSync(filePath))
+  const currentUserIdList = Object.keys(currentValues)
+
+  myLoop: while (true) {
+    newUserId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (a) {
     let r = (new Date().getTime() + Math.random() * 16) % 16 | 0,
       v = a == 'x' ? r : (r & 0x3) | 0x8
     return v.toString(16)
   })
-
-  // TODO: 重複チェックを実装する
+    for (const userId of currentUserIdList) {
+      if (userId === newUserId) {
+        console.log(`Conflict: ${userId}`)
+        continue myLoop
+      }
+    }
+    break
+  }
+  return newUserId
 }
 
 const createUserInDatabase = (filePath, newValue) => {
