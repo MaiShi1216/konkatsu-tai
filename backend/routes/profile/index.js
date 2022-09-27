@@ -18,7 +18,7 @@ router.put('/', (req, res) => {
   try {
     updateUserInDatabase('./backend/userInfo.json', req.query.userId, req.body)
     res.status(200)
-    body = { message: 'OK' }
+    body = { status: 200 }
   } catch (error) {
     res.status(500)
   }
