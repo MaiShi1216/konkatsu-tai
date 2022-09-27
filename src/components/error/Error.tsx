@@ -15,14 +15,10 @@ type ResJson = {
 }
 
 export const Error = () => {
-  /* for development */
-  const [testMsg, setTestMsg] = useState<string>('')
-
   return (
     <>
       <Header />
       <div className={classes.container}>
-        <p style={{ color: 'red' }}>{testMsg}</p> {/* for development */}
         <h2>404 Page not found.</h2>
         <p>Pages</p>
         <ul>
