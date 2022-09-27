@@ -13,6 +13,13 @@ router.post('/', (req, res) => {
     return
   }
 
+  if (isConflict('./backend/userInfo.json', req.body.email, 'email')) {
+    res.status(409)
+    body = { message: 'The email address has been registered already' }
+    res.send(body)
+    return
+  }
+
   try {
     const newUserId = createUserId()
     const newUser = { [newUserId]: req.body }
@@ -51,8 +58,18 @@ router.put('/', (req, res) => {
 
 module.exports = router
 
+const isConflict = (filePath, value, key) => {
+  const currentValues = JSON.parse(fs.readFileSync(filePath))
+
+  for (const userId of Object.keys(currentValues)) {
+    if (currentValues[userId][key] === value) {
+      return true
+    }
+  }
+  return false
+}
+
 const validateUserInfo = (userInfo, method) => {
-  // TODO: 登録済みのmailアドレスか確認する
   let neededKeys
   if (method === 'POST') {
     neededKeys = ['name', 'password', 'nickname', 'email', 'isSecretMode', 'photo', 'selfIntro', 'favorites', 'hobbies', 'likedNum']
