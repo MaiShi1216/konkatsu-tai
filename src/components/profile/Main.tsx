@@ -27,7 +27,6 @@ export const Main = () => {
   const fetchSelectUser = async (): Promise<void> => {
     const response = await fetch(`${process.env.API_ENDPOINT}/user?loginId=${loginId}&selectId=${selectUser.id}`, { method: 'GET' })
     const user: UserInfoContentType & Familiarity = await response.json()
-    console.log(user)
     setUser(user)
     setUserLikedNum(user.likedNum)
   }

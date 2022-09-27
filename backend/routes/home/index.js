@@ -8,7 +8,7 @@ const router = require('express').Router()
 const users = require('../../userInfo.json')
 const chatHistory = require('../../chatHistory.json')
 
-const getFamiliarity = require('../../functions/getFamiliarity')
+const addFamiliarityToUsersInfo = require('../../function')
 
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
   console.log(`GET /home?userId=${userId}`)
   let body = undefined
   try {
-    body = getFamiliarity(userId)
+    body = addFamiliarityToUsersInfo(userId)
     res.status(200)
   } catch (err) {
     console.error(err)

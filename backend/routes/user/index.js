@@ -3,9 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
-const getFamiliarity = require('../../functions/getFamiliarity')
+const addFamiliarityToUsersInfo = require('../../function')
 const fs = require('fs')
-const usersInfo = require('../../userInfo.json')
 
 router.post('/', (req, res) => {
   let body
@@ -65,7 +64,7 @@ router.get('/', (req, res) => {
   console.log(`GET /user?loginId=${loginId}&selectId=${selectId}`)
   let body = undefined
   try {
-    body = getFamiliarity(loginId)[selectId]
+    body = addFamiliarityToUsersInfo(loginId)[selectId]
     res.status(200)
   } catch (err) {
     body = { status: 500 }

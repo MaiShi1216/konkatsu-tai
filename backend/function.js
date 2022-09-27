@@ -2,18 +2,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const users = require('../userInfo.json')
-const chatHistory = require('../chatHistory.json')
+const users = require('./userInfo.json')
+const chatHistory = require('./chatHistory.json')
 
-const getFamiliarity = (userId) => {
+const addFamiliarityToUsersInfo = (loginId) => {
   const chatArrReverse = [...chatHistory.chats].reverse()
   Object.keys(users)
-    .filter((id) => id !== userId)
+    .filter((id) => id !== loginId)
     .forEach((otherId) => {
       let hasChat = false
       for (const chat of chatArrReverse) {
         if (!hasChat) {
-          if ((chat.personId1 === userId && chat.personId2 === otherId) || (chat.personId1 === otherId && chat.personId2 === userId)) {
+          if ((chat.personId1 === loginId && chat.personId2 === otherId) || (chat.personId1 === otherId && chat.personId2 === loginId)) {
             users[otherId].familiarity = chat.familiarity
             hasChat = true
           }
@@ -27,4 +27,4 @@ const getFamiliarity = (userId) => {
   return users
 }
 
-module.exports = getFamiliarity
+module.exports = addFamiliarityToUsersInfo
