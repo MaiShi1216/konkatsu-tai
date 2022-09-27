@@ -12,17 +12,17 @@ router.get('/', (req, res) => {
   const userId = req.query.userId //userIdはクエリパラメータで取得
   res.status(200)
 
-  const myLiked = likeHistory[userId]
+  const usersIdLikedByUser = likeHistory[userId]
   const matchedUserInfo = {}
   const unMatchedUserInfo = {}
 
   //マッチングユーザ抽出
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  Object.keys(myLiked).forEach((key1) => {
+  Object.keys(usersIdLikedByUser).forEach((key1) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-    Object.keys(likeHistory[myLiked[key1]]).forEach((key2) => {
-      if (likeHistory[myLiked[key1]][key2] === userId) {
-        matchedUserInfo[myLiked[key1]] = usersInfo[myLiked[key1]]
+    Object.keys(likeHistory[usersIdLikedByUser[key1]]).forEach((key2) => {
+      if (likeHistory[usersIdLikedByUser[key1]][key2] === userId) {
+        matchedUserInfo[usersIdLikedByUser[key1]] = usersInfo[usersIdLikedByUser[key1]]
       }
     })
   })
