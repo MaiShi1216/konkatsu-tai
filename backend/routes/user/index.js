@@ -23,6 +23,7 @@ router.post('/', (req, res) => {
 
   try {
     const newUserId = createUserId('./backend/userInfo.json')
+    appendToDatabase('./backend/userInfo.json', { [newUserId]: req.body })
 
     res.status(200)
     body = { message: 'ok', userId: newUserId }
@@ -44,7 +45,7 @@ router.put('/', (req, res) => {
   }
 
   try {
-    updateUserInDatabase('./backend/userInfo.json', req.query.userId, req.body)
+    updateDatabase('./backend/userInfo.json', req.query.userId, req.body)
     res.status(200)
     body = { message: 'ok' }
   } catch (err) {
@@ -92,10 +93,10 @@ const createUserId = (filePath) => {
 
   myLoop: while (true) {
     newUserId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (a) {
-    let r = (new Date().getTime() + Math.random() * 16) % 16 | 0,
-      v = a == 'x' ? r : (r & 0x3) | 0x8
-    return v.toString(16)
-  })
+      let r = (new Date().getTime() + Math.random() * 16) % 16 | 0,
+        v = a == 'x' ? r : (r & 0x3) | 0x8
+      return v.toString(16)
+    })
     for (const userId of currentUserIdList) {
       if (userId === newUserId) {
         console.log(`Conflict: ${userId}`)
@@ -107,22 +108,22 @@ const createUserId = (filePath) => {
   return newUserId
 }
 
-const createUserInDatabase = (filePath, newValue) => {
+const appendToDatabase = (filePath, newValue) => {
   const currentValues = JSON.parse(fs.readFileSync(filePath))
   const newValues = { ...currentValues, ...newValue }
   fs.writeFileSync(filePath, JSON.stringify(newValues, null, 2), 'utf8')
 }
 
-const updateUserInDatabase = (filePath, targetUserId, newUserInfo) => {
-  const userInfoDatabase = JSON.parse(fs.readFileSync(filePath))
-  let targetUserInfo = userInfoDatabase[targetUserId]
-  if (!targetUserInfo) {
-    throw 'Target user is not existed.'
+const updateDatabase = (filePath, targetKey, newValue) => {
+  const database = JSON.parse(fs.readFileSync(filePath))
+  let targetValues = database[targetKey]
+  if (!targetValues) {
+    throw 'Target key is not existed in the database.'
   }
-  Object.keys(newUserInfo).map((info) => {
-    targetUserInfo[info] = newUserInfo[info]
+  Object.keys(newValue).map((key) => {
+    targetValues[key] = newValue[key]
   })
 
-  userInfoDatabase[targetUserId] = targetUserInfo
-  fs.writeFileSync(filePath, JSON.stringify(userInfoDatabase, null, 2), 'utf8')
+  database[targetKey] = targetValues
+  fs.writeFileSync(filePath, JSON.stringify(database, null, 2), 'utf8')
 }
