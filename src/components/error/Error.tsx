@@ -16,12 +16,7 @@ type ResJson = {
 
 export const Error = () => {
   /* for development */
-  const [userInfo, setUserInfo] = useRecoilState<UserInfoType>(userInfoState)
   const [testMsg, setTestMsg] = useState<string>('')
-  useEffect(() => {
-    setUserInfo(testUserData)
-    setTestMsg('Test user data is stored into Atom successfully.')
-  }, [])
 
   return (
     <>
