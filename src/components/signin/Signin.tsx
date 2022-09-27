@@ -62,31 +62,33 @@ export const Signin = () => {
 
   return (
     <>
-      <div className={classes.container}>
-        <Header />
-        <h3>eMail Adress</h3>
-        <input
-          type="text"
-          placeholder="Enter your email adress"
-          onChange={(e) => {
-            setMail(e.target.value)
-          }}
-        />
-        <h3>Password</h3>
-        <input
-          type="password"
-          placeholder="Enter your password"
-          onChange={(e) => {
-            setPassword(e.target.value)
-          }}
-        />
-        <button className={classes.submitButton} onClick={handleClick}>
-          Signin
-        </button>
-        <button className={classes.submitButton} onClick={handleClick2}>
-          Signup
-        </button>
-        <Footer />
+      <div className={classes.wrapper}>
+        <div className={classes.container}>
+          <Header />
+          <h3>eMail Adress</h3>
+          <input
+            type="text"
+            placeholder="Enter your email adress"
+            onChange={(e) => {
+              setMail(e.target.value)
+            }}
+          />
+          <h3>Password</h3>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            onChange={(e) => {
+              setPassword(e.target.value)
+            }}
+          />
+          <button className={classes.submitButton} onClick={handleClick}>
+            Signin
+          </button>
+          <button className={classes.submitButton} onClick={handleClick2}>
+            Signup
+          </button>
+          <Footer />
+        </div>
       </div>
     </>
   )
