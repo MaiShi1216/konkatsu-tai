@@ -11,6 +11,7 @@ const likeHistory = require('../../likeHistory.json')
 router.get('/', (req, res) => {
   const userId = req.query.userId //userIdはクエリパラメータで取得
   res.status(200)
+  console.log('GET /recommended')
 
   const usersIdLikedByUser = likeHistory[userId]
   const matchedUserInfo = {}
