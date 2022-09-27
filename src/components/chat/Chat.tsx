@@ -21,7 +21,6 @@ type ChatInfo = {
 }
 
 export const Chat = () => {
-  const [message, setMessage] = useState(undefined)
   const [sendMessage, setSendMessage] = useState<string>(undefined)
 
   const sendPersonId1 = '3f328652-f4bb-4254-972a-d70489794a25'
@@ -41,7 +40,6 @@ export const Chat = () => {
         body: JSON.stringify(newSendInfo),
       })
       if (response.status === 200) {
-        //window.location.href = '/'
         window.location.href = '/chat'
       } else {
         console.error('err')
@@ -59,21 +57,6 @@ export const Chat = () => {
     })
     const resJson: ChatInfoType = await response.json()
     setChatHis(resJson)
-    setMessage(resJson)
-    const chatLen = Object.keys(resJson).length
-    console.log(resJson)
-    console.log(`aaa${resJson}`)
-    console.log(`bbb${resJson[0]}`)
-    console.log(`ccc${resJson[0].content}`)
-    console.log(`length${chatLen}`)
-
-    //setMessage(resJson.content)
-    let chatMessage
-    for (let i = 0; i < chatLen; i++) {
-      chatMessage = chatMessage + resJson[i].content
-    }
-    //setMessage(resJson[0].content + resJson[1].content)
-    setMessage(chatMessage)
   }
 
   return (
