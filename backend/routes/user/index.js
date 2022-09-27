@@ -5,11 +5,11 @@ const router = require('express').Router()
 const fs = require('fs')
 
 router.post('/', (req, res) => {
-  let body = undefined
+  let body
   if (!validateUserInfo(req.body, 'POST')) {
     res.status(400)
     body = { message: 'Bad Request' }
-    res.send()
+    res.send(body)
     return
   }
 
