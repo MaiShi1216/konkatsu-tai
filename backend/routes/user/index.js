@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
 const fs = require('fs')
+const usersInfo = require('../../userInfo.json')
 
 router.post('/', (req, res) => {
   let body
@@ -52,6 +53,21 @@ router.put('/', (req, res) => {
     console.log(err)
     res.status(500)
     body = { message: 'Internal server error' }
+  }
+  res.send(body)
+})
+
+router.get('/', (req, res) => {
+  const userId = req.query.userId
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+  console.log(`GET /user?userId=${userId}`)
+  let body = undefined
+  try {
+    body = usersInfo[userId]
+    res.status(200)
+  } catch (err) {
+    body = { status: 500 }
+    res.status(500)
   }
   res.send(body)
 })
