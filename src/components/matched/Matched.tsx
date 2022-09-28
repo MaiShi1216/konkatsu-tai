@@ -33,7 +33,7 @@ export const Matched = () => {
 
   return (
     <>
-      <Header />
+      <Header menuExist={true} />
       <div>
         {Object.keys(matchedUsers).map((userId) => (
           <div key={userId} className={classes.container}>

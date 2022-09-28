@@ -6,7 +6,7 @@ import { Footer } from '@/components/footer/Footer'
 export const Home = () => {
   return (
     <React.Fragment>
-      <Header />
+      <Header menuExist={true} />
       <Main />
       <Footer />
     </React.Fragment>
