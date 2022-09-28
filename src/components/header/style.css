@@ -32,3 +32,9 @@
   text-decoration: none;
   color: black;
 }
+.close {
+  position: absolute;
+  right: 10px;
+  text-decoration: none;
+  color: black;
+}

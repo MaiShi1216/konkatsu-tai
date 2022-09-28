@@ -14,6 +14,8 @@ import MenuIcon from '@mui/icons-material/Menu'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism'
 import SettingsIcon from '@mui/icons-material/Settings'
+import LogoutIcon from '@mui/icons-material/Logout'
+import CancelIcon from '@mui/icons-material/Cancel'
 
 import { NavLink } from 'react-router-dom'
 
@@ -33,14 +35,26 @@ export const Header = (props: Props) => {
       <>
         <div className={classes.container}>
           <h1 className={classes.appName}>Woven Marriage Hunting App</h1>
-          {/* ここから追記 */}
+
           <div className={classes.menuIcon}>
             <IconButton color="inherit" onClick={handleDrawerToggle}>
               <MenuIcon />
             </IconButton>
           </div>
 
-          <Drawer anchor="right" variant="temporary" open={drawerOpen} onClose={handleDrawerToggle}>
+          <Drawer
+            anchor="right"
+            variant="temporary"
+            PaperProps={{ sx: { backgroundColor: '#f8bcca' } }}
+            open={drawerOpen}
+            onClose={handleDrawerToggle}
+          >
+            <div className={classes.close}>
+              <IconButton onClick={handleDrawerToggle}>
+                <CancelIcon />
+              </IconButton>
+            </div>
+            <br />
             <List>
               <NavLink to="/">
                 <ListItem>
@@ -77,9 +91,17 @@ export const Header = (props: Props) => {
                   <ListItemText primary="Edit profile" />
                 </ListItem>
               </NavLink>
+
+              <NavLink to="/signin">
+                <ListItem>
+                  <ListItemIcon>
+                    <LogoutIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </ListItem>
+              </NavLink>
             </List>
           </Drawer>
-          {/* ここまで */}
         </div>
       </>
     )
