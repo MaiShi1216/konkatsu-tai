@@ -33,9 +33,11 @@ export const Header = () => {
       <div className={classes.container}>
         <h1 className={classes.appName}>Woven Marriage Hunting App</h1>
         {/* ここから追記 */}
-        <IconButton color="inherit" onClick={handleDrawerToggle}>
-          <MenuIcon />
-        </IconButton>
+        <div className={classes.menuIcon}>
+          <IconButton color="inherit" onClick={handleDrawerToggle}>
+            <MenuIcon />
+          </IconButton>
+        </div>
 
         <Drawer anchor="right" variant="temporary" open={drawerOpen} onClose={handleDrawerToggle}>
           <List>
@@ -53,7 +55,7 @@ export const Header = () => {
                 <ListItemIcon>
                   <FavoriteIcon />
                 </ListItemIcon>
-                <ListItemText primary="Matching members" />
+                <ListItemText primary="Matching" />
               </ListItem>
             </NavLink>
 
@@ -62,7 +64,7 @@ export const Header = () => {
                 <ListItemIcon>
                   <VolunteerActivismIcon />
                 </ListItemIcon>
-                <ListItemText primary="Recommended members" />
+                <ListItemText primary="Recommended" />
               </ListItem>
             </NavLink>
 
