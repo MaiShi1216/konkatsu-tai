@@ -6,13 +6,14 @@ const fs = require('fs')
 const usersInfo = require('../../userInfo.json')
 const chatHistory = require('../../chatHistory.json')
 const { ContextExclusionPlugin } = require('webpack')
+const console = require('console')
 
 router.post('/', (req, res) => {
   let body = undefined
 
   try {
-    console.log('chatHistory')
-    console.log(chatHistory)
+    // console.log('chatHistory')
+    // console.log(chatHistory)
     const newChat = req.body
     const userId1 = req.query.userId1
     const userId2 = req.query.userId2
@@ -24,7 +25,7 @@ router.post('/', (req, res) => {
     const familiarityCount = familiarityCal(chatHistory)
     newChat.familiarity = familiarityCount
 
-    chatHistoryClean(chatHistory)
+    //chatHistoryClean(chatHistory)
     updateDataBase('./backend/chatHistory.json', newChat)
 
     console.log('userId1')
@@ -79,13 +80,6 @@ const familiarityCal = (his) => {
   return familiarityCount
 }
 
-const chatHistoryClean = (clean) => {
-  for (let index = 0; index < clean.chats.length; index++) {
-    delete clean.chats[index].photo1
-    delete clean.chats[index].nickname1
-  }
-}
-
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
   const userId1 = req.query.userId1
@@ -99,8 +93,8 @@ router.get('/', (req, res) => {
     delete resChatHistory[index].familiarity
   }
 
-  console.log('maxFamiliality')
-  console.log(maxFamiliality)
+  // console.log('maxFamiliality')
+  // console.log(maxFamiliality)
 
   res.status(200)
   //const body = chatHistorys
@@ -110,26 +104,29 @@ router.get('/', (req, res) => {
   }
 
   setTimeout(() => res.send(body), 500)
+  // console.log('chatHistorys')
+  // console.log(chatHistorys)
+  // console.log('chatHistory')
+  // console.log(chatHistory)
 })
 
 const createChatHistory = (uid1, uid2) => {
-  const chatHis = chatHistory.chats.filter(function (chatItem) {
-    if ((chatItem.personId1 == uid1 && chatItem.personId2 == uid2) || (chatItem.personId1 == uid2 && chatItem.personId2 == uid1))
+  let newHis = []
+  let chatHis = chatHistory.chats.filter(function (chatItem) {
+    if ((chatItem.personId1 == uid1 && chatItem.personId2 == uid2) || (chatItem.personId1 == uid2 && chatItem.personId2 == uid1)) {
+      newHis.push(Object.assign({}, JSON.parse(JSON.stringify(chatItem))))
       return true
+    }
   })
 
-  //for (let index = 0; index < Object.keys(chatHis).length; index++) {
-  //  delete chatHis[index].familiarity
-  //}
-  //console.log(chatHis)
-  return chatHis
+  return newHis
 }
 
 const familiaritySel = (selHis) => {
   let lastFamiliarity
   for (let index = 0; index < selHis.length; index++) {
     lastFamiliarity = selHis[index].familiarity
-    console.log('sel')
+    // console.log('sel')
   }
   return lastFamiliarity
 }
