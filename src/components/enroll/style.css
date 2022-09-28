@@ -79,6 +79,11 @@
 
 .selfIntro {
   width: 70%;
+  margin-top: 30px;
+}
+
+.textField {
+  width: 100%;
 }
 
 .photo {

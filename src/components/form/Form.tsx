@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from '@/components/Form/style.css'
+import TextField from '@mui/material/TextField'
 
 export type FormType = {
   placeholder: string
@@ -11,17 +12,20 @@ export type FormType = {
 }
 
 export const Form = (props: FormType) => {
+  const [isCorrect, setIsCorrect] = useState<boolean>(false)
   useEffect(() => {
     props.setter(props.initValue ? props.initValue : undefined)
   }, [])
 
   return (
     <div className={classes.textBox}>
-      <p>{props.label}</p>
-      <input
-        className={classes.input}
+      <TextField
+        error={isCorrect}
+        id="standard-basic"
+        label={props.placeholder}
+        variant="standard"
         type={props.type}
-        placeholder={props.placeholder}
+        helperText={!isCorrect ? undefined : 'Incorrect entry'}
         onChange={(e) => {
           props.setter(e.target.value)
         }}
