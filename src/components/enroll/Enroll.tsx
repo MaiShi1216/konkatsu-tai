@@ -10,6 +10,7 @@ import { useRecoilState } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
 import { UserInfoType, UserInfoContentType } from '@/utils/types'
 import TextField from '@mui/material/TextField'
+import CameraAltIcon from '@mui/icons-material/CameraAlt'
 
 type ResJson = {
   userId: string
@@ -153,6 +154,7 @@ export const Enroll: FC<PropsType> = (props) => {
               setPhoto(await encodeImgToBase64(e.target.files[0]))
             }}
           ></input>
+          <CameraAltIcon />
           Choose file
         </label>
       </div>
