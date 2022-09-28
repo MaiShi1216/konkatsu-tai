@@ -12,8 +12,6 @@ router.post('/', (req, res) => {
   let body = undefined
 
   try {
-    // console.log('chatHistory')
-    // console.log(chatHistory)
     const newChat = req.body
     const userId1 = req.query.userId1
     const userId2 = req.query.userId2
@@ -25,11 +23,7 @@ router.post('/', (req, res) => {
     const familiarityCount = familiarityCal(chatHistory)
     newChat.familiarity = familiarityCount
 
-    //chatHistoryClean(chatHistory)
     updateDataBase('./backend/chatHistory.json', newChat)
-
-    console.log('userId1')
-    console.log(userId1)
 
     const chatHistorys = createChatHistory(userId1, userId2)
     const maxFamiliality = familiaritySel(chatHistorys)
@@ -39,18 +33,12 @@ router.post('/', (req, res) => {
       delete resChatHistory[index].familiarity
     }
 
-    console.log(maxFamiliality)
-
-    //const body = chatHistorys
+    res.status(200)
     const body = {
       chatHistory: resChatHistory,
       familiarity: maxFamiliality,
     }
-
-    res.status(200)
-    setTimeout(() => res.send(body), 500)
-
-    //body = { message: 'ok' }
+    res.send(body)
   } catch (err) {
     console.log(err)
     res.status(500)
@@ -93,21 +81,13 @@ router.get('/', (req, res) => {
     delete resChatHistory[index].familiarity
   }
 
-  // console.log('maxFamiliality')
-  // console.log(maxFamiliality)
-
   res.status(200)
-  //const body = chatHistorys
   const body = {
     chatHistory: resChatHistory,
     familiarity: maxFamiliality,
   }
 
   setTimeout(() => res.send(body), 500)
-  // console.log('chatHistorys')
-  // console.log(chatHistorys)
-  // console.log('chatHistory')
-  // console.log(chatHistory)
 })
 
 const createChatHistory = (uid1, uid2) => {
@@ -123,10 +103,9 @@ const createChatHistory = (uid1, uid2) => {
 }
 
 const familiaritySel = (selHis) => {
-  let lastFamiliarity
+  let lastFamiliarity = 0
   for (let index = 0; index < selHis.length; index++) {
     lastFamiliarity = selHis[index].familiarity
-    // console.log('sel')
   }
   return lastFamiliarity
 }
