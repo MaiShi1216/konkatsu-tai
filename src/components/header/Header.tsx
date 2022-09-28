@@ -17,69 +17,79 @@ import SettingsIcon from '@mui/icons-material/Settings'
 
 import { NavLink } from 'react-router-dom'
 
-type ResJson = {
-  name: string
+type Props = {
+  menuExist: boolean
 }
 
-export const Header = () => {
-  // Drawer の開閉状態
-  const [drawerOpen, setDrawerOpen] = React.useState(false)
-  // Drawer の開閉
-  const handleDrawerToggle = () => {
-    setDrawerOpen(!drawerOpen) // Drawer の開閉状態を反転
-  }
-  return (
-    <>
-      <div className={classes.container}>
-        <h1 className={classes.appName}>Woven Marriage Hunting App</h1>
-        {/* ここから追記 */}
-        <div className={classes.menuIcon}>
-          <IconButton color="inherit" onClick={handleDrawerToggle}>
-            <MenuIcon />
-          </IconButton>
+export const Header = (props: Props) => {
+  if (props.menuExist === true) {
+    // Drawer の開閉状態
+    const [drawerOpen, setDrawerOpen] = React.useState(false)
+    // Drawer の開閉
+    const handleDrawerToggle = () => {
+      setDrawerOpen(!drawerOpen) // Drawer の開閉状態を反転
+    }
+    return (
+      <>
+        <div className={classes.container}>
+          <h1 className={classes.appName}>Woven Marriage Hunting App</h1>
+          {/* ここから追記 */}
+          <div className={classes.menuIcon}>
+            <IconButton color="inherit" onClick={handleDrawerToggle}>
+              <MenuIcon />
+            </IconButton>
+          </div>
+
+          <Drawer anchor="right" variant="temporary" open={drawerOpen} onClose={handleDrawerToggle}>
+            <List>
+              <NavLink to="/">
+                <ListItem>
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItem>
+              </NavLink>
+
+              <NavLink to="/matched">
+                <ListItem>
+                  <ListItemIcon>
+                    <FavoriteIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Matching" />
+                </ListItem>
+              </NavLink>
+
+              <NavLink to="/recommended">
+                <ListItem>
+                  <ListItemIcon>
+                    <VolunteerActivismIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Recommended" />
+                </ListItem>
+              </NavLink>
+
+              <NavLink to="/edit">
+                <ListItem>
+                  <ListItemIcon>
+                    <SettingsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Edit profile" />
+                </ListItem>
+              </NavLink>
+            </List>
+          </Drawer>
+          {/* ここまで */}
         </div>
-
-        <Drawer anchor="right" variant="temporary" open={drawerOpen} onClose={handleDrawerToggle}>
-          <List>
-            <NavLink to="/">
-              <ListItem>
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItem>
-            </NavLink>
-
-            <NavLink to="/matched">
-              <ListItem>
-                <ListItemIcon>
-                  <FavoriteIcon />
-                </ListItemIcon>
-                <ListItemText primary="Matching" />
-              </ListItem>
-            </NavLink>
-
-            <NavLink to="/recommended">
-              <ListItem>
-                <ListItemIcon>
-                  <VolunteerActivismIcon />
-                </ListItemIcon>
-                <ListItemText primary="Recommended" />
-              </ListItem>
-            </NavLink>
-
-            <NavLink to="/edit">
-              <ListItem>
-                <ListItemIcon>
-                  <SettingsIcon />
-                </ListItemIcon>
-                <ListItemText primary="Edit profile" />
-              </ListItem>
-            </NavLink>
-          </List>
-        </Drawer>
-        {/* ここまで */}
-      </div>
-    </>
-  )
+      </>
+    )
+  } else if (props.menuExist === false) {
+    return (
+      <>
+        <div className={classes.container}>
+          <h1 className={classes.appName}>Woven Marriage Hunting App</h1>
+        </div>
+      </>
+    )
+  }
 }
