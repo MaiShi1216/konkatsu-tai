@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-var-requires */
@@ -9,11 +11,11 @@ const likeHistory = require('../../likeHistory.json')
 
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
-  const userId = req.query.userId //userIdはクエリパラメータで取得
+  const loginId = req.query.loginId //userIdはクエリパラメータで取得
   res.status(200)
-  console.log('GET /recommended')
+  console.log(`GET /recommended?loginId=${loginId}`)
 
-  const usersIdLikedByUser = likeHistory[userId]
+  const usersIdLikedByUser = likeHistory[loginId]
   const matchedUserInfo = {}
   const unMatchedUserInfo = {}
 
@@ -22,33 +24,42 @@ router.get('/', (req, res) => {
   Object.keys(usersIdLikedByUser).forEach((key1) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
     Object.keys(likeHistory[usersIdLikedByUser[key1]]).forEach((key2) => {
-      if (likeHistory[usersIdLikedByUser[key1]][key2] === userId) {
+      if (likeHistory[usersIdLikedByUser[key1]][key2] === loginId) {
         matchedUserInfo[usersIdLikedByUser[key1]] = usersInfo[usersIdLikedByUser[key1]]
       }
     })
   })
 
+  //いいねしている人以外を抽出
+  const likeUserId = likeHistory[loginId]
+  const unMatchedUserIdList = Object.keys(usersInfo)
+    .filter((userId) => !likeUserId.includes(userId))
+    .filter((userId) => userId !== loginId)
+  unMatchedUserIdList.forEach((userId) => {
+    unMatchedUserInfo[userId] = usersInfo[userId]
+  })
+
   //マッチングしていないユーザのリストを作成
   //①ユーザリストの作成
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const userIdList = Object.keys(usersInfo)
+  //const userIdList = Object.keys(usersInfo)
   //②matchedユーザリストの作成
-  const matchedUserIdList = Object.keys(matchedUserInfo)
+  //const matchedUserIdList = Object.keys(matchedUserInfo)
   //①②の差分＝unmatchedユーザリストの作成
-  const unMatchedUserIdListTemp = userIdList.filter((i) => matchedUserIdList.indexOf(i) === -1)
+  //const unMatchedUserIdListTemp = userIdList.filter((i) => matchedUserIdList.indexOf(i) === -1)
   //自分のIDを消す
-  const unMatchedUserIdList = unMatchedUserIdListTemp.filter((user) => user !== userId)
+  //const unMatchedUserIdList = unMatchedUserIdListTemp.filter((user) => user !== loginId)
 
   //Unmatchedユーザのinfoを取得
-  unMatchedUserIdList.forEach((key) => {
-    unMatchedUserInfo[key] = usersInfo[key]
-  })
+  // unMatchedUserIdList.forEach((key) => {
+  //   unMatchedUserInfo[key] = usersInfo[key]
+  // })
 
   //【DTA-9】趣味が所定数以上合うユーザの抽出
   const userInfoOfHobbyMatched = {}
   const commonPoints = {} //一致した趣味のリスト
   const threshold = 2 //2つ以上の一致で趣味が合う
-  const myHobbies = usersInfo[userId].hobbies
+  const myHobbies = usersInfo[loginId].hobbies
   unMatchedUserIdList.forEach((key1) => {
     const theirHobbies = unMatchedUserInfo[key1].hobbies
     const matchedHobbies = []
@@ -73,7 +84,7 @@ router.get('/', (req, res) => {
   unMatchedUserIdList.forEach((key1) => {
     const theirLikes = likeHistory[key1]
     theirLikes.forEach((key2) => {
-      if (key2 === userId) {
+      if (key2 === loginId) {
         userInfoOfLikedMe[key1] = usersInfo[key1]
       }
     })
