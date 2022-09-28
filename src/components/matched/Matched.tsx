@@ -32,7 +32,7 @@ export const Matched = () => {
   }, [])
 
   return (
-    <>
+    <div className={classes.main}>
       <Header />
       <div>
         {Object.keys(matchedUsers).map((userId) => (
@@ -43,7 +43,9 @@ export const Matched = () => {
           </div>
         ))}
       </div>
-      <Footer />
-    </>
+      <div className={classes.footer}>
+        <Footer />
+      </div>
+    </div>
   )
 }
