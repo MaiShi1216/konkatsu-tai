@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
 
@@ -11,33 +13,24 @@ router.get('/', (req, res) => {
   console.log(`GET /index?userId=${req.query.userId}`)
   const userId = req.query.userId //userIdはクエリパラメータで取得
   res.status(200)
+  console.log('GET /matched')
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const userLikes = likeHistory[userId]
   const matchedUserId = []
   const matchedUserInfo = {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   for (let i = 0; i < userLikes.length; i++) {
     // eslint-disable-next-line no-undef, @typescript-eslint/no-unsafe-member-access
     temp = likeHistory[userLikes[i]]
-    //console.log(temp);
     // eslint-disable-next-line no-undef
     for (let k in temp) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, no-undef
       if (temp[k] === userId) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        console.log(userLikes[i])
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         matchedUserId.push(userLikes[i])
       }
     }
   }
 
   for (let i = 0; i < matchedUserId.length; i++) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     matchedUserInfo[matchedUserId[i]] = usersInfo[matchedUserId[i]]
   }
 

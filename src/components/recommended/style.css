@@ -1,0 +1,81 @@
+.container {
+    display: grid;
+    grid-template-rows: 100px 50px 50px 50px;
+    grid-template-columns: 200px 1fr;
+    grid-template-areas:
+        "areaA areaB areaB"
+        "areaA areaB areaB"
+        "areaD areaC areaC"
+        "areaE areaC areaC";
+    /* grid-template-columns: 200px 200px */
+}
+
+.name {
+    grid-area: areaD;
+    /* margin: auto; */
+    vertical-align: middle;
+    text-align: center;
+    /* grid-row: 1; grid-column: 2; */
+    /* background: #f88; */
+}
+
+.photo {
+    grid-area: areaA;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    /* grid-row: 1; grid-column: 1; */
+    /* background: #8f8; */
+}
+
+.message {
+    grid-area: areaC;
+    /* margin: auto; */
+    vertical-align: middle;
+    text-align: left;
+    /* grid-row: 2; grid-column: 2; */
+    /* background: #88f; */
+}
+
+.likes {
+    grid-area: areaE;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.hobbies {
+    grid-area: areaB;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.talkButton {
+    grid-area: areaC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #3F80FF;
+    border-radius: 6.66075px;
+    width: 150px;
+    height: 38px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    margin: 20px 0px;
+}
+
+.mainTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subTitle {
+    font-style:italic;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
