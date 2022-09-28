@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -8,11 +9,13 @@ const fs = require('fs')
 router.post('/', (req, res) => {
   console.log('POST /reactions')
   let body = {}
-  const userId = req.body.userId
+  const loginId = req.body.loginId
+  const selectId = req.body.selectId
   const mode = req.body.mode
   if (mode === 'like') {
     try {
-      updateLikedNumInDatabase('./backend/userInfo.json', userId)
+      updateLikedNumInDatabase('./backend/userInfo.json', selectId)
+      addLikeUser(loginId, selectId)
       res.status(200)
       body = { status: 200 }
     } catch (err) {
@@ -35,4 +38,10 @@ const updateLikedNumInDatabase = (filePath, targetUserId) => {
   targetUserInfo['likedNum']++
   userInfoDatabase[targetUserId] = targetUserInfo
   fs.writeFileSync(filePath, JSON.stringify(userInfoDatabase, null, 2), 'utf8')
+}
+
+const addLikeUser = (loginId, selectId) => {
+  const likeHistoryDatabase = JSON.parse(fs.readFileSync('./backend/likeHistory.json'))
+  likeHistoryDatabase[loginId].push(selectId)
+  fs.writeFileSync('./backend/likeHistory.json', JSON.stringify(likeHistoryDatabase, null, 2), 'utf8')
 }
