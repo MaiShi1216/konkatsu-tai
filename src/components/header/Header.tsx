@@ -53,7 +53,7 @@ export const Header = () => {
                 <ListItemIcon>
                   <FavoriteIcon />
                 </ListItemIcon>
-                <ListItemText primary="Matched members" />
+                <ListItemText primary="Matching members" />
               </ListItem>
             </NavLink>
 
