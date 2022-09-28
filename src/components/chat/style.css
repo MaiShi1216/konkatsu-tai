@@ -2,9 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   text-align: center;
-
+  min-height: 100vh;
 }
 
 .appName {
@@ -25,9 +24,9 @@
 .photo {
   /* grid-area: areaA; */
   border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  margin: auto;
+  width: 80px;
+  height: 80px;
+  margin: 0;
   /* grid-row: 1; grid-column: 1; */
   /* background: #8f8; */
 }
@@ -70,8 +69,8 @@
 .submitButton {
   background: #3F80FF;
   border-radius: 6.66075px;
-  width: 209px;
-  height: 38px;
+  width: 20%;
+  height: 56px;
   font-weight: 400;
   font-size: 16px;
   color: #fff;
@@ -99,4 +98,47 @@
 .inputTypeButton:checked+label {
   background: #60a0b0;
   color: #FFF;
+}
+
+.sendChatContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  margin: 10px 0px;
+  width: 90%;
+}
+
+.receiveChatContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  margin: 10px 0px;
+  width: 90%;
+}
+
+.sendMessageContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    margin: 0px 0px;
+    width: 95%;
+    height: 60px;
+
+    position: absolute;
+    bottom: 30px;
+}
+
+.footerContainer {
+  margin-top: auto;
+  width: 100%;
+}
+
+.message {
+  width: 75%;
 }

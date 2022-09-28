@@ -1,58 +1,80 @@
-import React, { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import React, { useState, useEffect } from 'react'
 import classes from '@/components/chat/style.css'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
-import { UserInfoType } from '@/utils/types'
-import { iteratorSymbol } from 'immer/dist/internal'
-
-//Recoil-on
+import { UserInfoContentType } from '@/utils/types'
 import { useRecoilValue } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
+import TextField from '@mui/material/TextField'
+import { send } from 'process'
 
-type ChatInfoType = {
-  [key in string]: ChatInfo
+type ResJson = {
+  chatHistory: ChatHistoryType
+  familiarity: number
 }
+
+type ChatHistoryType = ChatInfo[]
 
 type ChatInfo = {
   personId1: string
   personId2: string
   content: string
   date: string
-  familiarity: string
-  nickname1: string
-  nickname2: string
-  photo1: string
-  photo2: string
 }
 
 export const Chat = () => {
   const [sendMessage, setSendMessage] = useState<string>(undefined)
+  const [chatHistory, setChatHistory] = useState<ChatHistoryType>([])
+  const [partnerPhoto, setPartnerPhoto] = useState<string>(undefined)
 
-  //const sendPersonId1 = '3f328652-f4bb-4254-972a-d70489794a25'
-  //const sendPersonId2 = 'b830fcc6-b691-462a-beb0-20a73eeed2d9'
-
-  //RecoilでユーザIDを取得
   const userInfo = useRecoilValue(userInfoState)
-  const myId = Object.keys(userInfo)[0]
+  const loginUserId: string = Object.keys(userInfo)[0]
+  const loginUserPhoto: string = userInfo[Object.keys(userInfo)[0]].photo
+  const partnerId = 'b830fcc6-b691-462a-beb0-20a73eeed2d9'
 
-  const sendPersonId1 = myId
-  const sendPersonId2 = 'b830fcc6-b691-462a-beb0-20a73eeed2d9'
+  useEffect(() => {
+    getPartnerInfo().catch(() => {
+      // エラー処理
+    })
 
-  const handleSend = async () => {
-    const newSendInfo = {
-      personId1: sendPersonId1,
-      personId2: sendPersonId2,
-      content: sendMessage,
+    getChatHistory().catch(() => {
+      // エラー処理
+    })
+    setInterval(getChatHistory, 1000)
+  }, [])
+
+  const getPartnerInfo = async () => {
+    const response = await fetch(`${process.env.API_ENDPOINT}/user?userId=${partnerId}`, {
+      method: 'GET',
+    })
+    const resJson: UserInfoContentType = await response.json()
+    setPartnerPhoto(resJson.photo)
+  }
+
+  const getChatHistory = async (): Promise<void> => {
+    const response = await fetch(`${process.env.API_ENDPOINT}/chat?userId1=${loginUserId}&userId2=${partnerId}`, {
+      method: 'GET',
+    })
+    const resJson: ResJson = await response.json()
+    if (resJson.chatHistory) {
+      setChatHistory(resJson.chatHistory)
+    } else {
+      setChatHistory([])
     }
+  }
 
+  const postMessage = async () => {
     try {
-      const response = await fetch(`${process.env.API_ENDPOINT}/chat`, {
+      const response = await fetch(`${process.env.API_ENDPOINT}/chat?userId1=${loginUserId}&userId2=${partnerId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newSendInfo),
+        body: JSON.stringify({ content: sendMessage }),
       })
       if (response.status === 200) {
-        window.location.href = '/chat'
+        setSendMessage('')
+        const resJson: ResJson = await response.json()
+        setChatHistory(resJson.chatHistory)
       } else {
         console.error('err')
       }
@@ -61,40 +83,32 @@ export const Chat = () => {
     }
   }
 
-  const [chatHis, setChatHis] = useState<ChatInfoType>({})
-
-  const fetchChat = async (): Promise<void> => {
-    //const response = await fetch(`${process.env.API_ENDPOINT}/chat`, {
-    const response = await fetch(`${process.env.API_ENDPOINT}/chat?userId1=${myId}&userId2=b830fcc6-b691-462a-beb0-20a73eeed2d9`, {
-      method: 'GET',
-    })
-    const resJson: ChatInfoType = await response.json()
-    setChatHis(resJson)
-  }
-
   return (
     <div className={classes.container}>
       <Header />
-      <h2>Chat</h2>
-      <p>This is a chat component.</p>
-      <button onClick={fetchChat}>Execute fetch!</button>
-      <div>
-        {Object.keys(chatHis).map((chatId) => (
-          <div key={chatId} className={classes.container}>
-            <img src={chatHis[chatId].photo1} className={classes.photo}></img>
-            <h3 className={classes.message}>{chatHis[chatId].nickname1}</h3>
-            <p className={classes.message}>{chatHis[chatId].content}</p>
-          </div>
-        ))}
-      </div>
-      <h3>Input your message</h3>
-      <textarea cols={40} rows={3} onChange={(e) => setSendMessage(e.target.value)}></textarea>
-      <div>
-        <button className={classes.submitButton} onClick={handleSend}>
+      {Object.keys(chatHistory).map((i) => (
+        <div key={i} className={chatHistory[i].personId1 === loginUserId ? classes.sendChatContainer : classes.receiveChatContainer}>
+          <img src={chatHistory[i].personId1 === loginUserId ? loginUserPhoto : partnerPhoto} className={classes.photo}></img>
+          <p className={classes.message}>{chatHistory[i].content}</p>
+        </div>
+      ))}
+      <div className={classes.sendMessageContainer}>
+        <TextField
+          className={classes.message}
+          id="filled-textarea"
+          rows={1}
+          label="New message"
+          multiline
+          onChange={(e) => setSendMessage(e.target.value)}
+          value={sendMessage}
+        />
+        <button className={classes.submitButton} onClick={postMessage}>
           Send
         </button>
       </div>
-      <Footer />
+      <div className={classes.footerContainer}>
+        <Footer />
+      </div>
     </div>
   )
 }
