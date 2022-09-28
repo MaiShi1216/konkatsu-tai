@@ -7,18 +7,24 @@ const usersInfo = require('../../userInfo.json')
 router.post('/', (req, res) => {
   const mail = req.body.mail
   const password = req.body.password
-  console.log(mail)
-  let body = {}
+
+  let body = undefined
+  let userBody = {}
   const userId = Object.keys(usersInfo)
-  console.log(userId)
-  console.log(usersInfo['3f328652-f4bb-4254-972a-d70489794a25'].email)
+
   for (let i = 0; i < userId.length; i++) {
     if (mail === usersInfo[userId[i]].email && password === usersInfo[userId[i]].password) {
-      body[userId[i]] = usersInfo[userId[i]]
+      res.status(200)
+      userBody[userId[i]] = usersInfo[userId[i]]
+      body = { status: 200, response: userBody }
     }
   }
-  console.log(body)
-  res.status(200)
+  if (body === undefined) {
+    res.status(500)
+    body = { status: 500 }
+  }
+  //一致するものがあるとき、status: 200, userの情報がFEに渡される
+  //一致するものがないとき、status: 500がFEに渡される
   res.send(body)
   // res.json({'mail:'mail'})
   // const userInfo = req.body
@@ -31,7 +37,6 @@ router.post('/', (req, res) => {
   //   // }else {
   //     setTimeout(() => res.send(body), 500)
   //       }
-  res.status(200)
 })
 // for of文で取得した各ユーザーのemailアドレスと、req.bodyから取得したメールアドレスが一致していたら、そのuser情報を取得する
 //   res.send(body)

@@ -27,10 +27,18 @@ export const Signin = () => {
       body: JSON.stringify(signinData),
     }
     fetch(url, opt)
-      .then((response) => response.json())
+      .then((body) => body.json())
       .then((data) => {
-        setUserInfo(data)
-        navigate('/')
+        // data = { status: ***, response: *** }
+        if (data.status === 200) {
+          setUserInfo(data.response)
+          navigate('/')
+        } else if (data.status === 500) {
+          throw new Error('Invalid Email or Password')
+        }
+      })
+      .catch((error) => {
+        console.error(`${error.message}`)
       })
   }
   const handleClick2 = () => {
@@ -66,6 +74,9 @@ export const Signin = () => {
         <button className={classes.submitButton} onClick={handleClick2}>
           Signup
         </button>
+        {/* エラーメッセージを表示するdiv
+        もし、ID&PASSが一致しなかったら、'Error'という文章を表示する*/}
+        {/* <div>Error</div> */}
         <div className={classes.footerContainer}>
           <Footer />
         </div>
