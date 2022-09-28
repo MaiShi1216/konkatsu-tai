@@ -17,7 +17,7 @@ type ResJson = {
 export const Error = () => {
   return (
     <>
-      <Header />
+      <Header menuExist={false} />
       <div className={classes.container}>
         <h2>404 Page not found.</h2>
         <p>Pages</p>
