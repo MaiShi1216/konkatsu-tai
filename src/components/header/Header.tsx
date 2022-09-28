@@ -71,7 +71,7 @@ export const Header = () => {
                 <ListItemIcon>
                   <SettingsIcon />
                 </ListItemIcon>
-                <ListItemText primary="Correction of registration information" />
+                <ListItemText primary="Edit profile" />
               </ListItem>
             </NavLink>
           </List>
