@@ -2,7 +2,12 @@ import React, { useState } from 'react'
 import classes from '@/components/chat/style.css'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
+import { UserInfoType } from '@/utils/types'
 import { iteratorSymbol } from 'immer/dist/internal'
+
+//Recoil-on
+import { useRecoilValue } from 'recoil'
+import { userInfoState } from '@/atoms/userInfoAtom'
 
 type ChatInfoType = {
   [key in string]: ChatInfo
@@ -23,7 +28,14 @@ type ChatInfo = {
 export const Chat = () => {
   const [sendMessage, setSendMessage] = useState<string>(undefined)
 
-  const sendPersonId1 = '3f328652-f4bb-4254-972a-d70489794a25'
+  //const sendPersonId1 = '3f328652-f4bb-4254-972a-d70489794a25'
+  //const sendPersonId2 = 'b830fcc6-b691-462a-beb0-20a73eeed2d9'
+
+  //RecoilでユーザIDを取得
+  const userInfo = useRecoilValue(userInfoState)
+  const myId = Object.keys(userInfo)[0]
+
+  const sendPersonId1 = myId
   const sendPersonId2 = 'b830fcc6-b691-462a-beb0-20a73eeed2d9'
 
   const handleSend = async () => {
@@ -52,7 +64,8 @@ export const Chat = () => {
   const [chatHis, setChatHis] = useState<ChatInfoType>({})
 
   const fetchChat = async (): Promise<void> => {
-    const response = await fetch(`${process.env.API_ENDPOINT}/chat`, {
+    //const response = await fetch(`${process.env.API_ENDPOINT}/chat`, {
+    const response = await fetch(`${process.env.API_ENDPOINT}/chat?userId1=${myId}&userId2=b830fcc6-b691-462a-beb0-20a73eeed2d9`, {
       method: 'GET',
     })
     const resJson: ChatInfoType = await response.json()

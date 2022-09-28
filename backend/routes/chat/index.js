@@ -10,12 +10,12 @@ const { ContextExclusionPlugin } = require('webpack')
 router.post('/', (req, res) => {
   let body = undefined
 
-  console.log('chat update')
+  //console.log('chat update')
   try {
     const newChat = req.body
     const sendDate = new Date()
     newChat.date = sendDate
-    console.log(chatHistory)
+    //console.log(chatHistory)
     const familiarityCount = familiarityCal(chatHistory)
     newChat.familiarity = familiarityCount
     updateDataBase('./backend/chatHistory.json', newChat)
@@ -53,11 +53,21 @@ const familiarityCal = (his) => {
 
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
+  const userId1 = req.query.userId1
+  const userId2 = req.query.userId2
+  console.log('userid1')
+  console.log(userId1)
+  console.log('userid2')
+  console.log(userId2)
   res.status(200)
   const chatHis = chatHistory.chats.filter(function (chatItem) {
+    //if (
+    //  (chatItem.personId1 == '3f328652-f4bb-4254-972a-d70489794a25' && chatItem.personId2 == 'b830fcc6-b691-462a-beb0-20a73eeed2d9') ||
+    //  (chatItem.personId1 == 'b830fcc6-b691-462a-beb0-20a73eeed2d9' && chatItem.personId2 == '3f328652-f4bb-4254-972a-d70489794a25')
+    //)
     if (
-      (chatItem.personId1 == '3f328652-f4bb-4254-972a-d70489794a25' && chatItem.personId2 == 'b830fcc6-b691-462a-beb0-20a73eeed2d9') ||
-      (chatItem.personId1 == 'b830fcc6-b691-462a-beb0-20a73eeed2d9' && chatItem.personId2 == '3f328652-f4bb-4254-972a-d70489794a25')
+      (chatItem.personId1 == userId1 && chatItem.personId2 == userId2) ||
+      (chatItem.personId1 == userId2 && chatItem.personId2 == userId1)
     )
       return true
   })
