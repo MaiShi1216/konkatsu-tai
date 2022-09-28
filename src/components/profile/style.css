@@ -1,0 +1,131 @@
+.main {
+  display: grid;
+  grid-template-rows: 300px 30px 40px 1fr 0.5fr 0.5fr 100px;
+  grid-template-areas:
+    "image"
+    "name"
+    "like"
+    "selfIntro"
+    "hobby"
+    "favorite"
+    "button";
+}
+
+.image_frame {
+  grid-area: image;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.image_frame img {
+  width: 70vw;
+  height: 70vw;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  grid-area: name;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.like {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  padding-right: 30px;
+  grid-area: like;
+}
+
+.liked_number {
+  margin-left: 10px;
+  font-size: 1.3em;
+}
+
+.self_intro {
+  grid-area: selfIntro;
+}
+
+.self_intro h2 {
+  margin: 0 10px 2px 10px;
+}
+
+.self_intro p {
+  margin: auto 10px 10px 10px;
+  padding-bottom: 10px;
+}
+
+.hobby_container {
+  grid-area: hobby;
+}
+
+.hobby_container h2 {
+  margin: 0 10px 2px 10px;
+  padding-top: 10px;
+  border-top: 1px solid black;
+}
+
+.hobby_items {
+  margin: auto 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+.hobby {
+  width: fit-content;
+  background-color: #FFE5EB;
+  border-radius: 100vh;
+  text-align: center;
+  margin: 10px;
+  padding: 0px 10px;
+}
+
+.favorite_container {
+  grid-area: favorite;
+}
+
+.favorite_container h2 {
+  margin: 0 10px 2px 10px;
+  padding-top: 10px;
+  border-top: 1px solid black;
+}
+
+.favorite_items {
+  margin: auto 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+.favorite {
+  width: fit-content;
+  background-color: #bad7df;
+  border-radius: 100vh;
+  text-align: center;
+  margin: 10px;
+  padding: 0px 10px;
+}
+
+.button {
+  grid-area: button;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button p {
+  font-size: 1.2rem;
+  margin-right: 10px;
+}

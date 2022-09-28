@@ -7,6 +7,8 @@ import { Sample } from '@/components/sample/Sample'
 import { Enroll } from '@/components/enroll/Enroll'
 import { Home } from '@/components/home/Home'
 import { Matched } from '@/components/matched/Matched'
+import { Profile } from '@/components/profile/Profile'
+import { Recommended } from '@/components/recommended/Recommended'
 import { Error } from '@/components/error/Error'
 
 export const App = () => {
@@ -20,6 +22,8 @@ export const App = () => {
           <Route path={paths.edit} element={<Enroll mode="edit" />} />
           <Route path={paths.home} element={<Home />} />
           <Route path={paths.matched} element={<Matched />} />
+          <Route path={paths.profile} element={<Profile />} />
+          <Route path={paths.recommended} element={<Recommended />} />
           <Route path={'*'} element={<Error />} />
         </Routes>
       </BrowserRouter>
