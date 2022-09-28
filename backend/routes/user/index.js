@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable no-constant-condition */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -7,7 +8,8 @@ const addFamiliarityToUsersInfo = require('../../function')
 const fs = require('fs')
 
 router.post('/', (req, res) => {
-  let body
+  console.log('POST /user')
+  let body = undefined
   if (!validateUserInfo(req.body, 'POST')) {
     res.status(400)
     body = { message: 'Bad Request' }
@@ -37,6 +39,7 @@ router.post('/', (req, res) => {
 })
 
 router.put('/', (req, res) => {
+  console.log(`PUT /user?userId=${req.query.userId}`)
   let body = undefined
   if (!validateUserInfo(req.body, 'PUT')) {
     res.status(400)

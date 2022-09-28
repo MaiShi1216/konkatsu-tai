@@ -37,7 +37,8 @@ export const Main = () => {
 
   const likeCountUp = async () => {
     const obj = {
-      userId: selectUser.id,
+      loginId: loginId,
+      selectId: selectUser.id,
       mode: 'like',
     }
     const response = await fetch(`${process.env.API_ENDPOINT}/reactions`, {
