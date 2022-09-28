@@ -7,7 +7,6 @@
         "areaA areaB areaB"
         "areaD areaC areaC"
         "areaD areaC areaC";
-    /* grid-template-columns: 200px 200px */
 }
 
 .photo {
@@ -21,11 +20,8 @@
 
 .message {
     grid-area: areaC;
-    /* margin: auto; */
     vertical-align: middle;
     text-align: left;
-    /* grid-row: 2; grid-column: 2; */
-    /* background: #88f; */
 }
 
 .name_likes {
