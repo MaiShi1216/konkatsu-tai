@@ -6,16 +6,18 @@ const usersInfo = require('../../userInfo.json')
 // req.bodyでFEからのリクエスト情報を取得可能 --> そこからさらにメールアドレスを取得する
 router.post('/', (req, res) => {
   const mail = req.body.mail
+  const password = req.body.password
   console.log(mail)
   let body = {}
   const userId = Object.keys(usersInfo)
   console.log(userId)
   console.log(usersInfo['3f328652-f4bb-4254-972a-d70489794a25'].email)
   for (let i = 0; i < userId.length; i++) {
-    if (mail === usersInfo[userId[i]].email) {
-      body = usersInfo[userId[i]]
+    if (mail === usersInfo[userId[i]].email && password === usersInfo[userId[i]].password) {
+      body[userId[i]] = usersInfo[userId[i]]
     }
   }
+  console.log(body)
   res.status(200)
   res.send(body)
   // res.json({'mail:'mail'})
