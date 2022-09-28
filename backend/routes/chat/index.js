@@ -10,18 +10,46 @@ const { ContextExclusionPlugin } = require('webpack')
 router.post('/', (req, res) => {
   let body = undefined
 
-  //console.log('chat update')
   try {
+    console.log('chatHistory')
+    console.log(chatHistory)
     const newChat = req.body
+    const userId1 = req.query.userId1
+    const userId2 = req.query.userId2
     const sendDate = new Date()
+
+    newChat.personId1 = userId1
+    newChat.personId2 = userId2
     newChat.date = sendDate
-    //console.log(chatHistory)
     const familiarityCount = familiarityCal(chatHistory)
     newChat.familiarity = familiarityCount
+
+    chatHistoryClean(chatHistory)
     updateDataBase('./backend/chatHistory.json', newChat)
 
+    console.log('userId1')
+    console.log(userId1)
+
+    const chatHistorys = createChatHistory(userId1, userId2)
+    const maxFamiliality = familiaritySel(chatHistorys)
+
+    const resChatHistory = chatHistorys
+    for (let index = 0; index < Object.keys(resChatHistory).length; index++) {
+      delete resChatHistory[index].familiarity
+    }
+
+    console.log(maxFamiliality)
+
+    //const body = chatHistorys
+    const body = {
+      chatHistory: resChatHistory,
+      familiarity: maxFamiliality,
+    }
+
     res.status(200)
-    body = { message: 'ok' }
+    setTimeout(() => res.send(body), 500)
+
+    //body = { message: 'ok' }
   } catch (err) {
     console.log(err)
     res.status(500)
@@ -51,43 +79,59 @@ const familiarityCal = (his) => {
   return familiarityCount
 }
 
+const chatHistoryClean = (clean) => {
+  for (let index = 0; index < clean.chats.length; index++) {
+    delete clean.chats[index].photo1
+    delete clean.chats[index].nickname1
+  }
+}
+
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
   const userId1 = req.query.userId1
   const userId2 = req.query.userId2
-  console.log('userid1')
-  console.log(userId1)
-  console.log('userid2')
-  console.log(userId2)
-  res.status(200)
-  const chatHis = chatHistory.chats.filter(function (chatItem) {
-    //if (
-    //  (chatItem.personId1 == '3f328652-f4bb-4254-972a-d70489794a25' && chatItem.personId2 == 'b830fcc6-b691-462a-beb0-20a73eeed2d9') ||
-    //  (chatItem.personId1 == 'b830fcc6-b691-462a-beb0-20a73eeed2d9' && chatItem.personId2 == '3f328652-f4bb-4254-972a-d70489794a25')
-    //)
-    if (
-      (chatItem.personId1 == userId1 && chatItem.personId2 == userId2) ||
-      (chatItem.personId1 == userId2 && chatItem.personId2 == userId1)
-    )
-      return true
-  })
 
-  for (let index = 0; index < Object.keys(chatHis).length; index++) {
-    let chatUserId1 = chatHis[index].personId1
-    let chatUserId2 = chatHis[index].personId2
-    let addNickName1 = usersInfo[chatUserId1].nickname
-    let addNickName2 = usersInfo[chatUserId2].nickname
-    let addPhoto1 = usersInfo[chatUserId1].photo
-    let addPhoto2 = usersInfo[chatUserId1].photo
-    chatHis[index].nickname1 = addNickName1
-    chatHis[index].nickname2 = addNickName2
-    chatHis[index].photo1 = addPhoto1
-    chatHis[index].photo2 = addPhoto2
+  const chatHistorys = createChatHistory(userId1, userId2)
+  const maxFamiliality = familiaritySel(chatHistorys)
+
+  const resChatHistory = chatHistorys
+  for (let index = 0; index < Object.keys(resChatHistory).length; index++) {
+    delete resChatHistory[index].familiarity
   }
 
-  const body = chatHis
+  console.log('maxFamiliality')
+  console.log(maxFamiliality)
+
+  res.status(200)
+  //const body = chatHistorys
+  const body = {
+    chatHistory: resChatHistory,
+    familiarity: maxFamiliality,
+  }
 
   setTimeout(() => res.send(body), 500)
 })
+
+const createChatHistory = (uid1, uid2) => {
+  const chatHis = chatHistory.chats.filter(function (chatItem) {
+    if ((chatItem.personId1 == uid1 && chatItem.personId2 == uid2) || (chatItem.personId1 == uid2 && chatItem.personId2 == uid1))
+      return true
+  })
+
+  //for (let index = 0; index < Object.keys(chatHis).length; index++) {
+  //  delete chatHis[index].familiarity
+  //}
+  //console.log(chatHis)
+  return chatHis
+}
+
+const familiaritySel = (selHis) => {
+  let lastFamiliarity
+  for (let index = 0; index < selHis.length; index++) {
+    lastFamiliarity = selHis[index].familiarity
+    console.log('sel')
+  }
+  return lastFamiliarity
+}
 
 module.exports = router
