@@ -89,7 +89,7 @@ export const Enroll: FC<PropsType> = (props) => {
 
   return (
     <div className={classes.container}>
-      <Header menuExist={false} />
+      <Header menuExist={props.mode === 'create' ? false : true} />
 
       <h2>{props.mode === 'create' ? 'Sign Up' : 'Edit'}</h2>
       <h3>{props.mode === 'create' ? 'Enter your information' : 'Edit your information'}</h3>
