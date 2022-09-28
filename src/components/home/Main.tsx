@@ -9,7 +9,6 @@ export const Main = () => {
   const { users, transferToProfile } = useGetUsers()
   const userInfo = useRecoilValue(userInfoState)
   const myId = Object.keys(userInfo)[0]
-  console.log(myId)
 
   return (
     <div className={classes.container}>

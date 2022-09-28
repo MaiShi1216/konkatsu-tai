@@ -18,7 +18,7 @@ export const Signin = () => {
   const [userInfo, setUserInfo] = useRecoilState<UserInfoType>(userInfoState)
   const navigate = useNavigate()
 
-  const handleClick = () => {
+  const checkidAndPass = () => {
     const signinData = { mail: mail, password: password }
     const url = `${process.env.API_ENDPOINT}/signin`
     const opt = {
@@ -41,7 +41,7 @@ export const Signin = () => {
         console.error(`${error.message}`)
       })
   }
-  const handleClick2 = () => {
+  const transferToSignUp = () => {
     navigate('/signup')
   }
 
@@ -68,15 +68,12 @@ export const Signin = () => {
             }}
           />
         </div>
-        <button className={classes.submitButton} onClick={handleClick}>
+        <button className={classes.submitButton} onClick={checkidAndPass}>
           Signin
         </button>
-        <button className={classes.submitButton} onClick={handleClick2}>
+        <button className={classes.submitButton} onClick={transferToSignUp}>
           Signup
         </button>
-        {/* エラーメッセージを表示するdiv
-        もし、ID&PASSが一致しなかったら、'Error'という文章を表示する*/}
-        {/* <div>Error</div> */}
         <div className={classes.footerContainer}>
           <Footer />
         </div>
