@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-var-requires */
@@ -9,6 +10,7 @@ const likeHistory = require('../../likeHistory.json')
 
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
+  console.log(`GET /index?userId=${req.query.userId}`)
   const userId = req.query.userId //userIdはクエリパラメータで取得
   res.status(200)
   console.log('GET /matched')
