@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
-const addFamiliarityToUsersInfo = require('../../function')
+const addFamiliarityToUsersInfo = require('../../utils/function')
 const fs = require('fs')
 
 router.post('/', (req, res) => {

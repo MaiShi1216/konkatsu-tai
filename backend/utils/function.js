@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const users = require('./userInfo.json')
-const chatHistory = require('./chatHistory.json')
+const users = require('../userInfo.json')
+const chatHistory = require('../chatHistory.json')
 
 const addFamiliarityToUsersInfo = (loginId) => {
   const chatArrReverse = [...chatHistory.chats].reverse()

@@ -8,7 +8,7 @@ const router = require('express').Router()
 const users = require('../../userInfo.json')
 const chatHistory = require('../../chatHistory.json')
 
-const addFamiliarityToUsersInfo = require('../../function')
+const addFamiliarityToUsersInfo = require('../../utils/function')
 
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
