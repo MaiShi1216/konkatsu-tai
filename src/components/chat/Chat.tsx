@@ -61,8 +61,10 @@ export const Chat = () => {
     })
     const resJson: ResJson = await response.json()
     if (resJson.chatHistory) {
-      setChatHistory(resJson.chatHistory)
-      setFamiliarity(resJson.familiarity)
+      if (resJson.chatHistory.length > chatHistory.length) {
+        setChatHistory(resJson.chatHistory)
+        setFamiliarity(resJson.familiarity)
+      }
     } else {
       setChatHistory([])
       setFamiliarity(0)
@@ -79,8 +81,10 @@ export const Chat = () => {
       if (response.status === 200) {
         setSendMessage('')
         const resJson: ResJson = await response.json()
-        setChatHistory(resJson.chatHistory)
-        setFamiliarity(resJson.familiarity)
+        if (resJson.chatHistory.length > chatHistory.length) {
+          setChatHistory(resJson.chatHistory)
+          setFamiliarity(resJson.familiarity)
+        }
       } else {
         console.error('err')
       }
