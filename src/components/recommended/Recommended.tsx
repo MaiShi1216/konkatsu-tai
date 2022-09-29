@@ -41,8 +41,8 @@ export const Recommended = () => {
   }, [])
 
   return (
-    <>
-      <Header />
+    <div className={classes.main}>
+      <Header menuExist={true} />
       <h2 className={classes.mainTitle}>Recommendations</h2>
       <h3 className={classes.subTitle}>People with similar interests</h3>
       <div>
@@ -100,7 +100,9 @@ export const Recommended = () => {
           </div>
         ))}
       </div>
-      <Footer />
-    </>
+      <div className={classes.footer}>
+        <Footer />
+      </div>
+    </div>
   )
 }

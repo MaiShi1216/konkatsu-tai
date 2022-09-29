@@ -2,8 +2,10 @@ import React from 'react'
 import classes from '@/components/profile/style.css'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
 import Button from '@mui/material/Button'
-import { useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { UserInfoContentType, UserInfoType } from '@/utils/types'
+import { useRecoilValue } from 'recoil'
+import { userInfoState } from '@/atoms/userInfoAtom'
 
 type UserIdInfo = {
   id: string
@@ -12,9 +14,12 @@ type UserIdInfo = {
 export const Main = () => {
   const location = useLocation()
   const [selectUser, setSelectUser] = React.useState(location.state as UserIdInfo)
+  const navigate = useNavigate()
   const [user, setUser] = React.useState({} as UserInfoContentType)
   const [userLikedNum, setUserLikedNum] = React.useState(0)
   const [likeButtonDisable, setLikeButtonDisable] = React.useState(false)
+  const userInfo = useRecoilValue(userInfoState)
+  const loginId = Object.keys(userInfo)[0]
 
   const fetchSelectUser = async (): Promise<void> => {
     const response = await fetch(`${process.env.API_ENDPOINT}/user?userId=${selectUser.id}`, { method: 'GET' })
@@ -29,7 +34,8 @@ export const Main = () => {
 
   const likeCountUp = async () => {
     const obj = {
-      userId: selectUser.id,
+      loginId: loginId,
+      selectId: selectUser.id,
       mode: 'like',
     }
     const response = await fetch(`${process.env.API_ENDPOINT}/reactions`, {
@@ -43,6 +49,9 @@ export const Main = () => {
     if (resStatus.status === 200) {
       if (!likeButtonDisable) {
         setLikeButtonDisable(true)
+        setTimeout(() => {
+          navigate('/')
+        }, 1000)
       }
       setUserLikedNum(userLikedNum + 1)
     }
