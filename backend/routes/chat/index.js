@@ -95,7 +95,7 @@ router.get('/', (req, res) => {
 
 const createChatHistory = (uid1, uid2) => {
   let newHis = []
-  let chatHis = chatHistory.chats.filter(function (chatItem) {
+  chatHistory.chats.filter(function (chatItem) {
     if ((chatItem.personId1 == uid1 && chatItem.personId2 == uid2) || (chatItem.personId1 == uid2 && chatItem.personId2 == uid1)) {
       newHis.push(Object.assign({}, JSON.parse(JSON.stringify(chatItem))))
       return true
