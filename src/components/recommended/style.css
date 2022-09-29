@@ -58,6 +58,12 @@
     text-align: left;
 }
 
+.hobbiesList {
+    width: 150px;
+    height: 100px;
+    overflow-y: scroll;
+}
+
 .hobby {
   width: fit-content;
   background-color: #FFE5EB;
@@ -90,8 +96,9 @@
 }
 
 .subTitle {
-    font-style:italic;
-    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .main {
@@ -102,4 +109,11 @@
 
 .footer {
     margin-top: auto;
+}
+
+.noDisplay {
+    display: flex;
+    margin-top: auto;
+    justify-content: center;
+    align-items: center;
 }
