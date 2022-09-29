@@ -31,7 +31,6 @@ export const Form = (props: FormType) => {
         type={props.type}
         helperText={!isCorrect ? undefined : 'Incorrect entry'}
         onChange={(e) => {
-          console.log(e.target.value === '')
           if (props.pattern) {
             if (!props.pattern.test(e.target.value) || whiteSpacePattern.test(e.target.value) || e.target.value === '') {
               setIsCorrect(true)
