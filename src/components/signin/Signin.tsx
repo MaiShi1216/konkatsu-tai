@@ -4,9 +4,10 @@ import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 import { useRecoilState } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
-import { response } from 'express'
+import e, { response } from 'express'
 import { UserInfoType, UserInfoContentType } from '@/utils/types'
 import { Navigate, useNavigate } from 'react-router-dom'
+import TextField from '@mui/material/TextField'
 
 type ResJson = {
   name: string
@@ -16,6 +17,7 @@ export const Signin = () => {
   const [mail, setMail] = useState<string>(undefined)
   const [password, setPassword] = useState<string>(undefined)
   const [userInfo, setUserInfo] = useRecoilState<UserInfoType>(userInfoState)
+  const [errorMsg, setErrorMsg] = useState(undefined)
   const navigate = useNavigate()
 
   const checkidAndPass = () => {
@@ -34,7 +36,7 @@ export const Signin = () => {
           setUserInfo(data.response)
           navigate('/')
         } else if (data.status === 500) {
-          throw new Error('Invalid Email or Password')
+          setErrorMsg('Error: ID or Password are wrong.\nPlease input again.')
         }
       })
       .catch((error) => {
@@ -49,30 +51,30 @@ export const Signin = () => {
     <>
       <div className={classes.container}>
         <Header menuExist={false} />
-        <div className={classes.text}>
-          <p>eMail Adress</p>
-
-          <input
-            type="text"
-            placeholder="Enter your email adress"
-            onChange={(e) => {
-              setMail(e.target.value)
-            }}
-          />
-          <p>Password</p>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            onChange={(e) => {
-              setPassword(e.target.value)
-            }}
-          />
-        </div>
+        <h3>Enter your Information</h3>
+        <TextField
+          id="standard-basic"
+          label="Email Address"
+          variant="standard"
+          onChange={(e) => {
+            setMail(e.target.value)
+          }}
+        />
+        <TextField
+          id="standard-basic"
+          label="Password"
+          variant="standard"
+          type="password"
+          onChange={(e) => {
+            setPassword(e.target.value)
+          }}
+        />
+        {errorMsg === undefined ? null : <p className={classes.errorMsg}>{errorMsg}</p>}
         <button className={classes.submitButton} onClick={checkidAndPass}>
-          Signin
+          Sign in
         </button>
-        <button className={classes.submitButton} onClick={transferToSignUp}>
-          Signup
+        <button className={classes.signupButton} onClick={transferToSignUp}>
+          Sign up
         </button>
         <div className={classes.footerContainer}>
           <Footer />
