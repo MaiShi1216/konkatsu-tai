@@ -4,8 +4,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
-const fs = require('fs')
+const addFamiliarityToUsersInfo = require('../../utils/function')
 const usersInfo = require('../../userInfo.json')
+const fs = require('fs')
 
 router.post('/', (req, res) => {
   console.log('POST /user')
@@ -62,15 +63,27 @@ router.put('/', (req, res) => {
 
 router.get('/', (req, res) => {
   const userId = req.query.userId
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  console.log(`GET /user?userId=${userId}`)
+  const selectId = req.query.selectId
   let body = undefined
-  try {
-    body = usersInfo[userId]
-    res.status(200)
-  } catch (err) {
-    body = { status: 500 }
-    res.status(500)
+
+  if (selectId === undefined) {
+    console.log(`GET /user?userId=${userId}`)
+    try {
+      body = usersInfo[userId]
+      res.status(200)
+    } catch (err) {
+      body = { status: 500 }
+      res.status(500)
+    }
+  } else {
+    console.log(`GET /user?userId=${userId}&selectId=${userId}`)
+    try {
+      body = addFamiliarityToUsersInfo(userId)[selectId]
+      res.status(200)
+    } catch (err) {
+      body = { status: 500 }
+      res.status(500)
+    }
   }
   res.send(body)
 })

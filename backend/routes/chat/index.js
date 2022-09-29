@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
 const fs = require('fs')
@@ -5,8 +11,6 @@ const fs = require('fs')
 /* Import DB */
 const usersInfo = require('../../userInfo.json')
 const chatHistory = require('../../chatHistory.json')
-const { ContextExclusionPlugin } = require('webpack')
-const console = require('console')
 
 router.post('/', (req, res) => {
   let body = undefined
@@ -20,15 +24,15 @@ router.post('/', (req, res) => {
     newChat.personId1 = userId1
     newChat.personId2 = userId2
     newChat.date = sendDate
-    const familiarityCount = familiarityCal(chatHistory)
+    const familiarityCount = familiarityCal(chatHistory, userId1, userId2)
     newChat.familiarity = familiarityCount
 
     updateDataBase('./backend/chatHistory.json', newChat)
 
-    const chatHistorys = createChatHistory(userId1, userId2)
-    const maxFamiliality = familiaritySel(chatHistorys)
+    const chatHistories = createChatHistory(userId1, userId2)
+    const maxFamiliarity = familiaritySel(chatHistories)
 
-    const resChatHistory = chatHistorys
+    const resChatHistory = chatHistories
     for (let index = 0; index < Object.keys(resChatHistory).length; index++) {
       delete resChatHistory[index].familiarity
     }
@@ -36,7 +40,7 @@ router.post('/', (req, res) => {
     res.status(200)
     const body = {
       chatHistory: resChatHistory,
-      familiarity: maxFamiliality,
+      familiarity: maxFamiliarity,
     }
     res.send(body)
   } catch (err) {
@@ -52,31 +56,42 @@ const updateDataBase = (filePath, newValue) => {
   fs.writeFileSync(filePath, JSON.stringify(chatHistory, null, 2), 'utf8')
 }
 
-const familiarityCal = (his) => {
-  let sender
+const familiarityCal = (his, uid1, uid2) => {
+  let sender = 'none'
+  familiarityCount = 0
   for (let index = 0; index < his.chats.length; index++) {
-    if (index === 0) {
-      sender = his.chats[index].personId1
-      familiarityCount = 0
-    } else {
-      if (sender !== his.chats[index].personId1) {
-        familiarityCount = familiarityCount + 1
+    if (
+      (his.chats[index].personId1 == uid1 && his.chats[index].personId2 == uid2) ||
+      (his.chats[index].personId1 == uid2 && his.chats[index].personId2 == uid1)
+    ) {
+      if (sender === 'none') {
         sender = his.chats[index].personId1
+        familiarityCount = 0
+      } else {
+        if (sender !== his.chats[index].personId1) {
+          familiarityCount = familiarityCount + 1
+          sender = his.chats[index].personId1
+        }
       }
+    }
+  }
+  //対象者のchathistoryの最後の送信者と新規の送信者のuseridが異なっていればfamiliarityを1つあげる
+  if (sender !== 'none') {
+    if (sender !== uid1) {
+      familiarityCount = familiarityCount + 1
     }
   }
   return familiarityCount
 }
 
-/* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
   const userId1 = req.query.userId1
   const userId2 = req.query.userId2
 
-  const chatHistorys = createChatHistory(userId1, userId2)
-  const maxFamiliality = familiaritySel(chatHistorys)
+  const chatHistories = createChatHistory(userId1, userId2)
+  const maxFamiliarity = familiaritySel(chatHistories)
 
-  const resChatHistory = chatHistorys
+  const resChatHistory = chatHistories
   for (let index = 0; index < Object.keys(resChatHistory).length; index++) {
     delete resChatHistory[index].familiarity
   }
@@ -84,7 +99,7 @@ router.get('/', (req, res) => {
   res.status(200)
   const body = {
     chatHistory: resChatHistory,
-    familiarity: maxFamiliality,
+    familiarity: maxFamiliarity,
   }
 
   setTimeout(() => res.send(body), 500)
@@ -92,7 +107,7 @@ router.get('/', (req, res) => {
 
 const createChatHistory = (uid1, uid2) => {
   let newHis = []
-  let chatHis = chatHistory.chats.filter(function (chatItem) {
+  chatHistory.chats.filter(function (chatItem) {
     if ((chatItem.personId1 == uid1 && chatItem.personId2 == uid2) || (chatItem.personId1 == uid2 && chatItem.personId2 == uid1)) {
       newHis.push(Object.assign({}, JSON.parse(JSON.stringify(chatItem))))
       return true

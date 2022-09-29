@@ -1,18 +1,27 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
-
-/* Import DB */
 const usersInfo = require('../../userInfo.json')
 
-/* Successfully inquiry of authentication ここら辺の条件式を変える*/
-router.get('/', (req, res) => {
-  console.log(req)
-  res.status(200)
+router.post('/', (req, res) => {
+  console.log('POST/signin')
+  const mail = req.body.mail
+  const password = req.body.password
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const body = usersInfo.a001
+  let body = undefined
+  let userBody = {}
+  const userId = Object.keys(usersInfo)
 
-  setTimeout(() => res.send(body), 500)
+  for (let i = 0; i < userId.length; i++) {
+    if (mail === usersInfo[userId[i]].email && password === usersInfo[userId[i]].password) {
+      res.status(200)
+      userBody[userId[i]] = usersInfo[userId[i]]
+      body = { status: 200, response: userBody }
+    }
+  }
+  if (body === undefined) {
+    res.status(500)
+    body = { status: 500 }
+  }
+  res.send(body)
 })
 
 module.exports = router

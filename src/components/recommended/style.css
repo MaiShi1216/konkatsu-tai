@@ -6,49 +6,65 @@
         "areaA areaB areaB"
         "areaA areaB areaB"
         "areaD areaC areaC"
-        "areaE areaC areaC";
-    /* grid-template-columns: 200px 200px */
-}
-
-.name {
-    grid-area: areaD;
-    /* margin: auto; */
-    vertical-align: middle;
-    text-align: center;
-    /* grid-row: 1; grid-column: 2; */
-    /* background: #f88; */
+        "areaD areaC areaC";
 }
 
 .photo {
     grid-area: areaA;
+    width: 40vw;
+    height: 40vw;
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
+    object-fit: cover;
     margin: auto;
-    /* grid-row: 1; grid-column: 1; */
-    /* background: #8f8; */
 }
 
 .message {
     grid-area: areaC;
-    /* margin: auto; */
     vertical-align: middle;
     text-align: left;
-    /* grid-row: 2; grid-column: 2; */
-    /* background: #88f; */
+}
+
+.name_likes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.name {
+    grid-area: areaD;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
 .likes {
-    grid-area: areaE;
+    grid-area: areaD;
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    align-items: start;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.thumbUp {
+  margin-top: 8px;
+  margin-right: 5px;
 }
 
 .hobbies {
     grid-area: areaB;
     vertical-align: middle;
     text-align: left;
+}
+
+.hobby {
+  width: fit-content;
+  background-color: #FFE5EB;
+  border-radius: 100vh;
+  text-align: center;
+  margin: 10px;
+  padding: 0px 10px;
 }
 
 .talkButton {
@@ -75,9 +91,7 @@
 
 .subTitle {
     font-style:italic;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
+    margin-left: 10px;
 }
 
 .main {
