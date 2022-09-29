@@ -33,7 +33,15 @@ export const Main = (props: Props) => {
     <div>
       {Object.keys(props.users).map((userId) => (
         <div key={userId} className={classes.container}>
-          <img src={props.users[userId].photo} className={classes.photo}></img>
+          <img
+            src={props.users[userId].photo}
+            className={classes.photo}
+            style={
+              isSecretMode
+                ? { filter: `blur(${props.users[userId].familiarity > 5 ? 0 : 10 - props.users[userId].familiarity * 2}px)` }
+                : null
+            }
+          />
           <div className={classes.name_likes}>
             <p className={classes.name}>{props.users[userId].nickname}</p>
             <div className={classes.likes}>
