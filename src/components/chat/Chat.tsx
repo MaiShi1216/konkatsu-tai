@@ -31,6 +31,7 @@ export const Chat = () => {
   const userInfo = useRecoilValue(userInfoState)
   const loginUserId: string = Object.keys(userInfo)[0]
   const loginUserPhoto: string = userInfo[Object.keys(userInfo)[0]].photo
+  // const partnerId = location.state.partnerId // TODO: mainと結合してから別PRで反映
   const partnerId = 'b830fcc6-b691-462a-beb0-20a73eeed2d9'
 
   useEffect(() => {
