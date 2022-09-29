@@ -134,8 +134,8 @@
     width: 95%;
     height: 60px;
 
-    position: fixed;
-    bottom: 30px;
+    position: relative;
+    bottom: 10px;
 }
 
 .footerContainer {
