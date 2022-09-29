@@ -32,8 +32,8 @@ export const Matched = () => {
   }, [])
 
   return (
-    <>
-      <Header />
+    <div className={classes.main}>
+      <Header menuExist={true} />
       <div>
         {Object.keys(matchedUsers).map((userId) => (
           <div key={userId} className={classes.container}>
@@ -43,7 +43,9 @@ export const Matched = () => {
           </div>
         ))}
       </div>
-      <Footer />
-    </>
+      <div className={classes.footer}>
+        <Footer />
+      </div>
+    </div>
   )
 }

@@ -5,6 +5,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
 const addFamiliarityToUsersInfo = require('../../utils/function')
+const usersInfo = require('../../userInfo.json')
 const fs = require('fs')
 
 router.post('/', (req, res) => {
@@ -61,21 +62,29 @@ router.put('/', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-  const loginId = req.query.loginId
+  const userId = req.query.userId
   const selectId = req.query.selectId
   let body = undefined
 
-  if (selectId !== undefined) {
-    console.log(`GET /user?loginId=${loginId}&selectId=${selectId}`)
+  if (selectId === undefined) {
+    console.log(`GET /user?userId=${userId}`)
     try {
-      body = addFamiliarityToUsersInfo(loginId)[selectId]
+      body = usersInfo[userId]
+      res.status(200)
+    } catch (err) {
+      body = { status: 500 }
+      res.status(500)
+    }
+  } else {
+    console.log(`GET /user?userId=${userId}&selectId=${userId}`)
+    try {
+      body = addFamiliarityToUsersInfo(userId)[selectId]
       res.status(200)
     } catch (err) {
       body = { status: 500 }
       res.status(500)
     }
   }
-
   res.send(body)
 })
 
