@@ -79,7 +79,7 @@ export const Header = (props: Props) => {
                   <ListItemIcon>
                     <VolunteerActivismIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Recommended" />
+                  <ListItemText primary="Recommend" />
                 </ListItem>
               </NavLink>
 
