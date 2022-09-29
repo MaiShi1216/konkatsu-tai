@@ -13,7 +13,7 @@ export const Matched = () => {
   const [matchedUsers, setMatchedUsers] = useState<UserInfoType>({})
   const navigate = useNavigate()
   const transferToChat = (userId) => {
-    navigate('/chat', { state: { id: userId } })
+    navigate('/chat', { state: { partnerId: userId } })
   }
 
   //RecoilでユーザIDを取得
