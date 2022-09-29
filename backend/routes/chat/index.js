@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
     newChat.personId1 = userId1
     newChat.personId2 = userId2
     newChat.date = sendDate
-    const familiarityCount = familiarityCal(chatHistory)
+    const familiarityCount = familiarityCal(chatHistory, userId1, userId2)
     newChat.familiarity = familiarityCount
 
     updateDataBase('./backend/chatHistory.json', newChat)
@@ -56,17 +56,29 @@ const updateDataBase = (filePath, newValue) => {
   fs.writeFileSync(filePath, JSON.stringify(chatHistory, null, 2), 'utf8')
 }
 
-const familiarityCal = (his) => {
-  let sender
+const familiarityCal = (his, uid1, uid2) => {
+  let sender = 'none'
+  familiarityCount = 0
   for (let index = 0; index < his.chats.length; index++) {
-    if (index === 0) {
-      sender = his.chats[index].personId1
-      familiarityCount = 0
-    } else {
-      if (sender !== his.chats[index].personId1) {
-        familiarityCount = familiarityCount + 1
+    if (
+      (his.chats[index].personId1 == uid1 && his.chats[index].personId2 == uid2) ||
+      (his.chats[index].personId1 == uid2 && his.chats[index].personId2 == uid1)
+    ) {
+      if (sender === 'none') {
         sender = his.chats[index].personId1
+        familiarityCount = 0
+      } else {
+        if (sender !== his.chats[index].personId1) {
+          familiarityCount = familiarityCount + 1
+          sender = his.chats[index].personId1
+        }
       }
+    }
+  }
+  //対象者のchathistoryの最後の送信者と新規の送信者のuseridが異なっていればfamiliarityを1つあげる
+  if (sender !== 'none') {
+    if (sender !== uid1) {
+      familiarityCount = familiarityCount + 1
     }
   }
   return familiarityCount
