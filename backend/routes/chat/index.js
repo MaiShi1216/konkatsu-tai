@@ -11,8 +11,6 @@ const fs = require('fs')
 /* Import DB */
 const usersInfo = require('../../userInfo.json')
 const chatHistory = require('../../chatHistory.json')
-const { ContextExclusionPlugin } = require('webpack')
-const console = require('console')
 
 router.post('/', (req, res) => {
   let body = undefined
