@@ -85,7 +85,7 @@ export const Chat = () => {
 
   return (
     <div className={classes.container}>
-      <Header />
+      <Header menuExist={true} />
       {Object.keys(chatHistory).map((i) => (
         <div key={i} className={chatHistory[i].personId1 === loginUserId ? classes.sendChatContainer : classes.receiveChatContainer}>
           <img src={chatHistory[i].personId1 === loginUserId ? loginUserPhoto : partnerPhoto} className={classes.photo}></img>
