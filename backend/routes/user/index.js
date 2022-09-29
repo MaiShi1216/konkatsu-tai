@@ -28,6 +28,7 @@ router.post('/', (req, res) => {
   try {
     const newUserId = createUserId('./backend/userInfo.json')
     appendToDatabase('./backend/userInfo.json', { [newUserId]: req.body })
+    appendToLikeHistory('./backend/likeHistory.json', { [newUserId]: [] })
 
     res.status(200)
     body = { message: 'ok', userId: newUserId }
@@ -141,6 +142,12 @@ const createUserId = (filePath) => {
 }
 
 const appendToDatabase = (filePath, newValue) => {
+  const currentValues = JSON.parse(fs.readFileSync(filePath))
+  const newValues = { ...currentValues, ...newValue }
+  fs.writeFileSync(filePath, JSON.stringify(newValues, null, 2), 'utf8')
+}
+
+const appendToLikeHistory = (filePath, newValue) => {
   const currentValues = JSON.parse(fs.readFileSync(filePath))
   const newValues = { ...currentValues, ...newValue }
   fs.writeFileSync(filePath, JSON.stringify(newValues, null, 2), 'utf8')
