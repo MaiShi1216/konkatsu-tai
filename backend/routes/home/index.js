@@ -4,24 +4,28 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const router = require('express').Router()
-
-/* Import DB */
-const usersInfo = require('../../userInfo.json')
 const likeHistory = require('../../likeHistory.json')
+const addFamiliarityToUsersInfo = require('../../utils/function')
 
-/* Successfully inquiry of authentication */
+// /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
-  const loginId = req.query.loginId
-  console.log(`GET /home?loginId=${loginId}`)
-
+  const userId = req.query.userId
+  console.log(`GET /home?userId=${userId}`)
   let body = {}
-  const likeHistoryArr = likeHistory[loginId]
-  Object.keys(usersInfo)
-    .filter((userId) => !likeHistoryArr.includes(userId))
-    .forEach((userId) => {
-      body[userId] = usersInfo[userId]
-    })
-  res.status(200)
+  try {
+    const likeHistoryArr = likeHistory[userId]
+    const usersInfo = addFamiliarityToUsersInfo(userId)
+    Object.keys(usersInfo)
+      .filter((userId) => !likeHistoryArr.includes(userId))
+      .forEach((userId) => {
+        body[userId] = usersInfo[userId]
+      })
+    res.status(200)
+  } catch (err) {
+    console.error(err)
+    body = { message: 500 }
+    res.status(500)
+  }
   res.send(body)
 })
 
