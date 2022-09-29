@@ -27,10 +27,12 @@ export const Chat = () => {
   const [sendMessage, setSendMessage] = useState<string>(undefined)
   const [chatHistory, setChatHistory] = useState<ChatHistoryType>([])
   const [partnerPhoto, setPartnerPhoto] = useState<string>(undefined)
+  const [familiarity, setFamiliarity] = useState<number>(undefined)
 
   const userInfo = useRecoilValue(userInfoState)
   const loginUserId: string = Object.keys(userInfo)[0]
   const loginUserPhoto: string = userInfo[Object.keys(userInfo)[0]].photo
+  const isSecretMode = userInfo[Object.keys(userInfo)[0]].isSecretMode
   // const partnerId = location.state.partnerId // TODO: mainと結合してから別PRで反映
   const partnerId = 'b830fcc6-b691-462a-beb0-20a73eeed2d9'
 
@@ -60,8 +62,10 @@ export const Chat = () => {
     const resJson: ResJson = await response.json()
     if (resJson.chatHistory) {
       setChatHistory(resJson.chatHistory)
+      setFamiliarity(resJson.familiarity)
     } else {
       setChatHistory([])
+      setFamiliarity(0)
     }
   }
 
@@ -76,6 +80,7 @@ export const Chat = () => {
         setSendMessage('')
         const resJson: ResJson = await response.json()
         setChatHistory(resJson.chatHistory)
+        setFamiliarity(resJson.familiarity)
       } else {
         console.error('err')
       }
@@ -89,7 +94,11 @@ export const Chat = () => {
       <Header menuExist={true} />
       {Object.keys(chatHistory).map((i) => (
         <div key={i} className={chatHistory[i].personId1 === loginUserId ? classes.sendChatContainer : classes.receiveChatContainer}>
-          <img src={chatHistory[i].personId1 === loginUserId ? loginUserPhoto : partnerPhoto} className={classes.photo}></img>
+          <img
+            src={chatHistory[i].personId1 === loginUserId ? loginUserPhoto : partnerPhoto}
+            className={classes.photo}
+            style={isSecretMode ? { filter: `blur(${familiarity > 5 ? 0 : 10 - familiarity * 2}px)` } : null}
+          ></img>
           <p className={classes.message}>{chatHistory[i].content}</p>
         </div>
       ))}
