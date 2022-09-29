@@ -36,7 +36,7 @@ export const Signin = () => {
           setUserInfo(data.response)
           navigate('/')
         } else if (data.status === 500) {
-          setErrorMsg('Error:ID or Password are wrong.Please input again.')
+          setErrorMsg('Error: ID or Password are wrong.\nPlease input again.')
         }
       })
       .catch((error) => {

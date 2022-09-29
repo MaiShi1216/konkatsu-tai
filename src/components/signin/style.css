@@ -125,4 +125,6 @@
 .errorMsg {
   text-align: center;
   color: red;
+  margin: 20px;
+  white-space: pre-wrap;
 }
