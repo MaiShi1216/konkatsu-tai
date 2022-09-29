@@ -67,7 +67,7 @@
   color: #fff;
   border: none;
 
-  margin: 20px 0px;
+  margin: 10px 0px;
 }
 
 .input {
@@ -104,3 +104,7 @@
     bottom: 0;
     width:100%;
 } 
+
+.text{
+ text-align: left;
+}
