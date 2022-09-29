@@ -62,3 +62,9 @@
 .footer {
   margin-top: auto;
 }
+
+/*MUI*/
+.card_media {
+  border-radius: 50%;
+  height: 140px;
+}
