@@ -103,7 +103,7 @@ export const Chat = () => {
                 : null
             }
           ></img>
-          <p className={classes.message}>{chatHistory[i].content}</p>
+          <p className={chatHistory[i].personId1 === loginUserId ? classes.chatright : classes.chatleft}>{chatHistory[i].content}</p>
         </div>
       ))}
       <div className={classes.sendMessageContainer}>

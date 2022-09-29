@@ -4,6 +4,10 @@
   align-items: center;
   text-align: center;
   min-height: 100vh;
+
+  background: #ECE9E6;
+  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6);
 }
 
 .appName {
@@ -24,8 +28,8 @@
 .photo {
   /* grid-area: areaA; */
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   margin: 0;
   /* grid-row: 1; grid-column: 1; */
   /* background: #8f8; */
@@ -143,26 +147,52 @@
   width: 75%;
 }
 
-.chat {
-  width: 70%;
-  position: relative;
+.chatright {
+  width: auto;
+  position: absolute;
+  right: 22%;
   display: inline-block;
-  margin: 1.5em 0;
-  padding: 7px 10px;
-  min-width: 120px;
-  max-width: 100%;
-  color: #555;
-  font-size: 16px;
-  background: #e0edff;
+  margin: 1.5em 0 ;
+  padding: 10px 15px;
+  min-width: 50px;
+  max-width: 55%;
+  color: rgb(8, 8, 8);
+  font-size: 12px;
+  background: #d0ddeb;
   border-radius: 15px;
 }
 
-.chat:before {
+.chatright:before {
   content: "";
   position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -15px;
-  border: 15px solid transparent;
-  border-top: 15px solid #e0edff;
+  top: 50%;
+  left: 100%;
+  margin-top: -1px;
+  border: 5px solid transparent;
+  border-left: 10px solid #d0ddeb;
+}
+
+.chatleft {
+  width: auto;
+  position: absolute;
+  left: 22%;
+  display: inline-block;
+  margin: 1.5em 0;
+  padding: 10px 15px;
+  min-width: 50px;
+  max-width: 55%;
+  color: rgb(8, 8, 8);
+  font-size: 12px;
+  background: #d0ddeb;
+  border-radius: 15px;
+}
+
+.chatleft:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right:  100%;
+  margin-top: -1px;
+  border: 5px solid transparent;
+  border-right: 10px solid #d0ddeb;
 }
