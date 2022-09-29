@@ -11,19 +11,23 @@ type UserIdInfo = {
   id: string
 }
 
+type Familiarity = {
+  familiarity: number
+}
+
 export const Main = () => {
   const location = useLocation()
   const [selectUser, setSelectUser] = React.useState(location.state as UserIdInfo)
+  const [user, setUser] = React.useState({} as UserInfoContentType & Familiarity)
   const navigate = useNavigate()
-  const [user, setUser] = React.useState({} as UserInfoContentType)
   const [userLikedNum, setUserLikedNum] = React.useState(0)
   const [likeButtonDisable, setLikeButtonDisable] = React.useState(false)
   const userInfo = useRecoilValue(userInfoState)
   const loginId = Object.keys(userInfo)[0]
 
   const fetchSelectUser = async (): Promise<void> => {
-    const response = await fetch(`${process.env.API_ENDPOINT}/user?userId=${selectUser.id}`, { method: 'GET' })
-    const user: UserInfoContentType = await response.json()
+    const response = await fetch(`${process.env.API_ENDPOINT}/user?userId=${loginId}&selectId=${selectUser.id}`, { method: 'GET' })
+    const user: UserInfoContentType & Familiarity = await response.json()
     setUser(user)
     setUserLikedNum(user.likedNum)
   }
@@ -60,7 +64,11 @@ export const Main = () => {
   return (
     <div className={classes.main}>
       <div className={classes.image_frame}>
-        <img src={user.photo} alt="" />
+        <img
+          src={user.photo}
+          alt=""
+          style={userInfo[loginId].isSecretMode ? { filter: `blur(${user.familiarity > 5 ? 0 : 10 - user.familiarity * 2}px)` } : null}
+        />
       </div>
       <div className={classes.name}>{user.nickname}</div>
       <div className={classes.like}>
