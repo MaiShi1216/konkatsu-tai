@@ -40,6 +40,9 @@ export const Error = () => {
           <li>
             <Link to="/recommended">Recommended members</Link>
           </li>
+          <li>
+            <Link to="/chat">chat</Link>
+          </li>
         </ul>
       </div>
       <div className={classes.footerContainer}>
