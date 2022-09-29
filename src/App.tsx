@@ -10,6 +10,7 @@ import { Matched } from '@/components/matched/Matched'
 import { Profile } from '@/components/profile/Profile'
 import { Recommended } from '@/components/recommended/Recommended'
 import { Error } from '@/components/error/Error'
+import { Chat } from '@/components/chat/Chat'
 
 export const App = () => {
   return (
@@ -17,6 +18,7 @@ export const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path={paths.sample} element={<Sample />} />
+          <Route path={paths.chat} element={<Chat />} />
           <Route path={paths.signin} element={<Signin />} />
           <Route path={paths.signup} element={<Enroll mode="create" />} />
           <Route path={paths.edit} element={<Enroll mode="edit" />} />
