@@ -70,6 +70,19 @@
   margin: 10px 0px;
 }
 
+.signupButton {
+  background: #fff;
+  border-radius: 6.66075px;
+  width: 209px;
+  height: 38px;
+  font-weight: 400;
+  font-size: 16px;
+  color: #3F80FF;
+  border-color: #3F80FF;
+  
+  margin: 10px 0px;
+}
+
 .input {
   line-height: 1.5;
 }
@@ -107,4 +120,8 @@
 
 .text{
  text-align: left;
+}
+.errorMsg {
+  text-align: center;
+  color: red;
 }

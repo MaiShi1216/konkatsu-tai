@@ -4,7 +4,7 @@ import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 import { useRecoilState } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
-import { response } from 'express'
+import e, { response } from 'express'
 import { UserInfoType, UserInfoContentType } from '@/utils/types'
 import { Navigate, useNavigate } from 'react-router-dom'
 
@@ -16,6 +16,7 @@ export const Signin = () => {
   const [mail, setMail] = useState<string>(undefined)
   const [password, setPassword] = useState<string>(undefined)
   const [userInfo, setUserInfo] = useRecoilState<UserInfoType>(userInfoState)
+  const [errorMsg, setErrorMsg] = useState(undefined)
   const navigate = useNavigate()
 
   const checkidAndPass = () => {
@@ -34,11 +35,12 @@ export const Signin = () => {
           setUserInfo(data.response)
           navigate('/')
         } else if (data.status === 500) {
-          throw new Error('Invalid Email or Password')
+          setErrorMsg('Error:ID or Password are wrong.Please input again.')
         }
       })
       .catch((error) => {
         console.error(`${error.message}`)
+        
       })
   }
   const transferToSignUp = () => {
@@ -48,13 +50,13 @@ export const Signin = () => {
   return (
     <>
       <div className={classes.container}>
-        <Header />
+        <Header menuExist={false} />
         <div className={classes.text}>
-          <p>eMail Adress</p>
+          <p>Email Address</p>
 
           <input
             type="text"
-            placeholder="Enter your email adress"
+            placeholder="Enter your email address"
             onChange={(e) => {
               setMail(e.target.value)
             }}
@@ -68,12 +70,19 @@ export const Signin = () => {
             }}
           />
         </div>
-        <button className={classes.submitButton} onClick={checkidAndPass}>
-          Signin
+        <button
+          className={classes.submitButton}
+          onClick={checkidAndPass}
+          placeholder="Sign in"
+          onClick={(e) => {
+            e.currentTarget.disabled = true; setErrorMsg(true)
+          }}
+          }}
+        ></button>
+        <button className={classes.signupButton} onClick={transferToSignUp}>
+          Sign up
         </button>
-        <button className={classes.submitButton} onClick={transferToSignUp}>
-          Signup
-        </button>
+        <p className="errorMsg">{errorMsg}</p>
         <div className={classes.footerContainer}>
           <Footer />
         </div>
