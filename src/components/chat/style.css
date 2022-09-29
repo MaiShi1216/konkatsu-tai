@@ -125,6 +125,7 @@
 }
 
 .sendMessageContainer {
+    margin-top: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -134,9 +135,26 @@
     width: 95%;
     height: 60px;
 
-    position: relative;
-    bottom: 10px;
+    position: fixed;
+    bottom: 30px;
 }
+
+.sendMessageContainerl {
+  margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  margin: 0px 0px;
+  width: 95%;
+  height: 60px;
+
+  bottom: 30px;
+}
+
+
+
 
 .footerContainer {
   margin-top: auto;

@@ -110,7 +110,7 @@ export const Chat = () => {
           <p className={chatHistory[i].personId1 === loginUserId ? classes.chatright : classes.chatleft}>{chatHistory[i].content}</p>
         </div>
       ))}
-      <div className={classes.sendMessageContainer}>
+      <div className={Object.keys(chatHistory).length < 8 ? classes.sendMessageContainer : classes.sendMessageContainerl}>
         <TextField
           className={classes.message}
           id="filled-textarea"
