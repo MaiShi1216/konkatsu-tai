@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
     const likeHistoryArr = likeHistory[userId]
     const usersInfo = addFamiliarityToUsersInfo(userId)
     Object.keys(usersInfo)
-      .filter((userId) => !likeHistoryArr.includes(userId))
+      .filter((userId) => (likeHistoryArr ? !likeHistoryArr.includes(userId) : true))
       .forEach((userId) => {
         body[userId] = usersInfo[userId]
       })
