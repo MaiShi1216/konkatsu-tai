@@ -51,26 +51,24 @@ export const Signin = () => {
     <>
       <div className={classes.container}>
         <Header menuExist={false} />
-        <div className={classes.text}>
-          <h3>Enter your email address</h3>
-          <TextField
-            id="standard-basic"
-            label="Email Address"
-            variant="standard"
-            onChange={(e) => {
-              setMail(e.target.value)
-            }}
-          />
-          <h3>Enter your password</h3>
-          <TextField
-            id="standard-basic"
-            label="Password"
-            variant="standard"
-            onChange={(e) => {
-              setPassword(e.target.value)
-            }}
-          />
-        </div>
+        <h3>Enter your email address</h3>
+        <TextField
+          id="standard-basic"
+          label="Email Address"
+          variant="standard"
+          onChange={(e) => {
+            setMail(e.target.value)
+          }}
+        />
+        <h3>Enter your password</h3>
+        <TextField
+          id="standard-basic"
+          label="Password"
+          variant="standard"
+          onChange={(e) => {
+            setPassword(e.target.value)
+          }}
+        />
         {errorMsg === undefined ? null : <p className={classes.errorMsg}>{errorMsg}</p>}
         <button className={classes.submitButton} onClick={checkidAndPass}>
           Sign in
