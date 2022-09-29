@@ -9,6 +9,8 @@ import { useCheckBoxes } from '@/components/enroll/useCheckBoxes'
 import { useRecoilState } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
 import { UserInfoType, UserInfoContentType } from '@/utils/types'
+import TextField from '@mui/material/TextField'
+import CameraAltIcon from '@mui/icons-material/CameraAlt'
 
 type ResJson = {
   userId: string
@@ -94,17 +96,20 @@ export const Enroll: FC<PropsType> = (props) => {
       <h2>{props.mode === 'create' ? 'Sign Up' : 'Edit'}</h2>
       <h3>{props.mode === 'create' ? 'Enter your information' : 'Edit your information'}</h3>
       <Form
-        placeholder={props.mode === 'create' ? 'Name' : 'Cannot be changed'}
+        placeholder={props.mode === 'create' ? 'Name' : 'Name cannot be changed'}
         label="Name"
         type="text"
         setter={setName}
         editEnable={props.mode === 'create' ? true : false}
       />
       <Form
-        placeholder={props.mode === 'create' ? 'Mail' : 'Cannot be changed'}
+        placeholder={props.mode === 'create' ? 'Mail' : 'Email cannot be changed'}
         label="Mail"
         type="text"
         setter={setEmail}
+        pattern={
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        }
         editEnable={props.mode === 'create' ? true : false}
       />
       <Form
@@ -123,15 +128,18 @@ export const Enroll: FC<PropsType> = (props) => {
         initValue={props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].nickname}
       />
 
-      <h3>{props.mode === 'create' ? 'Enter your introduction' : 'Edit your introduction'}</h3>
-      <textarea
-        cols={30}
-        rows={10}
-        className={classes.selfIntro}
-        onChange={(e) => setSelfIntro(e.target.value)}
-        placeholder="Enter your introduction"
-        defaultValue={props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].selfIntro}
-      ></textarea>
+      <div className={classes.selfIntro}>
+        <TextField
+          className={classes.textField}
+          id="filled-textarea"
+          rows={10}
+          label="Introduction"
+          multiline
+          onChange={(e) => setSelfIntro(e.target.value)}
+          placeholder="Enter your introduction"
+          defaultValue={props.mode === 'create' ? undefined : userInfo[Object.keys(userInfo)[0]].selfIntro}
+        />
+      </div>
 
       <div className={classes.photoUpload}>
         <h3>Upload your photo</h3>
@@ -146,6 +154,7 @@ export const Enroll: FC<PropsType> = (props) => {
               setPhoto(await encodeImgToBase64(e.target.files[0]))
             }}
           ></input>
+          <CameraAltIcon />
           Choose file
         </label>
       </div>
