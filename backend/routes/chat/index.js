@@ -29,10 +29,10 @@ router.post('/', (req, res) => {
 
     updateDataBase('./backend/chatHistory.json', newChat)
 
-    const chatHistorys = createChatHistory(userId1, userId2)
-    const maxFamiliality = familiaritySel(chatHistorys)
+    const chatHistories = createChatHistory(userId1, userId2)
+    const maxFamiliarity = familiaritySel(chatHistories)
 
-    const resChatHistory = chatHistorys
+    const resChatHistory = chatHistories
     for (let index = 0; index < Object.keys(resChatHistory).length; index++) {
       delete resChatHistory[index].familiarity
     }
@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
     res.status(200)
     const body = {
       chatHistory: resChatHistory,
-      familiarity: maxFamiliality,
+      familiarity: maxFamiliarity,
     }
     res.send(body)
   } catch (err) {
@@ -76,10 +76,10 @@ router.get('/', (req, res) => {
   const userId1 = req.query.userId1
   const userId2 = req.query.userId2
 
-  const chatHistorys = createChatHistory(userId1, userId2)
-  const maxFamiliality = familiaritySel(chatHistorys)
+  const chatHistories = createChatHistory(userId1, userId2)
+  const maxFamiliarity = familiaritySel(chatHistories)
 
-  const resChatHistory = chatHistorys
+  const resChatHistory = chatHistories
   for (let index = 0; index < Object.keys(resChatHistory).length; index++) {
     delete resChatHistory[index].familiarity
   }
@@ -87,7 +87,7 @@ router.get('/', (req, res) => {
   res.status(200)
   const body = {
     chatHistory: resChatHistory,
-    familiarity: maxFamiliality,
+    familiarity: maxFamiliarity,
   }
 
   setTimeout(() => res.send(body), 500)
