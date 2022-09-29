@@ -11,6 +11,7 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
 
 type Familiarity = {
   familiarity?: number
@@ -29,10 +30,14 @@ export const ProfileCard = (props: Props) => {
 
   return (
     <Card sx={{ maxWidth: 345 }} onClick={(event) => props.transferToProfile(event)}>
-      <CardMedia component="img" image={props.user.photo} className={classes.card_media} />
+      <CardMedia component="img" height="140" image={props.user.photo} className={classes.card_media} />
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
           {props.user.nickname}
+          <div className={classes.liked_num}>
+            <ThumbUpAltIcon style={{ fontSize: '1rem' }} />
+            {props.user.likedNum > 99 ? '99+' : props.user.likedNum}
+          </div>
         </Typography>
       </CardContent>
     </Card>
