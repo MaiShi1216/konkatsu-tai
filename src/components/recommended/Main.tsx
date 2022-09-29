@@ -53,11 +53,13 @@ export const Main = (props: Props) => {
           </div>
           <div className={classes.hobbies}>
             <p>Similar hobbies:</p>
-            {Object.keys(props.hobby[userId]).map((index) => (
-              <ul key={index} style={{ listStyleType: 'none' }}>
-                <li className={classes.hobby}>{props.hobby[userId][index]}</li>
-              </ul>
-            ))}
+            <div className={classes.hobbiesList}>
+              {Object.keys(props.hobby[userId]).map((index) => (
+                <ul key={index} style={{ listStyleType: 'none' }}>
+                  <li className={classes.hobby}>{props.hobby[userId][index]}</li>
+                </ul>
+              ))}
+            </div>
           </div>
           <button type="button" className={classes.talkButton} onClick={() => transferToProfile(userId)}>
             View profile

@@ -58,6 +58,12 @@
     text-align: left;
 }
 
+.hobbiesList {
+    width: 150px;
+    height: 100px;
+    overflow-y: scroll;
+}
+
 .hobby {
   width: fit-content;
   background-color: #FFE5EB;
@@ -90,16 +96,28 @@
 }
 
 .subTitle {
-    font-style:italic;
-    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .main {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background: #ECE9E6;
+    background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);
+    background: linear-gradient(to right, #FFFFFF, #ECE9E6);
 }
 
 .footer {
     margin-top: auto;
+}
+
+.noDisplay {
+    display: flex;
+    margin-top: auto;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px
 }

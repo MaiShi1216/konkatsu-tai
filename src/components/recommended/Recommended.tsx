@@ -49,9 +49,17 @@ export const Recommended = () => {
       <Header menuExist={true} />
       <h2 className={classes.mainTitle}>Recommendations</h2>
       <h3 className={classes.subTitle}>People with similar hobbies</h3>
-      <Main users={recommendedUsersByHobbies} hobby={commonPoints} />
+      {Object.keys(recommendedUsersByHobbies).length !== 0 ? (
+        <Main users={recommendedUsersByHobbies} hobby={commonPoints} />
+      ) : (
+        <p className={classes.noDisplay}>No one with similar hobbies</p>
+      )}
       <h3 className={classes.subTitle}>People who liked you</h3>
-      <Main users={recommendedUsersByLikes} hobby={commonPoints} />
+      {Object.keys(recommendedUsersByLikes).length !== 0 ? (
+        <Main users={recommendedUsersByLikes} hobby={commonPoints} />
+      ) : (
+        <p className={classes.noDisplay}>No one gives you &apos;LIKE&apos;</p>
+      )}
       <div className={classes.footer}>
         <Footer />
       </div>
