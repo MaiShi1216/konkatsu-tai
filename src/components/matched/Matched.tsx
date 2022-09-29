@@ -3,6 +3,7 @@ import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 import classes from '@/components/matched/style.css'
 import { UserInfoType } from '@/utils/types'
+import { useNavigate } from 'react-router-dom'
 
 //Recoil-on
 import { useRecoilValue } from 'recoil'
@@ -10,6 +11,10 @@ import { userInfoState } from '@/atoms/userInfoAtom'
 
 export const Matched = () => {
   const [matchedUsers, setMatchedUsers] = useState<UserInfoType>({})
+  const navigate = useNavigate()
+  const transferToChat = (userId) => {
+    navigate('/chat', { state: { partnerId: userId } })
+  }
 
   //RecoilでユーザIDを取得
   const userInfo = useRecoilValue(userInfoState)
@@ -36,7 +41,7 @@ export const Matched = () => {
       <Header menuExist={true} />
       <div>
         {Object.keys(matchedUsers).map((userId) => (
-          <div key={userId} className={classes.container}>
+          <div key={userId} className={classes.container} onClick={() => transferToChat(userId)}>
             <img src={matchedUsers[userId].photo} className={classes.photo}></img>
             <h3 className={classes.name}>{matchedUsers[userId].nickname}</h3>
             <p className={classes.message}>{matchedUsers[userId].selfIntro}</p>
