@@ -2,15 +2,28 @@ import React from 'react'
 import classes from '@/components/recommended/style.css'
 import { useNavigate } from 'react-router-dom'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
-import { UserInfoType } from '@/utils/types'
+import { UserInfoType, UserInfoContentType } from '@/utils/types'
+import { useRecoilValue } from 'recoil'
+import { userInfoState } from '@/atoms/userInfoAtom'
+
+type Familiarity = {
+  familiarity?: number
+}
+
+type UserInfoTypeWithFamiliarity = {
+  [key in string]: UserInfoContentType & Familiarity
+}
 
 type Props = {
-  users: UserInfoType
+  users: UserInfoTypeWithFamiliarity
   hobby: UserInfoType
 }
 
 export const Main = (props: Props) => {
   const navigate = useNavigate()
+  const userInfo = useRecoilValue(userInfoState)
+  const myId = Object.keys(userInfo)[0]
+  const isSecretMode = userInfo[myId].isSecretMode
 
   const transferToProfile = (userId) => {
     navigate('/profile', { state: { id: userId } })

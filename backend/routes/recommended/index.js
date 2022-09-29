@@ -8,20 +8,21 @@ const router = require('express').Router()
 /* Import DB */
 const usersInfo = require('../../userInfo.json')
 const likeHistory = require('../../likeHistory.json')
+const addFamiliarityToUsersInfo = require('../../utils/function')
 
 /* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
   const loginId = req.query.loginId
-  res.status(200)
   console.log(`GET /recommended?loginId=${loginId}`)
+  const usersInfoWithFamiliarity = addFamiliarityToUsersInfo(loginId)
 
   const yetLikeUserInfo = {}
-  const likeUserId = likeHistory[loginId]
+  const likeHistoryArr = likeHistory[loginId]
   const yetLikeUserIdList = Object.keys(usersInfo)
-    .filter((userId) => !likeUserId.includes(userId))
+    .filter((userId) => (likeHistoryArr ? !likeHistoryArr.includes(userId) : true))
     .filter((userId) => userId !== loginId)
   yetLikeUserIdList.forEach((userId) => {
-    yetLikeUserInfo[userId] = usersInfo[userId]
+    yetLikeUserInfo[userId] = usersInfoWithFamiliarity[userId]
   })
 
   //【DTA-9】趣味が所定数以上合うユーザの抽出
@@ -37,14 +38,14 @@ router.get('/', (req, res) => {
     myHobbies.forEach((key2) => {
       theirHobbies.forEach((key3) => {
         if (key2 === key3) {
-          counter = counter + 1
+          counter++
           matchedHobbies.push(key3)
         }
       })
     })
     commonPoints[key1] = matchedHobbies
     if (counter >= threshold) {
-      userInfoOfHobbyMatched[key1] = usersInfo[key1]
+      userInfoOfHobbyMatched[key1] = usersInfoWithFamiliarity[key1]
     }
   })
 
@@ -54,20 +55,16 @@ router.get('/', (req, res) => {
     const theirLikes = likeHistory[key1]
     theirLikes.forEach((key2) => {
       if (key2 === loginId) {
-        userWhoLikedMe[key1] = usersInfo[key1]
+        userWhoLikedMe[key1] = usersInfoWithFamiliarity[key1]
       }
     })
   })
 
-  const body = {
-    recommendedByBobbies: {},
-    recommendedByLikes: {},
-    commonPoints: {},
-  }
-  body.recommendedByBobbies = userInfoOfHobbyMatched
+  const body = {}
+  body.recommendedByHobbies = userInfoOfHobbyMatched
   body.recommendedByLikes = userWhoLikedMe
   body.commonPoints = commonPoints
-
+  res.status(200)
   res.send(body)
 })
 

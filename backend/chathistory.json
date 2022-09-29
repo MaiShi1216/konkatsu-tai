@@ -1,0 +1,46 @@
+{
+  "chats": [
+    {
+      "personId1": "3f328652-f4bb-4254-972a-d70489794a25",
+      "personId2": "b830fcc6-b691-462a-beb0-20a73eeed2d9",
+      "content": "hello 0001",
+      "date": "1",
+      "familiarity": 1
+    },
+    {
+      "personId1": "3f328652-f4bb-4254-972a-d70489794a25",
+      "personId2": "e857624e-ace4-44a5-8c9f-b9203f10df1f",
+      "content": "hello 0002 NG",
+      "date": "2",
+      "familiarity": 1
+    },
+    {
+      "personId1": "b830fcc6-b691-462a-beb0-20a73eeed2d9",
+      "personId2": "3f328652-f4bb-4254-972a-d70489794a25",
+      "content": "hello 0003",
+      "date": "3",
+      "familiarity": 2
+    },
+    {
+      "personId1": "b830fcc6-b691-462a-beb0-20a73eeed2d9",
+      "personId2": "3f328652-f4bb-4254-972a-d70489794a25",
+      "content": "hello 0004",
+      "date": "4",
+      "familiarity": 3
+    },
+    {
+      "personId1": "3f328652-f4bb-4254-972a-d70489794a25",
+      "personId2": "b830fcc6-b691-462a-beb0-20a73eeed2d9",
+      "content": "hello 0005",
+      "date": "5",
+      "familiarity": 4
+    },
+    {
+      "personId1": "3f328652-f4bb-4254-972a-d70489794a25",
+      "personId2": "e857624e-ace4-44a5-8c9f-b9203f10df1f",
+      "content": "hello 0006 NG",
+      "date": "6",
+      "familiarity": 2
+    }
+  ]
+}
