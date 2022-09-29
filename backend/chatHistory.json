@@ -4,42 +4,56 @@
       "personId1": "3f328652-f4bb-4254-972a-d70489794a25",
       "personId2": "b830fcc6-b691-462a-beb0-20a73eeed2d9",
       "content": "hello 0001",
-      "date": "1",
-      "familiarity": 1
+      "date": "2022-09-28T11:18:22.354Z",
+      "familiarity": 0
     },
     {
       "personId1": "3f328652-f4bb-4254-972a-d70489794a25",
-      "personId2": "e857624e-ace4-44a5-8c9f-b9203f10df1f",
+      "personId2": "a003",
       "content": "hello 0002 NG",
-      "date": "2",
-      "familiarity": 1
+      "date": "2022-09-28T11:19:22.354Z",
+      "familiarity": 3
     },
     {
       "personId1": "b830fcc6-b691-462a-beb0-20a73eeed2d9",
       "personId2": "3f328652-f4bb-4254-972a-d70489794a25",
       "content": "hello 0003",
-      "date": "3",
-      "familiarity": 2
-    },
-    {
-      "personId1": "b830fcc6-b691-462a-beb0-20a73eeed2d9",
-      "personId2": "3f328652-f4bb-4254-972a-d70489794a25",
-      "content": "hello 0004",
-      "date": "4",
-      "familiarity": 3
+      "date": "2022-09-28T11:20:22.354Z",
+      "familiarity": 1
     },
     {
       "personId1": "3f328652-f4bb-4254-972a-d70489794a25",
       "personId2": "b830fcc6-b691-462a-beb0-20a73eeed2d9",
-      "content": "hello 0005",
-      "date": "5",
-      "familiarity": 4
+      "content": "hello 0007",
+      "date": "2022-09-28T11:23:22.354Z",
+      "familiarity": 1
     },
     {
       "personId1": "3f328652-f4bb-4254-972a-d70489794a25",
-      "personId2": "e857624e-ace4-44a5-8c9f-b9203f10df1f",
-      "content": "hello 0006 NG",
-      "date": "6",
+      "personId2": "b830fcc6-b691-462a-beb0-20a73eeed2d9",
+      "content": "aaaaaa",
+      "date": "2022-09-28T11:24:22.354Z",
+      "familiarity": 1
+    },
+    {
+      "content": "hello test",
+      "personId1": "3f328652-f4bb-4254-972a-d70489794a25",
+      "personId2": "b830fcc6-b691-462a-beb0-20a73eeed2d9",
+      "date": "2022-09-28T11:37:23.218Z",
+      "familiarity": 1
+    },
+    {
+      "content": "hello test",
+      "personId1": "3f328652-f4bb-4254-972a-d70489794a25",
+      "personId2": "b830fcc6-b691-462a-beb0-20a73eeed2d9",
+      "date": "2022-09-28T11:39:53.042Z",
+      "familiarity": 2
+    },
+    {
+      "content": "hello test",
+      "personId1": "3f328652-f4bb-4254-972a-d70489794a25",
+      "personId2": "b830fcc6-b691-462a-beb0-20a73eeed2d9",
+      "date": "2022-09-28T11:40:43.955Z",
       "familiarity": 2
     }
   ]
