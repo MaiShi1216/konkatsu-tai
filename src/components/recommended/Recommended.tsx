@@ -2,13 +2,23 @@ import React, { useState, useEffect } from 'react'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 import classes from '@/components/recommended/style.css'
-import { UserInfoType } from '@/utils/types'
+import { UserInfoContentType, UserInfoType } from '@/utils/types'
 import { Main } from '@/components/recommended/Main'
 import { useRecoilValue } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
 
+type Familiarity = {
+  familiarity?: number
+}
+
+type UserInfoTypeWithFamiliarity = {
+  [key in string]: UserInfoContentType & Familiarity
+}
+
 type ReceivedDataType = {
-  [key in string]: UserInfoType
+  recommendedByHobbies: UserInfoTypeWithFamiliarity
+  recommendedByLikes: UserInfoTypeWithFamiliarity
+  commonPoints: UserInfoType
 }
 
 export const Recommended = () => {
@@ -23,7 +33,7 @@ export const Recommended = () => {
       method: 'GET',
     })
     const resJson: ReceivedDataType = await response.json()
-    setRecommendedUsersByHobbies(resJson.recommendedByBobbies)
+    setRecommendedUsersByHobbies(resJson.recommendedByHobbies)
     setRecommendedUsersByLikes(resJson.recommendedByLikes)
     setCommonPoints(resJson.commonPoints)
   }
