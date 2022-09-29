@@ -51,7 +51,7 @@ export const Signin = () => {
     <>
       <div className={classes.container}>
         <Header menuExist={false} />
-        <h3>Enter your email address</h3>
+        <h3>Enter your Information</h3>
         <TextField
           id="standard-basic"
           label="Email Address"
@@ -60,7 +60,6 @@ export const Signin = () => {
             setMail(e.target.value)
           }}
         />
-        <h3>Enter your password</h3>
         <TextField
           id="standard-basic"
           label="Password"
