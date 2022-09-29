@@ -74,7 +74,6 @@ const familiarityCal = (his) => {
   return familiarityCount
 }
 
-/* Successfully inquiry of authentication */
 router.get('/', (req, res) => {
   const userId1 = req.query.userId1
   const userId2 = req.query.userId2
