@@ -118,7 +118,6 @@ export const Chat = () => {
       </div>
       <div className={classes.footerContainer}>
         <Footer />
-        {familiarity}
       </div>
     </div>
   )
