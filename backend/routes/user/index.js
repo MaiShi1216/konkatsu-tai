@@ -63,16 +63,19 @@ router.put('/', (req, res) => {
 router.get('/', (req, res) => {
   const loginId = req.query.loginId
   const selectId = req.query.selectId
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  console.log(`GET /user?loginId=${loginId}&selectId=${selectId}`)
   let body = undefined
-  try {
-    body = addFamiliarityToUsersInfo(loginId)[selectId]
-    res.status(200)
-  } catch (err) {
-    body = { status: 500 }
-    res.status(500)
+
+  if (selectId !== undefined) {
+    console.log(`GET /user?loginId=${loginId}&selectId=${selectId}`)
+    try {
+      body = addFamiliarityToUsersInfo(loginId)[selectId]
+      res.status(200)
+    } catch (err) {
+      body = { status: 500 }
+      res.status(500)
+    }
   }
+
   res.send(body)
 })
 
