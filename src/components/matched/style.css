@@ -19,9 +19,10 @@
 
 .photo {
     grid-area: areaA;
+    width: 40vw;
+    height: 40vw;
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
+    object-fit: cover;
     margin: auto;
     /* grid-row: 1; grid-column: 1; */
     /* background: #8f8; */
