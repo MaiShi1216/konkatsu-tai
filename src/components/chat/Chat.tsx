@@ -97,7 +97,11 @@ export const Chat = () => {
           <img
             src={chatHistory[i].personId1 === loginUserId ? loginUserPhoto : partnerPhoto}
             className={classes.photo}
-            style={isSecretMode ? { filter: `blur(${familiarity > 5 ? 0 : 10 - familiarity * 2}px)` } : null}
+            style={
+              chatHistory[i].personId1 !== loginUserId && isSecretMode
+                ? { filter: `blur(${familiarity > 5 ? 0 : 10 - familiarity * 2}px)` }
+                : null
+            }
           ></img>
           <p className={classes.message}>{chatHistory[i].content}</p>
         </div>
