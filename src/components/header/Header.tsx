@@ -34,7 +34,7 @@ export const Header = (props: Props) => {
     return (
       <>
         <div className={classes.container}>
-          <h1 className={classes.appName}>Woven Marriage Hunting App</h1>
+          <h1>Woven Marriage Hunting</h1>
 
           <div className={classes.menuIcon}>
             <IconButton color="inherit" onClick={handleDrawerToggle}>
@@ -109,7 +109,7 @@ export const Header = (props: Props) => {
     return (
       <>
         <div className={classes.container}>
-          <h1 className={classes.appName}>Woven Marriage Hunting App</h1>
+          <h1 className={classes.appName}>Woven Marriage Hunting</h1>
         </div>
       </>
     )
