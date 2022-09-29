@@ -7,7 +7,7 @@ import { UserInfoContentType } from '@/utils/types'
 import { useRecoilValue } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
 import TextField from '@mui/material/TextField'
-import { send } from 'process'
+import { useLocation } from 'react-router-dom'
 
 type ResJson = {
   chatHistory: ChatHistoryType
@@ -24,6 +24,7 @@ type ChatInfo = {
 }
 
 export const Chat = () => {
+  const location = useLocation()
   const [sendMessage, setSendMessage] = useState<string>(undefined)
   const [chatHistory, setChatHistory] = useState<ChatHistoryType>([])
   const [partnerPhoto, setPartnerPhoto] = useState<string>(undefined)
@@ -33,16 +34,15 @@ export const Chat = () => {
   const loginUserId: string = Object.keys(userInfo)[0]
   const loginUserPhoto: string = userInfo[Object.keys(userInfo)[0]].photo
   const isSecretMode = userInfo[Object.keys(userInfo)[0]].isSecretMode
-  // const partnerId = location.state.partnerId // TODO: mainと結合してから別PRで反映
-  const partnerId = 'b830fcc6-b691-462a-beb0-20a73eeed2d9'
+  const partnerId: string = location.state.partnerId
 
   useEffect(() => {
-    getPartnerInfo().catch(() => {
-      // エラー処理
+    getPartnerInfo().catch((err) => {
+      console.log(err)
     })
 
-    getChatHistory().catch(() => {
-      // エラー処理
+    getChatHistory().catch((err) => {
+      console.log(err)
     })
     setInterval(getChatHistory, 1000)
   }, [])
@@ -61,8 +61,10 @@ export const Chat = () => {
     })
     const resJson: ResJson = await response.json()
     if (resJson.chatHistory) {
-      setChatHistory(resJson.chatHistory)
-      setFamiliarity(resJson.familiarity)
+      if (resJson.chatHistory.length > chatHistory.length) {
+        setChatHistory(resJson.chatHistory)
+        setFamiliarity(resJson.familiarity)
+      }
     } else {
       setChatHistory([])
       setFamiliarity(0)
@@ -79,8 +81,10 @@ export const Chat = () => {
       if (response.status === 200) {
         setSendMessage('')
         const resJson: ResJson = await response.json()
-        setChatHistory(resJson.chatHistory)
-        setFamiliarity(resJson.familiarity)
+        if (resJson.chatHistory.length > chatHistory.length) {
+          setChatHistory(resJson.chatHistory)
+          setFamiliarity(resJson.familiarity)
+        }
       } else {
         console.error('err')
       }
