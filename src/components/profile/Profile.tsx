@@ -6,7 +6,7 @@ import { Main } from '@/components/profile/Main'
 export const Profile = () => {
   return (
     <React.Fragment>
-      <Header />
+      <Header menuExist={true} />
       <Main />
       <Footer />
     </React.Fragment>

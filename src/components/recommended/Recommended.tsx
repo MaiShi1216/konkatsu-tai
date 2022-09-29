@@ -42,7 +42,7 @@ export const Recommended = () => {
 
   return (
     <div className={classes.main}>
-      <Header />
+      <Header menuExist={true} />
       <h2 className={classes.mainTitle}>Recommendations</h2>
       <h3 className={classes.subTitle}>People with similar interests</h3>
       <div>

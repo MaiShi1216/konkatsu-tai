@@ -2,7 +2,7 @@ import React from 'react'
 import classes from '@/components/profile/style.css'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
 import Button from '@mui/material/Button'
-import { useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { UserInfoContentType, UserInfoType } from '@/utils/types'
 import { useRecoilValue } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
@@ -14,6 +14,7 @@ type UserIdInfo = {
 export const Main = () => {
   const location = useLocation()
   const [selectUser, setSelectUser] = React.useState(location.state as UserIdInfo)
+  const navigate = useNavigate()
   const [user, setUser] = React.useState({} as UserInfoContentType)
   const [userLikedNum, setUserLikedNum] = React.useState(0)
   const [likeButtonDisable, setLikeButtonDisable] = React.useState(false)
@@ -48,6 +49,9 @@ export const Main = () => {
     if (resStatus.status === 200) {
       if (!likeButtonDisable) {
         setLikeButtonDisable(true)
+        setTimeout(() => {
+          navigate('/')
+        }, 1000)
       }
       setUserLikedNum(userLikedNum + 1)
     }
