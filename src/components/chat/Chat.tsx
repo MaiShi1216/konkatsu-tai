@@ -90,7 +90,7 @@ export const Chat = () => {
       {Object.keys(chatHistory).map((i) => (
         <div key={i} className={chatHistory[i].personId1 === loginUserId ? classes.sendChatContainer : classes.receiveChatContainer}>
           <img src={chatHistory[i].personId1 === loginUserId ? loginUserPhoto : partnerPhoto} className={classes.photo}></img>
-          <p className={classes.message}>{chatHistory[i].content}</p>
+          <p className={classes.chat}>{chatHistory[i].content}</p>
         </div>
       ))}
       <div className={classes.sendMessageContainer}>
