@@ -135,7 +135,7 @@ export const Chat = () => {
         />
         <Button
           variant="contained"
-          style={{ textTransform: 'none', width: '20%', height: '56px', fontSize: '18px' }}
+          style={{ textTransform: 'none', width: '20%', height: '56px', fontSize: '18px', margin: '20px 10px 20px 0px' }}
           disabled={sendMessage === '' ? true : false}
           onClick={postMessage}
         >
