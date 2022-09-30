@@ -171,9 +171,10 @@
   right: 22%;
   display: inline-block;
   margin: 1.5em 0 ;
-  padding: 10px 15px;
-  min-width: 50px;
-  max-width: 55%;
+  padding: 10px 15px; 
+  
+  height: auto;
+  flex-wrap: wrap;
   color: rgb(8, 8, 8);
   font-size: 12px;
   background: #d0ddeb;
@@ -197,7 +198,6 @@
   display: inline-block;
   margin: 1.5em 0;
   padding: 10px 15px;
-  min-width: 50px;
   max-width: 55%;
   color: rgb(8, 8, 8);
   font-size: 12px;
