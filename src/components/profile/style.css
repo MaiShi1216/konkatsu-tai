@@ -9,6 +9,9 @@
     "hobby"
     "favorite"
     "button";
+  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6);
+  align-items: center;
 }
 
 .image_frame {

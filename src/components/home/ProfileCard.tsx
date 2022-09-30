@@ -34,9 +34,7 @@ export const ProfileCard = (props: Props) => {
         </div>
         <div className={classes.name}>{props.user.nickname}</div>
         <div className={classes.like}>
-          <div>
-            <ThumbUpAltIcon style={{ fontSize: '1rem' }} />
-          </div>
+          <ThumbUpAltIcon style={{ fontSize: '1rem' }} />
           <div className={classes.liked_num}>{props.user.likedNum > 99 ? '99+' : props.user.likedNum}</div>
         </div>
       </div>
