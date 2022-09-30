@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import classes from '@/components/chat/style.css'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
@@ -7,7 +7,9 @@ import { UserInfoContentType } from '@/utils/types'
 import { useRecoilValue } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
 import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 import { useLocation } from 'react-router-dom'
+import { animateScroll as scroll } from 'react-scroll'
 
 type ResJson = {
   chatHistory: ChatHistoryType
@@ -25,7 +27,7 @@ type ChatInfo = {
 
 export const Chat = () => {
   const location = useLocation()
-  const [sendMessage, setSendMessage] = useState<string>(undefined)
+  const [sendMessage, setSendMessage] = useState<string>('')
   const [chatHistory, setChatHistory] = useState<ChatHistoryType>([])
   const [partnerPhoto, setPartnerPhoto] = useState<string>(undefined)
   const [familiarity, setFamiliarity] = useState<number>(undefined)
@@ -35,6 +37,8 @@ export const Chat = () => {
   const loginUserPhoto: string = userInfo[Object.keys(userInfo)[0]].photo
   const isSecretMode = userInfo[Object.keys(userInfo)[0]].isSecretMode
   const partnerId: string = location.state.partnerId
+
+  const refChatHistory = useRef<ChatHistoryType>(chatHistory)
 
   useEffect(() => {
     getPartnerInfo().catch((err) => {
@@ -61,9 +65,12 @@ export const Chat = () => {
     })
     const resJson: ResJson = await response.json()
     if (resJson.chatHistory) {
-      if (resJson.chatHistory.length > chatHistory.length) {
+      if (resJson.chatHistory.length > refChatHistory.current.length) {
+        refChatHistory.current = resJson.chatHistory
         setChatHistory(resJson.chatHistory)
         setFamiliarity(resJson.familiarity)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        scroll.scrollTo(10000)
       }
     } else {
       setChatHistory([])
@@ -81,9 +88,12 @@ export const Chat = () => {
       if (response.status === 200) {
         setSendMessage('')
         const resJson: ResJson = await response.json()
-        if (resJson.chatHistory.length > chatHistory.length) {
+        if (resJson.chatHistory.length > refChatHistory.current.length) {
+          refChatHistory.current = resJson.chatHistory
           setChatHistory(resJson.chatHistory)
           setFamiliarity(resJson.familiarity)
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+          scroll.scrollTo(10000)
         }
       } else {
         console.error('err')
@@ -96,20 +106,22 @@ export const Chat = () => {
   return (
     <div className={classes.container}>
       <Header menuExist={true} />
-      {Object.keys(chatHistory).map((i) => (
-        <div key={i} className={chatHistory[i].personId1 === loginUserId ? classes.sendChatContainer : classes.receiveChatContainer}>
-          <img
-            src={chatHistory[i].personId1 === loginUserId ? loginUserPhoto : partnerPhoto}
-            className={classes.photo}
-            style={
-              chatHistory[i].personId1 !== loginUserId && isSecretMode
-                ? { filter: `blur(${familiarity > 5 ? 0 : 10 - familiarity * 2}px)` }
-                : null
-            }
-          ></img>
-          <p className={classes.message}>{chatHistory[i].content}</p>
-        </div>
-      ))}
+      <div className={classes.chatContainer}>
+        {Object.keys(chatHistory).map((i) => (
+          <div key={i} className={chatHistory[i].personId1 === loginUserId ? classes.sendChatContainer : classes.receiveChatContainer}>
+            <img
+              src={chatHistory[i].personId1 === loginUserId ? loginUserPhoto : partnerPhoto}
+              className={classes.photo}
+              style={
+                chatHistory[i].personId1 !== loginUserId && isSecretMode
+                  ? { filter: `blur(${familiarity > 5 ? 0 : 10 - familiarity * 2}px)` }
+                  : null
+              }
+            ></img>
+            <p className={chatHistory[i].personId1 === loginUserId ? classes.chatright : classes.chatleft}>{chatHistory[i].content}</p>
+          </div>
+        ))}
+      </div>
       <div className={classes.sendMessageContainer}>
         <TextField
           className={classes.message}
@@ -119,13 +131,16 @@ export const Chat = () => {
           multiline
           onChange={(e) => setSendMessage(e.target.value)}
           value={sendMessage}
+          sx={{ margin: '0px 10px' }}
         />
-        <button className={classes.submitButton} onClick={postMessage}>
+        <Button
+          variant="contained"
+          style={{ textTransform: 'none', width: '20%', height: '56px', fontSize: '18px', margin: '20px 10px 20px 0px' }}
+          disabled={sendMessage === '' ? true : false}
+          onClick={postMessage}
+        >
           Send
-        </button>
-      </div>
-      <div className={classes.footerContainer}>
-        <Footer />
+        </Button>
       </div>
     </div>
   )
