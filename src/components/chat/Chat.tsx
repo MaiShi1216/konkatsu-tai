@@ -7,6 +7,7 @@ import { UserInfoContentType } from '@/utils/types'
 import { useRecoilValue } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
 import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 import { useLocation } from 'react-router-dom'
 
 type ResJson = {
@@ -25,7 +26,7 @@ type ChatInfo = {
 
 export const Chat = () => {
   const location = useLocation()
-  const [sendMessage, setSendMessage] = useState<string>(undefined)
+  const [sendMessage, setSendMessage] = useState<string>('')
   const [chatHistory, setChatHistory] = useState<ChatHistoryType>([])
   const [partnerPhoto, setPartnerPhoto] = useState<string>(undefined)
   const [familiarity, setFamiliarity] = useState<number>(undefined)
@@ -120,9 +121,14 @@ export const Chat = () => {
           onChange={(e) => setSendMessage(e.target.value)}
           value={sendMessage}
         />
-        <button className={classes.submitButton} onClick={postMessage}>
+        <Button
+          variant="contained"
+          style={{ textTransform: 'none', width: '20%', height: '56px', fontSize: '18px' }}
+          disabled={sendMessage === '' ? true : false}
+          onClick={postMessage}
+        >
           Send
-        </button>
+        </Button>
       </div>
       <div className={classes.footerContainer}>
         <Footer />
