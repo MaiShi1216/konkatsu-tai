@@ -146,7 +146,27 @@
 }
 
 .chatright {
+
+  /* /////////////////////// */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   width: auto;
+  position: relative;
+  right: -90px;
+  display: inline-block;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  height: auto;
+  max-width: 55%;
+  color: rgb(8, 8, 8);
+  font-size: 12px;
+  background: #d0ddeb;
+  border-radius: 15px;
+  /* /////////////////////// */
+
+  /* width: auto;
   position: absolute;
   right: 22%;
   display: inline-block;
@@ -159,7 +179,8 @@
   color: rgb(8, 8, 8);
   font-size: 12px;
   background: #d0ddeb;
-  border-radius: 15px;
+  border-radius: 15px; */
+  /* background-color: red; */
 }
 
 .chatright:before {
@@ -170,10 +191,31 @@
   margin-top: -1px;
   border: 5px solid transparent;
   border-left: 10px solid #d0ddeb;
+  /* background-color: blue; */
 }
 
 .chatleft {
-  width: auto;
+
+  /* /////////////////////// */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: auto;
+    position: relative;
+    right: -90px;
+    display: inline-block;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    height: auto;
+    max-width: 55%;
+    color: rgb(8, 8, 8);
+    font-size: 12px;
+    background: #d0ddeb;
+    border-radius: 15px;
+    /* /////////////////////// */
+
+  /* width: auto;
   position: absolute;
   left: 22%;
   display: inline-block;
@@ -186,7 +228,7 @@
   color: rgb(8, 8, 8);
   font-size: 12px;
   background: #d0ddeb;
-  border-radius: 15px;
+  border-radius: 15px; */
 }
 
 .chatleft:before {
