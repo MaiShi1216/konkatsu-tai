@@ -170,11 +170,12 @@
   position: absolute;
   right: 22%;
   display: inline-block;
-  margin: 1.5em 0 ;
-  padding: 10px 15px; 
-  
+  margin: 1.5em 0;
+  padding: 10px 15px;
+  overflow-wrap: break-word;
+  word-break: break-all;
   height: auto;
-  flex-wrap: wrap;
+  max-width: 55%;
   color: rgb(8, 8, 8);
   font-size: 12px;
   background: #d0ddeb;
@@ -198,6 +199,9 @@
   display: inline-block;
   margin: 1.5em 0;
   padding: 10px 15px;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  height: auto;
   max-width: 55%;
   color: rgb(8, 8, 8);
   font-size: 12px;
