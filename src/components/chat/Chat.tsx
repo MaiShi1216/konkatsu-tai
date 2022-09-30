@@ -125,6 +125,7 @@ export const Chat = () => {
           variant="contained"
           style={{ textTransform: 'none', width: '20%', height: '56px', fontSize: '18px' }}
           disabled={sendMessage === '' ? true : false}
+          onClick={postMessage}
         >
           Send
         </Button>
