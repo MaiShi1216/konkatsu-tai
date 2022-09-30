@@ -2,13 +2,23 @@ import React, { useState, useEffect } from 'react'
 import { Header } from '@/components/header/Header'
 import { Footer } from '@/components/footer/Footer'
 import classes from '@/components/recommended/style.css'
-import { UserInfoType } from '@/utils/types'
+import { UserInfoContentType, UserInfoType } from '@/utils/types'
 import { Main } from '@/components/recommended/Main'
 import { useRecoilValue } from 'recoil'
 import { userInfoState } from '@/atoms/userInfoAtom'
 
+type Familiarity = {
+  familiarity?: number
+}
+
+type UserInfoTypeWithFamiliarity = {
+  [key in string]: UserInfoContentType & Familiarity
+}
+
 type ReceivedDataType = {
-  [key in string]: UserInfoType
+  recommendedByHobbies: UserInfoTypeWithFamiliarity
+  recommendedByLikes: UserInfoTypeWithFamiliarity
+  commonPoints: UserInfoType
 }
 
 export const Recommended = () => {
@@ -23,7 +33,7 @@ export const Recommended = () => {
       method: 'GET',
     })
     const resJson: ReceivedDataType = await response.json()
-    setRecommendedUsersByHobbies(resJson.recommendedByBobbies)
+    setRecommendedUsersByHobbies(resJson.recommendedByHobbies)
     setRecommendedUsersByLikes(resJson.recommendedByLikes)
     setCommonPoints(resJson.commonPoints)
   }
@@ -39,9 +49,17 @@ export const Recommended = () => {
       <Header menuExist={true} />
       <h2 className={classes.mainTitle}>Recommendations</h2>
       <h3 className={classes.subTitle}>People with similar hobbies</h3>
-      <Main users={recommendedUsersByHobbies} hobby={commonPoints} />
+      {Object.keys(recommendedUsersByHobbies).length !== 0 ? (
+        <Main users={recommendedUsersByHobbies} hobby={commonPoints} />
+      ) : (
+        <p className={classes.noDisplay}>No one with similar hobbies</p>
+      )}
       <h3 className={classes.subTitle}>People who liked you</h3>
-      <Main users={recommendedUsersByLikes} hobby={commonPoints} />
+      {Object.keys(recommendedUsersByLikes).length !== 0 ? (
+        <Main users={recommendedUsersByLikes} hobby={commonPoints} />
+      ) : (
+        <p className={classes.noDisplay}>No one gives you &apos;LIKE&apos;</p>
+      )}
       <div className={classes.footer}>
         <Footer />
       </div>

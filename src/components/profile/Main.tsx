@@ -53,9 +53,6 @@ export const Main = () => {
     if (resStatus.status === 200) {
       if (!likeButtonDisable) {
         setLikeButtonDisable(true)
-        setTimeout(() => {
-          navigate('/')
-        }, 1000)
       }
       setUserLikedNum(userLikedNum + 1)
     }
