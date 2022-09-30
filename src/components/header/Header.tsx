@@ -45,7 +45,7 @@ export const Header = (props: Props) => {
           <Drawer
             anchor="right"
             variant="temporary"
-            PaperProps={{ sx: { backgroundColor: '#f8bcca' } }}
+            PaperProps={{ sx: { backgroundColor: 'rgba(247, 190, 190, 0.8)' } }}
             open={drawerOpen}
             onClose={handleDrawerToggle}
           >
