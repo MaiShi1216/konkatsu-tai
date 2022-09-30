@@ -52,9 +52,9 @@
 
 .liked_num {
   font-weight: bold;
-  text-align: center;
+  text-align: right;
   margin-right: 0.4rem;
-  width: 1.0rem;
+  margin-left: 5px;
 }
 
 .main {
