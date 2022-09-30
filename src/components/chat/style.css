@@ -4,6 +4,10 @@
   align-items: center;
   text-align: center;
   min-height: 100vh;
+
+  background: #ECE9E6;
+  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6);
 }
 
 .appName {
@@ -24,8 +28,8 @@
 .photo {
   /* grid-area: areaA; */
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   margin: 0;
   /* grid-row: 1; grid-column: 1; */
   /* background: #8f8; */
@@ -76,7 +80,7 @@
   color: #fff;
   border: none;
 
-  margin: 20px 0px;
+  margin: 20px 10px 20px 0px;
 }
 
 .input {
@@ -121,24 +125,80 @@
 }
 
 .sendMessageContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    text-align: left;
-    margin: 0px 0px;
-    width: 95%;
-    height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
 
-    position: fixed;
-    bottom: 30px;
-}
-
-.footerContainer {
-  margin-top: auto;
+  position: fixed;
+  bottom: 0px;
   width: 100%;
+  padding: 10px 0px;
+  background: #ECE9E6;
+  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6);
 }
 
 .message {
   width: 75%;
+}
+
+.chatright {
+  width: auto;
+  position: absolute;
+  right: 22%;
+  display: inline-block;
+  margin: 1.5em 0 ;
+  padding: 10px 15px;
+  min-width: 50px;
+  max-width: 55%;
+  color: rgb(8, 8, 8);
+  font-size: 12px;
+  background: #d0ddeb;
+  border-radius: 15px;
+}
+
+.chatright:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -1px;
+  border: 5px solid transparent;
+  border-left: 10px solid #d0ddeb;
+}
+
+.chatleft {
+  width: auto;
+  position: absolute;
+  left: 22%;
+  display: inline-block;
+  margin: 1.5em 0;
+  padding: 10px 15px;
+  min-width: 50px;
+  max-width: 55%;
+  color: rgb(8, 8, 8);
+  font-size: 12px;
+  background: #d0ddeb;
+  border-radius: 15px;
+}
+
+.chatleft:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right:  100%;
+  margin-top: -1px;
+  border: 5px solid transparent;
+  border-right: 10px solid #d0ddeb;
+}
+
+.chatContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 75px;
 }

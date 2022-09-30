@@ -22,7 +22,7 @@
     "name": "Tomoharu Kobayashi",
     "email": "kenkoba@gmail.com",
     "password": "kenkoba",
-    "nickname": "kenkoba",
+    "nickname": "Kenkoba",
     "hobbies": [
       "movie",
       "soccer",
@@ -45,7 +45,7 @@
     "name": "Haruka Ayase",
     "email": "ayase@gmail.com",
     "password": "ayase",
-    "nickname": "ayase",
+    "nickname": "Ayase",
     "hobbies": [
       "movie",
       "soccer",
@@ -87,7 +87,7 @@
     "name": "Emma Watson",
     "email": "emma@yahoo.co.jp",
     "password": "emma",
-    "nickname": "emma",
+    "nickname": "Emma",
     "hobbies": [
       "tennis",
       "golf",
@@ -104,9 +104,9 @@
   },
   "ff85c29f-5522-4f4d-b4e1-da08e1311e3d": {
     "name": "Taro Ishida",
-    "email": "jyunichi@gmail.com",
-    "password": "jyunichi",
-    "nickname": "jyunichi",
+    "email": "junichi@gmail.com",
+    "password": "junichi",
+    "nickname": "Junichi",
     "hobbies": [
       "tennis",
       "golf",
@@ -146,7 +146,7 @@
     "name": "Kan Mayoshi",
     "email": "kan@gmail.com",
     "password": "kan",
-    "nickname": "kan",
+    "nickname": "Kan",
     "hobbies": [
       "soccer",
       "tennis",
@@ -169,7 +169,7 @@
     "name": "Toshiaki Kasuga",
     "email": "kasuga@gmail.com",
     "password": "kasuga",
-    "nickname": "kasuga",
+    "nickname": "Kasuga",
     "hobbies": [
       "soccer",
       "tennis",
@@ -189,7 +189,7 @@
     "name": "Elvis Aron Presley",
     "email": "star@gmail.com",
     "password": "star",
-    "nickname": "star",
+    "nickname": "Star",
     "hobbies": [
       "soccer",
       "tennis",
