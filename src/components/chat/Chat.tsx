@@ -110,7 +110,7 @@ export const Chat = () => {
           <p className={chatHistory[i].personId1 === loginUserId ? classes.chatright : classes.chatleft}>{chatHistory[i].content}</p>
         </div>
       ))}
-      <div className={Object.keys(chatHistory).length < 8 ? classes.sendMessageContainer : classes.sendMessageContainerl}>
+      <div className={classes.sendMessageContainer}>
         <TextField
           className={classes.message}
           id="filled-textarea"
@@ -119,13 +119,11 @@ export const Chat = () => {
           multiline
           onChange={(e) => setSendMessage(e.target.value)}
           value={sendMessage}
+          sx={{ margin: '0px 10px' }}
         />
         <button className={classes.submitButton} onClick={postMessage}>
           Send
         </button>
-      </div>
-      <div className={classes.footerContainer}>
-        <Footer />
       </div>
     </div>
   )
