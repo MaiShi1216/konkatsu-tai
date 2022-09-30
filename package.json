@@ -24,6 +24,7 @@
     "react-dom": "^18.0.0",
     "react-redux": "^8.0.0",
     "react-router-dom": "^6.3.0",
+    "react-scroll": "^1.8.7",
     "react-xml-parser": "^1.1.8",
     "recoil": "^0.7.5",
     "recoil-persist": "^4.2.0",
