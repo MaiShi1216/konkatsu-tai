@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-// eslint-disable-next-line no-restricted-imports
-
-/* eslint-disable @typescript-eslint/no-var-requires */
 const express = require('express')
 const app = express()
 const cors = require('cors')
