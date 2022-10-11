@@ -51,33 +51,38 @@ export const Signin = () => {
     <>
       <div className={classes.container}>
         <Header menuExist={false} />
-        <h3>Enter your Information</h3>
-        <TextField
-          id="standard-basic"
-          label="Email Address"
-          variant="standard"
-          onChange={(e) => {
-            setMail(e.target.value)
-          }}
-        />
-        <TextField
-          id="standard-basic"
-          label="Password"
-          variant="standard"
-          type="password"
-          onChange={(e) => {
-            setPassword(e.target.value)
-          }}
-        />
-        {errorMsg === undefined ? null : <p className={classes.errorMsg}>{errorMsg}</p>}
-        <button className={classes.submitButton} onClick={checkidAndPass}>
-          Sign in
-        </button>
-        <button className={classes.signupButton} onClick={transferToSignUp}>
-          Sign up
-        </button>
-        <div className={classes.footerContainer}>
-          <Footer />
+        <h1 className={classes.title}>Woven Marriage Hunting</h1>
+        <div className={classes.margin}></div>
+        <div className={classes.signinContainer}>
+          <TextField
+            id="standard-basic"
+            label="Email Address"
+            variant="standard"
+            onChange={(e) => {
+              setMail(e.target.value)
+            }}
+            sx={{ width: '95%' }}
+          />
+          <TextField
+            id="standard-basic"
+            label="Password"
+            variant="standard"
+            type="password"
+            onChange={(e) => {
+              setPassword(e.target.value)
+            }}
+            sx={{ width: '95%' }}
+          />
+          {errorMsg === undefined ? null : <p className={classes.errorMsg}>{errorMsg}</p>}
+          <button className={classes.submitButton} onClick={checkidAndPass}>
+            Sign in
+          </button>
+          <button className={classes.signupButton} onClick={transferToSignUp}>
+            Sign up
+          </button>
+          <div className={classes.footerContainer}>
+            <Footer />
+          </div>
         </div>
       </div>
     </>

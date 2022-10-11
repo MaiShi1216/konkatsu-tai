@@ -1,9 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const router = require('express').Router()
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require('fs')
 
 router.post('/', (req, res) => {
